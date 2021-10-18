@@ -1,18 +1,21 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import useFetch from "../API/useFetch";
+import CategoryList from '../Components/CategoryList';
 
 export default function Category(){
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => 
-    axios.post('http://localhost:8080/categories', data)
+    const { data: categories, error, isPending } = useFetch("http://localhost:8080/categories");
+    
+    const onSubmit = newCategory => 
+    axios.post('http://localhost:8080/categories', newCategory)
       .then(function (response) {
         console.log(response);
       })
       .catch(function (error) {
         console.log(error);
-        console.log(data);
     });
 
         return (
@@ -28,9 +31,11 @@ export default function Category(){
                     <input {...register("image", { required: true })} />
                     {errors.exampleRequired && <p>This field is required</p>}
 
-                    <input type="submit" />
+                    <input value="Add category" type="submit" />
                 </form>
-                <button> add category</button>
+                { error && <div>{ error }</div> }
+                { isPending && <div>Loading...</div> }
+                { categories && <CategoryList categories={categories} /> }
             </div>
         )
     
