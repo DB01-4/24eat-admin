@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 
 export default function CategoryEdit(props) {
 
-  const { onClose, category, open } = props;
+  const { onClose, selectedCard, open } = props;
   const { register, handleSubmit, formState: { errors } } = useForm();
 
 
@@ -19,7 +19,7 @@ export default function CategoryEdit(props) {
   };
 
   const onSubmit = data => 
-  axios.put(`http://localhost:8080/categories/${category.id}`, data)
+  axios.put(`http://localhost:8080/categories/${selectedCard.id}`, data)
     .then(function (response) {
       console.log(response);
     })
@@ -31,13 +31,13 @@ export default function CategoryEdit(props) {
     <Dialog onClose={handleClose} open={open}>
         <DialogTitle>Edit</DialogTitle>
         <form>
-            <input defaultValue={category.name} {...register("name", { required: true })} />
+            <input defaultValue={(typeof selectedCard !== 'undefined')? selectedCard.name:null} {...register("name", { required: true })} />
             {errors.exampleRequired && <p>This field is required</p>}
 
-            <input {...register("description", { required: true })} />
+            <input defaultValue={(typeof selectedCard !== 'undefined')? selectedCard.description:null} {...register("description", { required: true })} />
             {errors.exampleRequired && <p>This field is required</p>}
 
-            <input {...register("image", { required: true })} />
+            <input defaultValue={(typeof selectedCard !== 'undefined')? selectedCard.image:null} {...register("image", { required: true })} />
             {errors.exampleRequired && <p>This field is required</p>}
         </form>
         <DialogActions>
