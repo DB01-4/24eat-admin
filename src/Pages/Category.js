@@ -6,11 +6,13 @@ import CategoryList from '../Components/CategoryList';
 
 export default function Category(){
 
+    const url  = "http://localhost:8080/categories"
+
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { data: categories, error, isPending } = useFetch("http://localhost:8080/categories");
+    const { data: categories, error, isPending } = useFetch(url);
     
     const onSubmit = newCategory => 
-    axios.post('http://localhost:8080/categories', newCategory)
+    axios.post(url, newCategory)
       .then(function (response) {
         console.log(response);
       })
@@ -35,7 +37,7 @@ export default function Category(){
                 </form>
                 { error && <div>{ error }</div> }
                 { isPending && <div>Loading...</div> }
-                { categories && <CategoryList categories={categories} /> }
+                { categories && <CategoryList url={url} categories={categories} /> }
             </div>
         )
     

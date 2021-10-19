@@ -1,21 +1,16 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
-import {Card, CardContent, CardActionArea, Button} from '@mui/material';
-import Typography from '@mui/material/Typography';
+import { useState } from 'react';
+import {Card, CardContent, CardActionArea, Button, Typography} from '@mui/material';
 import axios from "axios";
 import Dialog from './CategoryEdit';
 
 
-const CategoryList = ({ categories }) => {
+function CategoryList  ({ categories, url }) {
   const [open, setOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState();
-  
-  useEffect(() => {
-
-  }, [selectedCard]); // Only re-run the effect if count changes
 
   const handleDelete = data => 
-  axios.delete(`http://localhost:8080/categories/${data.id}`)
+  axios.delete(url+'/'+data.id)
     .then(function (response) {
       console.log(response);
     })
@@ -24,9 +19,9 @@ const CategoryList = ({ categories }) => {
   });
 
   const handleClickOpen = (value) => {
-    setSelectedCard(value)
-    setOpen(true);
+    setSelectedCard({...value, value})
     console.log(selectedCard)
+    setOpen(true);
   };
 
 
@@ -36,6 +31,7 @@ const CategoryList = ({ categories }) => {
 
   return (
     <div>
+      <p>selected card: {(typeof selectedCard !== 'undefined')? selectedCard.name:null}</p>
       {categories.map(category => (
         <div title='card' key={category.id} >
                 <Card onClick={() => handleClickOpen(category)}>
@@ -57,6 +53,7 @@ const CategoryList = ({ categories }) => {
         selectedCard={selectedCard}
         open={open}
         onClose={handleClose}
+        url={url}
         />
     </div>
   );

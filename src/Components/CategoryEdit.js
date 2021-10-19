@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 
 export default function CategoryEdit(props) {
 
-  const { onClose, selectedCard, open } = props;
+  const { onClose, selectedCard, open, url} = props;
   const { register, handleSubmit, formState: { errors } } = useForm();
 
 
@@ -19,7 +19,7 @@ export default function CategoryEdit(props) {
   };
 
   const onSubmit = data => 
-  axios.put(`http://localhost:8080/categories/${selectedCard.id}`, data)
+  axios.put(url+'/'+selectedCard.id, data)
     .then(function (response) {
       console.log(response);
     })
