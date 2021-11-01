@@ -1,8 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
-export default function Inventory() {
+export default function AddInventory() {
   const {
     register,
     handleSubmit,
@@ -22,18 +24,38 @@ export default function Inventory() {
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input defaultValue="test" {...register("name", { required: true })} />
+        <TextField
+          id="filled-basic"
+          label="Name"
+          variant="filled"
+          {...register("name", { required: true })}
+        />
         {errors.exampleRequired && <p>This field is required</p>}
 
-        <input {...register("type", { required: true })} />
+        <TextField
+          id="filled-basic"
+          label="Type"
+          variant="filled"
+          {...register("type", { required: true })}
+        />
         {errors.exampleRequired && <p>This field is required</p>}
 
-        <input {...register("quantity", { required: true })} />
+        <TextField
+          id="filled-basic"
+          label="Quantity"
+          variant="filled"
+          {...register("quantity", { required: true })}
+        />
         {errors.exampleRequired && <p>This field is required</p>}
 
-        <input type="submit" />
+        <Button
+          variant="outlined"
+          type="submit"
+          onClick={() => window.location.reload()}
+        >
+          Add Item
+        </Button>
       </form>
-      <button> add category</button>
     </div>
   );
 }

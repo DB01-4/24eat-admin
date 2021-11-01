@@ -92,7 +92,7 @@ export default function InventoryTable({ items }) {
                         </TableCell>
                       );
                     })}
-                    <DeleteItemButton />
+                    <DeleteItemButton id={row.id} />
                   </TableRow>
                 );
               })}
