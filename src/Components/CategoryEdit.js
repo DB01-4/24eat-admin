@@ -15,6 +15,7 @@ export default function CategoryEdit(props) {
 
 
   const handleClose = () => {
+    document.getElementById('inputs').value = '';
     onClose();
   };
 
@@ -31,13 +32,13 @@ export default function CategoryEdit(props) {
     <Dialog onClose={handleClose} open={open}>
         <DialogTitle>Edit</DialogTitle>
         <form>
-            <input defaultValue={(typeof selectedCard !== 'undefined')? selectedCard.name:null} {...register("name", { required: true })} />
+            <input id="inputs" value={(typeof selectedCard !== 'undefined')? selectedCard.name:null} {...register("name", { required: true })} />
             {errors.exampleRequired && <p>This field is required</p>}
 
-            <input defaultValue={(typeof selectedCard !== 'undefined')? selectedCard.description:null} {...register("description", { required: true })} />
+            <input id="inputs" value={(typeof selectedCard !== 'undefined')? selectedCard.description:null} {...register("description", { required: true })} />
             {errors.exampleRequired && <p>This field is required</p>}
 
-            <input defaultValue={(typeof selectedCard !== 'undefined')? selectedCard.image:null} {...register("image", { required: true })} />
+            <input id="inputs" value={(typeof selectedCard !== 'undefined')? selectedCard.image:null} {...register("image", { required: true })} />
             {errors.exampleRequired && <p>This field is required</p>}
         </form>
         <DialogActions>
