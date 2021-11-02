@@ -9,6 +9,7 @@ const InventoryPage = () => {
     error,
     isPending,
   } = useFetch("http://localhost:8084/api/items");
+
   return (
     <div>
       <h1>Inventory</h1>

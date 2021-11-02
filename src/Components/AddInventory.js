@@ -15,6 +15,7 @@ export default function AddInventory() {
       .post("http://localhost:8084/api/post", data)
       .then(function (response) {
         console.log(response);
+        window.location.reload();
       })
       .catch(function (error) {
         console.log(error);
@@ -48,11 +49,7 @@ export default function AddInventory() {
         />
         {errors.exampleRequired && <p>This field is required</p>}
 
-        <Button
-          variant="outlined"
-          type="submit"
-          onClick={() => window.location.reload()}
-        >
+        <Button variant="outlined" type="submit">
           Add Item
         </Button>
       </form>

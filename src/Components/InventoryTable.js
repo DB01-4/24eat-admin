@@ -7,7 +7,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-
 import DeleteItemButton from "./DeleteItemButton";
 
 const columns = [
@@ -61,7 +60,7 @@ export default function InventoryTable({ items }) {
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
+      <TableContainer sx={{ maxHeight: 600 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
@@ -92,7 +91,7 @@ export default function InventoryTable({ items }) {
                         </TableCell>
                       );
                     })}
-                    <DeleteItemButton id={row.id} />
+                    <DeleteItemButton id={row.id} item={row.name} />
                   </TableRow>
                 );
               })}
