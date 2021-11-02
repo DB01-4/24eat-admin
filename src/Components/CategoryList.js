@@ -5,18 +5,13 @@ import axios from "axios";
 import Dialog from './CategoryEdit';
 
 
-function CategoryList  ({ categories, url }) {
+export default function CategoryList  (props) {
+
+  const { categories, url, onDelete } = props
   const [open, setOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState();
 
-  const handleDelete = data => 
-  axios.delete(url+'/'+data.id)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-  });
+
 
   const handleClickOpen = (value) => {
     setSelectedCard({...value, value})
@@ -29,9 +24,19 @@ function CategoryList  ({ categories, url }) {
     setOpen(false);
   };
 
+  const handleDelete = (data) => {
+    onDelete(data);
+  }
+
   return (
     <div>
       <p>selected card: {(typeof selectedCard !== 'undefined')? selectedCard.name:null}</p>
+      <Dialog
+        selectedCard={selectedCard}
+        open={open}
+        onClose={handleClose}
+        url={url}
+        />
       {categories.map(category => (
         <div title='card' key={category.id} >
                 <Card onClick={() => handleClickOpen(category)}>
@@ -49,14 +54,6 @@ function CategoryList  ({ categories, url }) {
             <Button onClick={() => handleDelete(category)}>X</Button>
           </div>
       ))}
-        <Dialog
-        selectedCard={selectedCard}
-        open={open}
-        onClose={handleClose}
-        url={url}
-        />
     </div>
   );
 }
- 
-export default CategoryList;
