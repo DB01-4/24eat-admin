@@ -3,16 +3,14 @@ import { useEffect, useState } from 'react';
 import {Card, CardContent, CardActionArea, Button} from '@mui/material';
 import Typography from '@mui/material/Typography';
 import axios from "axios";
-import Dialog from './CategoryEdit';
+import Dialog from './DishEdit';
 
 
 const DishList = ({ dishes }) => {
   const [open, setOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState();
-  const [selectedDish, setSelectedDish] = useState();
   
   useEffect(() => {
-    setSelectedDish(selectedCard);
   }, [selectedCard]); // Only re-run the effect if count changes
 
   const handleDelete = data => 

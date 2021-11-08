@@ -8,6 +8,7 @@ export default function Dish(){
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { data: dishes, error, isPending } = useFetch("http://localhost:8080/products");
+    const { data: categories } = useFetch("http://localhost:8080/categories");
     
     const onSubmit = newDish => 
     axios.post('http://localhost:8080/products', newDish)
@@ -22,19 +23,26 @@ export default function Dish(){
             <div>
                 <h1>Dishes</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <input {...register("name", { required: true })} />
+                    <input placeholder="Dish name" {...register("name", { required: true })} />
                     {errors.exampleRequired && <p>This field is required</p>}
 
-                    <input {...register("description", { required: true })} />
+                    <input placeholder="Dish description" {...register("description", { required: true })} />
                     {errors.exampleRequired && <p>This field is required</p>}
 
-                    <input {...register("allergies", { required: true })} />
+                    <input placeholder="Dish allergies" {...register("allergies", { required: true })} />
                     {errors.exampleRequired && <p>This field is required</p>}
 
-                    <input type="number" {...register("price", { required: true })} />
+                    <input placeholder="Dish price" type="number" {...register("price", { required: true })} />
                     {errors.exampleRequired && <p>This field is required</p>}
 
-                    <input {...register("image", { required: true })} />
+                    <select /*{...register("category", { required: true })}*/>
+                        {categories && categories.map(category => (
+                        <option default-value={category.id}>{category.name}</option>
+                        ))
+                        }
+                    </select>
+
+                    <input placeholder="Dish image url" {...register("image", { required: true })} />
                     {errors.exampleRequired && <p>This field is required</p>}
 
                     <input value="Add Dish" type="submit" />

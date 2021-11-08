@@ -11,7 +11,6 @@ const CategoryList = ({ categories }) => {
   const [selectedCard, setSelectedCard] = useState();
   
   useEffect(() => {
-
   }, [selectedCard]); // Only re-run the effect if count changes
 
   const handleDelete = data => 
@@ -32,6 +31,7 @@ const CategoryList = ({ categories }) => {
 
   const handleClose = () => {
     setOpen(false);
+
   };
 
   return (
