@@ -14,7 +14,7 @@ export default function CategoryEdit(props) {
 
   const initialFValues = {
     name: '',
-    description: '',
+    description: null,
     image: ''
 }
 
@@ -25,6 +25,12 @@ export default function CategoryEdit(props) {
   const handleClose = () => {
     onClose();
   };
+
+  const onChange = e => {
+    const { name, values } = e.target
+    console.log(e.target)
+    setValue({...value,[name]: values})
+}
 
   useEffect(() => {
     if (selectedCard != null)
@@ -51,6 +57,7 @@ export default function CategoryEdit(props) {
            multiline
            maxRows={4}
            value={value.name}
+           onChange={onChange}
            {...register("name", { required: true })} 
           />
             {errors.exampleRequired && <p>This field is required</p>}
@@ -61,6 +68,7 @@ export default function CategoryEdit(props) {
            multiline
            maxRows={4}
            value={value.description}
+           onChange={onChange}
            {...register("description", { required: true })} 
           />
             {errors.exampleRequired && <p>This field is required</p>}
@@ -71,6 +79,7 @@ export default function CategoryEdit(props) {
            multiline
            maxRows={4}
            value={value.description}
+           onChange={onChange}
            {...register("image", { required: true })} 
           />
             {errors.exampleRequired && <p>This field is required</p>}
@@ -78,7 +87,6 @@ export default function CategoryEdit(props) {
         <DialogActions>
           <Button onClick={handleClose}>Close</Button>
           <Button onClick={handleSubmit(onSubmit)} autoFocus>Submit</Button>
-          <Button onClick={() => console.log('aids')}>Get aids in console</Button>
         </DialogActions>
     </Dialog>
   );
