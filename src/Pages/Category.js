@@ -4,18 +4,32 @@ import axios from "axios";
 import "../Style/categories.css";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import useFetch from "../API/useFetch";
+import CategoryList from '../Components/CategoryList';
 
 export default function Category(){
 
+    const url  = "http://localhost:8080/categories/"
+
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => 
-    axios.post('http://localhost:8080/categories', data)
+    const { data: categories, error, isPending } = useFetch(url);
+    
+    const onSubmit = newCategory => 
+    axios.post(url, newCategory)
       .then(function (response) {
         console.log(response);
       })
       .catch(function (error) {
         console.log(error);
-        console.log(data);
+    });
+
+    const handleDelete = data => 
+    axios.delete(url+data.id)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
     });
 
         return (
@@ -59,11 +73,12 @@ export default function Category(){
                     </div>
                     {errors.exampleRequired && <p>This field is required</p>}
 
-                    <div className="btn" >
-                    <Button onClick={handleSubmit(onSubmit)} variant="contained">Save</Button>
-                    </div>
-                    </form>
-                </div>
+                    <input value="Add category" type="submit" />
+                </form>
+                { error && <div>{ error }</div> }
+                { isPending && <div>Loading...</div> }
+                { categories && <CategoryList onDelete={handleDelete} url={url} categories={categories} /> }
+            </div>
             </div>
         )
 }
