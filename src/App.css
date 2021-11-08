@@ -36,3 +36,29 @@
     transform: rotate(360deg);
   }
 }
+
+.add-item {
+  float: right;
+}
+
+.form {
+  float: left;
+}
+
+.edit-items-button {
+  float: left;
+}
+
+.flex-container {
+  padding: 10px;
+}
+
+.flex-child {
+  width: 100%;
+  float: left;
+  padding: 10px;
+}
+
+.flex-child:first-child {
+  margin-right: 20px;
+}

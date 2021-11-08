@@ -1,7 +1,9 @@
 import React from "react";
 import AddInventory from "../Components/AddInventory";
+import EditInventoryButton from "../Components/EditInventoryButton";
 import InventoryTable from "../Components/InventoryTable";
 import useFetch from "../useFetch";
+import "../App.css";
 
 const InventoryPage = () => {
   const {
@@ -16,7 +18,10 @@ const InventoryPage = () => {
       {error && <div>{error}</div>}
       {isPending && <div>Loading...</div>}
       {items && <InventoryTable items={items} />}
-      <AddInventory />
+      <div className="flex-container">
+        <AddInventory />
+        <EditInventoryButton />
+      </div>
     </div>
   );
 };

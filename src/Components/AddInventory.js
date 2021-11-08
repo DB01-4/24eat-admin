@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import "../App.css";
+import EditInventoryButton from "./EditInventoryButton";
 
 export default function AddInventory() {
   const {
@@ -23,36 +25,39 @@ export default function AddInventory() {
       });
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <TextField
-          id="filled-basic"
-          label="Name"
-          variant="filled"
-          {...register("name", { required: true })}
-        />
-        {errors.exampleRequired && <p>This field is required</p>}
+    <div className="flex-child">
+      <div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <TextField
+            id="filled-basic"
+            label="Name"
+            variant="filled"
+            {...register("name", { required: true })}
+          />
+          {errors.exampleRequired && <p>This field is required</p>}
 
-        <TextField
-          id="filled-basic"
-          label="Type"
-          variant="filled"
-          {...register("type", { required: true })}
-        />
-        {errors.exampleRequired && <p>This field is required</p>}
+          <TextField
+            id="filled-basic"
+            label="Type"
+            variant="filled"
+            {...register("type", { required: true })}
+          />
+          {errors.exampleRequired && <p>This field is required</p>}
 
-        <TextField
-          id="filled-basic"
-          label="Quantity"
-          variant="filled"
-          {...register("quantity", { required: true })}
-        />
-        {errors.exampleRequired && <p>This field is required</p>}
-
-        <Button variant="outlined" type="submit">
-          Add Item
-        </Button>
-      </form>
+          <TextField
+            id="filled-basic"
+            label="Quantity"
+            variant="filled"
+            {...register("quantity", { required: true })}
+          />
+          {errors.exampleRequired && <p>This field is required</p>}
+          <div>
+            <Button variant="outlined" type="submit">
+              Add Item
+            </Button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
