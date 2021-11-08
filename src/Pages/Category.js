@@ -1,6 +1,9 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import "../Style/categories.css";
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 import useFetch from "../API/useFetch";
 import CategoryList from '../Components/CategoryList';
 
@@ -31,15 +34,43 @@ export default function Category(){
 
         return (
             <div>
-                <h1>Category</h1>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <input defaultValue="test" {...register("name", { required: true })} />
+                <div>
+                    <h1>Add categories</h1>
+                </div>
+
+                 <div className="textfield">
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <div>
+                    <TextField
+                        id="outlined-textarea"
+                        label="Name"
+                        placeholder="Name"
+                        multiline
+                        {...register("name", { required: true })}
+                    />
+                    </div>
                     {errors.exampleRequired && <p>This field is required</p>}
 
-                    <input {...register("description", { required: true })} />
+                    <div className="textfield">
+                    <TextField
+                        id="outlined-textarea"
+                        label="Description"
+                        placeholder="Description"
+                        multiline
+                        {...register("description", { required: true })}
+                    />
+                    </div>
                     {errors.exampleRequired && <p>This field is required</p>}
 
-                    <input {...register("image", { required: true })} />
+                    <div className="textfield">
+                    <TextField
+                        id="outlined-textarea"
+                        label="Image"
+                        placeholder="Image"
+                        multiline
+                        {...register("image", { required: true })}
+                    />
+                    </div>
                     {errors.exampleRequired && <p>This field is required</p>}
 
                     <input value="Add category" type="submit" />
@@ -48,6 +79,6 @@ export default function Category(){
                 { isPending && <div>Loading...</div> }
                 { categories && <CategoryList onDelete={handleDelete} url={url} categories={categories} /> }
             </div>
+            </div>
         )
-    
 }
