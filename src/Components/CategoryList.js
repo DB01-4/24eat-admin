@@ -1,32 +1,21 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
-import {Card, CardContent, CardActionArea, Button} from '@mui/material';
-import Typography from '@mui/material/Typography';
-import axios from "axios";
+import { useState } from 'react';
+import {Card, CardContent, CardActionArea, Button, Typography} from '@mui/material';
 import Dialog from './CategoryEdit';
 
 
-const CategoryList = ({ categories }) => {
+export default function CategoryList  (props) {
+
+  const { categories, url, onDelete } = props
   const [open, setOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState();
-  
-  useEffect(() => {
 
-  }, [selectedCard]); // Only re-run the effect if count changes
 
-  const handleDelete = data => 
-  axios.delete(`http://localhost:8080/categories/${data.id}`)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-  });
 
   const handleClickOpen = (value) => {
-    setSelectedCard(value)
-    setOpen(true);
+    setSelectedCard({...value, value})
     console.log(selectedCard)
+    setOpen(true);
   };
 
 
@@ -34,8 +23,19 @@ const CategoryList = ({ categories }) => {
     setOpen(false);
   };
 
+  const handleDelete = (data) => {
+    onDelete(data);
+  }
+
   return (
     <div>
+      <p>selected card: {(typeof selectedCard !== 'undefined')? selectedCard.name:null}</p>
+      <Dialog
+        selectedCard={selectedCard}
+        open={open}
+        onClose={handleClose}
+        url={url}
+        />
       {categories.map(category => (
         <div title='card' key={category.id} >
                 <Card onClick={() => handleClickOpen(category)}>
@@ -53,13 +53,6 @@ const CategoryList = ({ categories }) => {
             <Button onClick={() => handleDelete(category)}>X</Button>
           </div>
       ))}
-        <Dialog
-        selectedCard={selectedCard}
-        open={open}
-        onClose={handleClose}
-        />
     </div>
   );
 }
- 
-export default CategoryList;
