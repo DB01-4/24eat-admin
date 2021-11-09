@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import useFetch from "../API/useFetch";
-import CategoryList from '../Components/CategoryList';
+import CategoryList from '../components/CategoryList';
 
 export default function Category(){
 
