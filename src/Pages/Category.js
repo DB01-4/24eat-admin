@@ -35,50 +35,12 @@ export default function Category(){
         return (
             <div>
                 <div>
-                    <h1>Add categories</h1>
+                    <h1>Edit or delete categories</h1>
                 </div>
 
-                 <div className="textfield">
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                    <div>
-                    <TextField
-                        id="outlined-textarea"
-                        label="Name"
-                        placeholder="Name"
-                        multiline
-                        {...register("name", { required: true })}
-                    />
-                    </div>
-                    {errors.exampleRequired && <p>This field is required</p>}
-
-                    <div className="textfield">
-                    <TextField
-                        id="outlined-textarea"
-                        label="Description"
-                        placeholder="Description"
-                        multiline
-                        {...register("description", { required: true })}
-                    />
-                    </div>
-                    {errors.exampleRequired && <p>This field is required</p>}
-
-                    <div className="textfield">
-                    <TextField
-                        id="outlined-textarea"
-                        label="Image"
-                        placeholder="Image"
-                        multiline
-                        {...register("image", { required: true })}
-                    />
-                    </div>
-                    {errors.exampleRequired && <p>This field is required</p>}
-
-                    <input value="Add category" type="submit" />
-                </form>
                 { error && <div>{ error }</div> }
                 { isPending && <div>Loading...</div> }
                 { categories && <CategoryList onDelete={handleDelete} url={url} categories={categories} /> }
-            </div>
             </div>
         )
 }
