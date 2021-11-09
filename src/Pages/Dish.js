@@ -10,14 +10,16 @@ export default function Dish(){
     const { data: dishes, error, isPending } = useFetch("http://localhost:8080/products");
     const { data: categories } = useFetch("http://localhost:8080/categories");
     
-    const onSubmit = newDish => 
-    axios.post('http://localhost:8080/products', newDish)
+    const onSubmit = (formData) => {
+
+    console.log(formData);
+    axios.post('http://localhost:8080/products', formData)
       .then(function (response) {
         console.log(response);
       })
       .catch(function (error) {
         console.log(error);
-    });
+    })};
 
         return (
             <div>
@@ -37,7 +39,7 @@ export default function Dish(){
 
                     <select /*{...register("category", { required: true })}*/>
                         {categories && categories.map(category => (
-                        <option default-value={category.id}>{category.name}</option>
+                        <option value={JSON.stringify(category)}>{category.name}</option>
                         ))
                         }
                     </select>

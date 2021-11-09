@@ -9,6 +9,7 @@ import Dialog from './DishEdit';
 const DishList = ({ dishes }) => {
   const [open, setOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState();
+
   
   useEffect(() => {
   }, [selectedCard]); // Only re-run the effect if count changes
@@ -25,7 +26,6 @@ const DishList = ({ dishes }) => {
   const handleClickOpen = (value) => {
     setSelectedCard(value)
     setOpen(true);
-    console.log(selectedCard)
   };
 
 

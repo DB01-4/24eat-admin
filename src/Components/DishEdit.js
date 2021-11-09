@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -34,7 +34,7 @@ export default function DishEdit(props) {
     <Dialog onClose={handleClose} open={open}>
         <DialogTitle>Edit</DialogTitle>
         <form>
-            <input defaultValue={(typeof selectedCard !== 'undefined')? selectedCard.name:null} {...register("name", { required: true })} />
+            <input value={(typeof selectedCard !== 'undefined')? selectedCard.name:null} {...register("name", { required: true })}/>
             {errors.exampleRequired && <p>This field is required</p>}
 
             <input defaultValue={(typeof selectedCard !== 'undefined')? selectedCard.description:null} {...register("description", { required: true })} />
