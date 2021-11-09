@@ -5,7 +5,7 @@ import "../Style/categories.css";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import useFetch from "../API/useFetch";
-import CategoryList from '../components/CategoryList';
+import CategoryList from '../Components/CategoryList';
 
 export default function Category(){
 
