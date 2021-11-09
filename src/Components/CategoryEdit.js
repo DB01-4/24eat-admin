@@ -17,7 +17,6 @@ export default function CategoryEdit(props) {
   const [values, setValues] = useState(initialFValues);
 
   const handleClose = () => {
-    document.getElementById('inputs').value = '';
     onClose();
   };
 
@@ -47,6 +46,7 @@ export default function CategoryEdit(props) {
   window.location.reload(false);
   handleClose();
 }
+
 
   return (
     <Dialog onClose={handleClose} open={open}>
