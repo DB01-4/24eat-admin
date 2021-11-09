@@ -57,7 +57,6 @@ export default function CategoryEdit(props) {
 
             <TextField
            id="outlined-multiline-flexible"
-           label="Multiline"
            multiline
            maxRows={4}
            value={value.description}
