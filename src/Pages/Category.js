@@ -27,6 +27,7 @@ export default function Category(){
     axios.delete(url+data.id)
       .then(function (response) {
         console.log(response);
+        window.location.reload(false);
       })
       .catch(function (error) {
         console.log(error);
