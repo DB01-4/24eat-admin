@@ -18,7 +18,6 @@ export default function CategoryList  (props) {
   const [selectedCard, setSelectedCard] = useState();
 
 
-
   const handleClickOpen = (value) => {
     setSelectedCard({...value, value})
     console.log(selectedCard)
@@ -28,6 +27,7 @@ export default function CategoryList  (props) {
 
   const handleClose = () => {
     setOpen(false);
+
   };
 
   const handleDelete = (data) => {

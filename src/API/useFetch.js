@@ -25,7 +25,7 @@ useEffect(() => {
         })
     }, [url]);
 
-    console.log(data)
+    //console.log(data)
     return {data, isLoading, error} //use properties with custom hook
 }
 
