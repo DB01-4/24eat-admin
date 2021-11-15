@@ -1,58 +1,125 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import {useState} from "react";
 import axios from "axios";
 import useFetch from "../API/useFetch";
 import DishList from '../Components/DishList';
+import {Button, TextField, Select, InputLabel, MenuItem} from '@mui/material';
 
 export default function Dish(){
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const { data: dishes, error, isPending } = useFetch("http://localhost:8080/products");
-    const { data: categories } = useFetch("http://localhost:8080/categories");
+  const initialFValues = {
+    name: '',
+    description: null,
+    allergies: '',
+    price: 0,
+    category: '',
+    image: ''
+  }
+  const [values, setValues] = useState(initialFValues);
+  const dishUrl  = "http://localhost:8080/products/"
+  const { data: dishes, error, isPending } = useFetch(dishUrl);
+  const { data: categories } = useFetch("http://localhost:8080/categories/"); 
     
-    const onSubmit = (formData) => {
 
-    console.log(formData);
-    axios.post('http://localhost:8080/products', formData)
+  const onChange = e => {
+    const { name, value } = e.target
+    setValues({
+      ...values,
+      [name]: value
+    })
+    console.log(values)
+  }
+
+  const handleSubmit = e => {
+    axios.post(dishUrl, values)
       .then(function (response) {
-        console.log(response);
+      console.log(response);
       })
       .catch(function (error) {
-        console.log(error);
-    })};
+      console.log(error);
+      });
+    window.location.reload(false);
+  }
 
-        return (
-            <div>
-                <h1>Dishes</h1>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <input placeholder="Dish name" {...register("name", { required: true })} />
-                    {errors.exampleRequired && <p>This field is required</p>}
+  const handleDelete = data => 
+    axios.delete(dishUrl + data.id)
+      .then(function (response) {
+      console.log(response);
+      window.location.reload(false);
+      })
+      .catch(function (error) {
+      console.log(error);
+  });
+        
+  
+  return (
+    <div>
+      <h1>Dishes</h1>
+      <form>
+        <TextField
+          id="outlined-multiline-flexible"
+          label="Dish name"
+          name="name"
+          multiline
+          maxRows={4}
+          onChange={onChange}
+        />
 
-                    <input placeholder="Dish description" {...register("description", { required: true })} />
-                    {errors.exampleRequired && <p>This field is required</p>}
+        <TextField
+          id="outlined-multiline-flexible"
+          label="Description"
+          name="description"
+          multiline
+          maxRows={4}
+          onChange={onChange}
+        />
 
-                    <input placeholder="Dish allergies" {...register("allergies", { required: true })} />
-                    {errors.exampleRequired && <p>This field is required</p>}
+        <TextField
+          id="outlined-multiline-flexible"
+          label="Allergies"
+          name="allergies"
+          multiline
+          maxRows={4}
+          onChange={onChange}
+        />
 
-                    <input placeholder="Dish price" type="number" {...register("price", { required: true })} />
-                    {errors.exampleRequired && <p>This field is required</p>}
+        <TextField
+          id="outlined-multiline-flexible"
+          label="Price"
+          name="price"
+          type="Number"
+          maxRows={1}
+          onChange={onChange}
+        />
 
-                    <select /*{...register("category", { required: true })}*/>
-                        {categories && categories.map(category => (
-                        <option value={JSON.stringify(category)}>{category.name}</option>
-                        ))
-                        }
-                    </select>
+        <InputLabel>Category</InputLabel>
+        <Select
+          id="outlined-multiline-flexible"
+          label="Category"
+          name="category"
+          onChange={onChange}
+        >
+          {categories && categories.map(category => {
+            return (
+              <MenuItem key={category.id} value={category}>{category.name}</MenuItem>
+            )}
+          )}
+        </Select>
 
-                    <input placeholder="Dish image url" {...register("image", { required: true })} />
-                    {errors.exampleRequired && <p>This field is required</p>}
+        <TextField
+          id="outlined-multiline-flexible"
+          label="Image url"
+          name="image"
+          multiline
+          maxRows={4}
+          onChange={onChange}
+        />
 
-                    <input value="Add Dish" type="submit" />
-                </form>
-                { error && <div>{ error }</div> }
-                { isPending && <div>Loading...</div> }
-                { dishes && <DishList dishes={dishes} /> }
-            </div>
-        )
-    
+        </form>
+        <Button onClick={handleSubmit} autoFocus>Submit</Button>
+          { error && <div>{ error }</div> }
+          { isPending && <div>Loading...</div> }
+          { dishes && <DishList onDelete={handleDelete} url={dishUrl} dishes={dishes} /> }
+    </div>
+  )
 }
