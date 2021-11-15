@@ -1,16 +1,14 @@
-h1 {
+.title {
     text-align: center;
-    margin-top: 80px;
+    margin-top: 100px;
 }
 
-form {
+.field {
     text-align: center;
+    margin-top: 20px;
 }
 
-.textfield {
-    margin-top: 25px;
-}
-
-.btn {
-    margin-top: 25px;
+.inputbtn {
+    text-align: center;
+    margin-top: 20px;
 }

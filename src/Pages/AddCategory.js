@@ -3,9 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import "../Style/categories.css";
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
 import useFetch from "../API/useFetch";
-import CategoryList from '../Components/CategoryList';
 
 export default function AddCategory(){
 
@@ -34,13 +32,10 @@ export default function AddCategory(){
 
         return (
             <div>
-                <div>
-                    <h1>Add categories</h1>
-                </div>
+                  <h1 className="title">Add categories</h1>
 
-                 <div className="textfield">
                     <form onSubmit={handleSubmit(onSubmit)}>
-                    <div>
+                    <div className="field">
                     <TextField
                         id="outlined-textarea"
                         label="Name"
@@ -51,7 +46,7 @@ export default function AddCategory(){
                     </div>
                     {errors.exampleRequired && <p>This field is required</p>}
 
-                    <div className="textfield">
+                    <div className="field">
                     <TextField
                         id="outlined-textarea"
                         label="Description"
@@ -62,7 +57,7 @@ export default function AddCategory(){
                     </div>
                     {errors.exampleRequired && <p>This field is required</p>}
 
-                    <div className="textfield">
+                    <div className="field">
                     <TextField
                         id="outlined-textarea"
                         label="Image"
@@ -73,9 +68,10 @@ export default function AddCategory(){
                     </div>
                     {errors.exampleRequired && <p>This field is required</p>}
 
-                    <input className="btn" value="Add category" type="submit" />
+                    <div className="inputbtn">
+                    <input value="Add category" type="submit" />
+                    </div>
                     </form>
-            </div>
-            </div>
+              </div>
         )
 }
