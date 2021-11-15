@@ -4,20 +4,23 @@ import axios from "axios";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import "../App.css";
-import EditInventoryButton from "./EditInventoryButton";
+import { useState } from "react";
+import InventoryTable from "./InventoryTable";
 
-export default function AddInventory() {
+export default function AddInventory({ stateChanger }) {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [count, setCount] = useState(0);
   const onSubmit = (data) =>
     axios
       .post("http://localhost:8084/api/post", data)
       .then(function (response) {
         console.log(response);
-        window.location.reload();
+        setCount(count + 1);
+        stateChanger(count);
       })
       .catch(function (error) {
         console.log(error);

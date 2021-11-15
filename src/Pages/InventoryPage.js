@@ -4,22 +4,18 @@ import EditInventoryButton from "../Components/EditInventoryButton";
 import InventoryTable from "../Components/InventoryTable";
 import useFetch from "../useFetch";
 import "../App.css";
+import { useState } from "react";
+import FetchAndShowTable from "../Components/FetchAndShowTable";
 
 const InventoryPage = () => {
-  const {
-    data: items,
-    error,
-    isPending,
-  } = useFetch("http://localhost:8084/api/items");
+  const [value, setValue] = useState(1);
 
   return (
     <div>
       <h1>Inventory</h1>
-      {error && <div>{error}</div>}
-      {isPending && <div>Loading...</div>}
-      {items && <InventoryTable items={items} />}
+      <FetchAndShowTable count={value} stateChanger={setValue} />
       <div className="flex-container">
-        <AddInventory />
+        <AddInventory stateChanger={setValue} />
         <EditInventoryButton />
       </div>
     </div>

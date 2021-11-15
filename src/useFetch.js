@@ -6,7 +6,7 @@ const useFetch = (url) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(url) //custom url so you can reuse it
+    fetch(url) 
       .then((res) => {
         if (!res.ok) {
           throw Error("could not fetch data");
@@ -25,7 +25,7 @@ const useFetch = (url) => {
   }, [url]);
 
   console.log(data);
-  return { data, isLoading, error }; //use properties with custom hook
+  return { data, isLoading, error }; 
 };
 
 export default useFetch;
