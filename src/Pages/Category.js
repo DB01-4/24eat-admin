@@ -1,6 +1,11 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import "../Style/categories.css";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import useFetch from "../API/useFetch";
+import CategoryList from "../Components/CategoryList";
 
 export default function Category() {
   const {
@@ -13,6 +18,7 @@ export default function Category() {
       .post("http://localhost:8080/categories", data)
       .then(function (response) {
         console.log(response);
+        window.location.reload(false);
       })
       .catch(function (error) {
         console.log(error);
