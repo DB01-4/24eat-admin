@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect, useState} from "react";
+import CategorieEdit from "../Style/categorieEdit.css";
 import PropTypes from 'prop-types';
 import axios from "axios";
 import {Dialog, DialogActions, DialogTitle, Button, TextField} from '@mui/material';
@@ -50,8 +51,9 @@ export default function CategoryEdit(props) {
 
   return (
     <Dialog onClose={handleClose} open={open}>
-        <DialogTitle>Edit</DialogTitle>
-        <form>
+        <DialogTitle className="editheader">Edit</DialogTitle>
+        <form className="form">
+          <div className="textfield">
           <TextField
            id="outlined-multiline-flexible"
            label="name"
@@ -61,9 +63,10 @@ export default function CategoryEdit(props) {
            defaultValue={values.name}
            onChange={onChange}
           />
+          </div>
 
 
-
+          <div className="textfield">
             <TextField
            id="outlined-multiline-flexible"
            label="description"
@@ -73,9 +76,11 @@ export default function CategoryEdit(props) {
            defaultValue={values.description}
            onChange={onChange}
           />
+          </div>
 
 
 
+          <div className="textfield">
             <TextField
            id="outlined-multiline-flexible"
            label="image"
@@ -85,6 +90,8 @@ export default function CategoryEdit(props) {
            defaultValue={values.description}
            onChange={onChange}
           />
+          </div>
+
 
         </form>
         <DialogActions>
