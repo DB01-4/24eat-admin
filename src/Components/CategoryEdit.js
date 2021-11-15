@@ -78,6 +78,7 @@ export default function CategoryEdit(props) {
           </div>
 
 
+
           <div className="textfield">
             <TextField
            id="outlined-multiline-flexible"
@@ -89,6 +90,7 @@ export default function CategoryEdit(props) {
            onChange={onChange}
           />
           </div>
+
 
         </form>
         <DialogActions>

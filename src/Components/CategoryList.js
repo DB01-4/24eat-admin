@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 import {Card, CardContent, CardActionArea, Button, Typography} from '@mui/material';
-import axios from "axios";
 import Dialog from './CategoryEdit';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
