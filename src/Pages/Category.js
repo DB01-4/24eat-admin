@@ -13,15 +13,6 @@ export default function Category(){
 
   const { data: categories, error, isPending } = useFetch(url);
   
-  const onSubmit = newCategory => 
-  axios.post(url, newCategory)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-  });
-
   const handleDelete = data => 
   axios.delete(url+data.id)
     .then(function (response) {

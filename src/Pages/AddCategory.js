@@ -1,77 +1,85 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import {useState} from "react";
 import axios from "axios";
-import "../Style/categories.css";
-import TextField from '@mui/material/TextField';
-import useFetch from "../API/useFetch";
+import "../Style/addCrud.css"
+import useFetch from "../API/useFetch"; 
+import {Button, TextField } from '@mui/material';
 
 export default function AddCategory(){
 
-    const url  = "http://localhost:8080/categories/"
+  const initialFValues = {
+    name: '',
+    description: null,
+    image: ''
+  }
+  const [values, setValues] = useState(initialFValues);
+  const categoryUrl  = "http://localhost:8080/categories/"
+  const { data: categories, error, isPending } = useFetch(categoryUrl);
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const { data: categories, error, isPending } = useFetch(url);
     
-    const onSubmit = newCategory => 
-    axios.post(url, newCategory)
+
+  const onChange = e => {
+    const { name, value } = e.target
+    setValues({
+      ...values,
+      [name]: value
+    })
+    console.log(values)
+  }
+
+  const handleSubmit = e => {
+    axios.post(categoryUrl, values)
       .then(function (response) {
-        console.log(response);
+      console.log(response);
       })
       .catch(function (error) {
-        console.log(error);
-    });
+      console.log(error);
+      });
+    // window.location.reload(false);
+  }
+        
+  
+  return (
+    <div>
+      <h1>Add Categories</h1>
+      <form>
+        <div className="txtfield">
+        <TextField
+          id="outlined-multiline-flexible"
+          label="Category name"
+          name="name"
+          multiline
+          maxRows={4}
+          onChange={onChange}
+        />
+        </div>
 
-    const handleDelete = data => 
-    axios.delete(url+data.id)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-    });
+        <div className="txtfield">
+        <TextField
+          id="outlined-multiline-flexible"
+          label="Description"
+          name="description"
+          multiline
+          maxRows={4}
+          onChange={onChange}
+        />
+        </div>
 
-        return (
-            <div>
-                  <h1 className="title">Add categories</h1>
+        <div className="txtfield">
+        <TextField
+          id="outlined-multiline-flexible"
+          label="Image url"
+          name="image"
+          multiline
+          maxRows={4}
+          onChange={onChange}
+        />
+        </div>
 
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="field">
-                    <TextField
-                        id="outlined-textarea"
-                        label="Name"
-                        placeholder="Name"
-                        multiline
-                        {...register("name", { required: true })}
-                    />
-                    </div>
-                    {errors.exampleRequired && <p>This field is required</p>}
-
-                    <div className="field">
-                    <TextField
-                        id="outlined-textarea"
-                        label="Description"
-                        placeholder="Description"
-                        multiline
-                        {...register("description", { required: true })}
-                    />
-                    </div>
-                    {errors.exampleRequired && <p>This field is required</p>}
-
-                    <div className="field">
-                    <TextField
-                        id="outlined-textarea"
-                        label="Image"
-                        placeholder="Image"
-                        multiline
-                        {...register("image", { required: true })}
-                    />
-                    </div>
-                    {errors.exampleRequired && <p>This field is required</p>}
-
-                    <div className="inputbtn">
-                    <input value="Add category" type="submit" />
-                    </div>
-                    </form>
-              </div>
-        )
+        </form>
+        <div className="btn">
+        <Button onClick={handleSubmit} autoFocus>Submit</Button>
+        </div>
+    </div>
+  )
 }
