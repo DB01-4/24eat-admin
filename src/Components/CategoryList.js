@@ -60,8 +60,8 @@ export default function CategoryList  (props) {
               <TableCell component="th" scope="row">
                 {category.id}
               </TableCell>
-              <TableCell align="left">{category.name}</TableCell>
-              <TableCell align="left">{category.description}</TableCell>
+              <TableCell data-testid="category-name" align="left">{category.name}</TableCell>
+              <TableCell data-testid="category-description" align="left">{category.description}</TableCell>
               <TableCell align="left"><Button onClick={() => handleClickOpen(category)}>Edit</Button></TableCell>
               <TableCell align="left"><Button onClick={() => handleDelete(category)}>Delete</Button></TableCell>
             </TableRow>
