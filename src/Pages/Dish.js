@@ -26,7 +26,11 @@ export default function Dish(){
       return (
           <div>
               <div>
-                  <h1>Edit or delete dishes</h1>
+                  <h1>Dishes</h1>
+              </div>
+
+              <div>
+                  <Button variant="contained" href="/AddDish">Add dish</Button>
               </div>
 
               { error && <div>{ error }</div> }
