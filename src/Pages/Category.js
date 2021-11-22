@@ -26,8 +26,12 @@ export default function Category(){
       return (
           <div>
               <div>
-                  <h1>Edit or delete categories</h1>
+                  <h1>Categories</h1>
               </div>
+              <div>
+                  <Button variant="contained" href="/AddCategory">Add category</Button>
+              </div>
+
 
               { error && <div>{ error }</div> }
               { isPending && <div>Loading...</div> }
