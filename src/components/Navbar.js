@@ -48,7 +48,6 @@ export default function ButtonAppBar() {
       >
         <MenuItem onClick={handleClose}><a href="/Category">Category</a></MenuItem>
         <MenuItem onClick={handleClose}><a href="/Dish">Dish</a></MenuItem>
-        <MenuItem onClick={handleClose}><a href="/AddDish">Add dish</a></MenuItem>
         <MenuItem onClick={handleClose}><a href="/Inventory">Inventory</a></MenuItem>
       </Menu>
     </div>
