@@ -4,8 +4,10 @@ import axios from "axios";
 import "../Style/addCrud.css"
 import useFetch from "../API/useFetch"; 
 import {Button, TextField } from '@mui/material';
+import { useHistory } from "react-router-dom";
 
 export default function AddCategory(){
+  let history = useHistory();
 
   const initialFValues = {
     name: '',
@@ -31,6 +33,7 @@ export default function AddCategory(){
     axios.post(categoryUrl, values)
       .then(function (response) {
       console.log(response);
+      history.push('/Category')
       })
       .catch(function (error) {
       console.log(error);
