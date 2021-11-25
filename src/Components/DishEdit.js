@@ -55,11 +55,11 @@ export default function DishEdit(props) {
   axios.put(url+selectedCard.id, values)
     .then(function (response) {
       console.log(response);
+      window.location.reload(false);
     })
     .catch(function (error) {
      console.log(error);
   });
-  window.location.reload(false);
   handleClose();
 }
 
