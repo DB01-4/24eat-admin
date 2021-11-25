@@ -4,8 +4,10 @@ import axios from "axios";
 import useFetch from "../API/useFetch";
 import "../Style/addCrud.css"
 import {Button, TextField, Select, InputLabel, MenuItem} from '@mui/material';
+import { useHistory } from "react-router-dom";
 
 export default function AddDish(){
+  let history = useHistory();
 
   const initialFValues = {
     name: '',
@@ -34,11 +36,11 @@ export default function AddDish(){
     axios.post(dishUrl, values)
       .then(function (response) {
       console.log(response);
+      history.push('/Dish')
       })
       .catch(function (error) {
       console.log(error);
       });
-    window.location.reload(false);
   }
 
   const handleDelete = data => 
