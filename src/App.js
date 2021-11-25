@@ -5,6 +5,7 @@ import Category from "./Pages/Category";
 import Dish from "./Pages/Dish";
 import AddCategory from "./Pages/AddCategory.js";
 import InventoryPage from "./Pages/InventoryPage.js";
+import AddDish from "./Pages/AddDish.js";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route exact path="/category" component={Category} />
           <Route exact path="/dish" component={Dish} />
           <Route exact path="/addcategory" component={AddCategory} />
+          <Route exact path="/adddish" component={AddDish} />
           <Route exact path="/Inventory" component={InventoryPage} />
         </Switch>
       </div>
