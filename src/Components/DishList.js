@@ -2,6 +2,13 @@ import React from 'react';
 import { useState } from 'react';
 import {Card, CardContent, CardActionArea, Button, Typography} from '@mui/material';
 import Dialog from './DishEdit';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 
 export default function DishList  (props) {
@@ -29,33 +36,43 @@ export default function DishList  (props) {
 
   return (
     <div>
-      <p>selected card: {(typeof selectedCard !== 'undefined')? selectedCard.name:null}</p>
       <Dialog
         selectedCard={selectedCard}
         open={open}
         onClose={handleClose}
         url={url}
         />
-        {dishes.map(dish => (
-          <div title='card' key={dish.id} >
-                  <Card onClick={() => handleClickOpen(dish)}>
-                      <CardActionArea>
-                          <CardContent>
-                          <Typography gutterBottom variant="h5" component="div">
-                          { dish.name }
-                          </Typography>
-                          <Typography variant="body2" color="text.secondary">
-                          { dish.description }
-                          </Typography>
-                          </CardContent>
-                      </CardActionArea>
-                  </Card>
-              <Button onClick={() => handleDelete(dish)}>X</Button>
-            </div>
-        ))}
+      <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell align="left">Id</TableCell>
+            <TableCell align="left">Name</TableCell>
+            <TableCell align="left">Description</TableCell>
+            <TableCell align="left">price</TableCell>
+            <TableCell align="left">allergies</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {dishes.map((dish) => (
+            <TableRow
+              key={dish.name}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {dish.id}
+              </TableCell>
+              <TableCell align="left">{dish.name}</TableCell>
+              <TableCell align="left">{dish.description}</TableCell>
+              <TableCell align="left">{dish.price}</TableCell>
+              <TableCell align="left">{dish.allergies}</TableCell>
+              <TableCell align="left"><Button onClick={() => handleClickOpen(dish)}>Edit</Button></TableCell>
+              <TableCell align="left"><Button onClick={() => handleDelete(dish)}>Delete</Button></TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
     </div>
-
   );
 }
-
-

@@ -13,15 +13,6 @@ export default function Category(){
 
   const { data: categories, error, isPending } = useFetch(url);
   
-  const onSubmit = newCategory => 
-  axios.post(url, newCategory)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-  });
-
   const handleDelete = data => 
   axios.delete(url+data.id)
     .then(function (response) {
@@ -35,8 +26,12 @@ export default function Category(){
       return (
           <div>
               <div>
-                  <h1>Edit or delete categories</h1>
+                  <h1>Categories</h1>
               </div>
+              <div>
+                  <Button variant="contained" href="/AddCategory">Add category</Button>
+              </div>
+
 
               { error && <div>{ error }</div> }
               { isPending && <div>Loading...</div> }

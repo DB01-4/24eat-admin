@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState} from "react";
 import PropTypes from 'prop-types';
+import dishEdit from "../Style/dishEdit.css";
 import axios from "axios";
 import {Dialog, DialogActions, DialogTitle, Button, TextField, Select, InputLabel, MenuItem} from '@mui/material';
 import useFetch from "../API/useFetch";
@@ -29,8 +30,6 @@ export default function DishEdit(props) {
       }
    }
  }
-
-
 
   const handleClose = () => {
     onClose();
@@ -68,7 +67,8 @@ export default function DishEdit(props) {
   return (
     <Dialog onClose={handleClose} open={open}>
         <DialogTitle>Edit Dish</DialogTitle>
-        <form>
+        <form className="form">
+          <div className="textfield">
           <TextField
            id="outlined-multiline-flexible"
            label="name"
@@ -78,9 +78,10 @@ export default function DishEdit(props) {
            defaultValue={values.name}
            onChange={onChange}
           />
+          </div>
 
 
-
+          <div className="textfield">
             <TextField
            id="outlined-multiline-flexible"
            label="description"
@@ -90,8 +91,9 @@ export default function DishEdit(props) {
            defaultValue={values.description}
            onChange={onChange}
           />
+          </div>
 
-
+          <div className="textfield">
             <TextField
            id="outlined-multiline-flexible"
            label="allergies"
@@ -101,9 +103,10 @@ export default function DishEdit(props) {
            defaultValue={values.allergies}
            onChange={onChange}
           />
+          </div>
 
 
-
+          <div className="textfield">
           <TextField
            id="outlined-multiline-flexible"
            label="price"
@@ -114,6 +117,7 @@ export default function DishEdit(props) {
            defaultValue={values.price}
            onChange={onChange}
           />
+          </div>
 
           <InputLabel>Category</InputLabel>
           <Select
