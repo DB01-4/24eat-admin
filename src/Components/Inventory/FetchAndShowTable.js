@@ -1,4 +1,4 @@
-import InventoryTable from "./InventoryTable";
+import InventoryTable from "../Inventory/InventoryTable";
 
 import React, { Component } from "react";
 
@@ -7,6 +7,7 @@ export default class FetchAndShowTable extends Component {
     loading: true,
     items: null,
     count: 0,
+    filter: "",
   };
 
   async componentDidMount() {
@@ -17,11 +18,15 @@ export default class FetchAndShowTable extends Component {
       items: data,
       loading: false,
       count: this.props.count,
+      filter: this.props.filter,
     });
   }
 
   async componentDidUpdate(prevState) {
-    if (this.props.count !== prevState.count) {
+    if (
+      this.props.count !== prevState.count ||
+      this.props.filter !== prevState.filter
+    ) {
       console.log("count changed");
       const url = "http://localhost:8084/api/items";
       const response = await fetch(url);
@@ -30,6 +35,7 @@ export default class FetchAndShowTable extends Component {
         items: data,
         loading: false,
         count: this.props.count,
+        filter: this.props.filter,
       });
     }
   }
@@ -45,10 +51,7 @@ export default class FetchAndShowTable extends Component {
 
     return (
       <div>
-        <InventoryTable
-          items={this.state.items}
-          stateChanger={this.props.stateChanger}
-        />
+        <InventoryTable items={this.state.items} props={this.state} />
       </div>
     );
   }
