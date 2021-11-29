@@ -6,6 +6,7 @@ import Check from "@mui/icons-material/Check";
 import IconButton from "@mui/material/IconButton";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import UndoButton from "./UndoButton";
 
 const queryParams = new URLSearchParams(window.location.search);
 
@@ -24,6 +25,11 @@ export default function EditItemField(props) {
   const [values, setValues] = React.useState({
     weight: props.value,
   });
+
+  function Undo(newValue) {
+    console.log("UNDO");
+    setValues({ ...values, weight: newValue });
+  }
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -100,6 +106,7 @@ export default function EditItemField(props) {
           }
           label="check"
         />
+        <UndoButton value={values.weight} Undo={Undo} />
         {validInput ? (
           <Snackbar
             open={open}
