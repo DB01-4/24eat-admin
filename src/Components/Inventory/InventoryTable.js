@@ -6,7 +6,8 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import DeleteItemButton from "../Main/DeleteItemButton";
+import DeleteItemButton from "../Inventory/DeleteItemButton";
+import EditItemField from "../Inventory/EditItemField";
 
 const columns = [
   { id: "name", label: "Name", minWidth: 170 },
@@ -16,14 +17,17 @@ const columns = [
     id: "type",
     label: "Type",
     minWidth: 170,
-    align: "right",
+    align: "left",
     format: (value) => value.toFixed(2),
   },
 ];
 
-export default function InventoryTable({ items }, { stateChanger }) {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(100);
+export default function InventoryTable({ props }) {
+  const [page] = React.useState(0);
+  const [rowsPerPage] = React.useState(100);
+  const items = props.items;
+  console.log(props.items);
+  console.log("!!!!!!!!!!!!" + props.filter);
 
   return (
     <div>
@@ -47,7 +51,7 @@ export default function InventoryTable({ items }, { stateChanger }) {
               {items
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => {
-                  return (
+                  return row.type === props.filter ? (
                     <TableRow
                       hover
                       role="checkbox"
@@ -58,18 +62,24 @@ export default function InventoryTable({ items }, { stateChanger }) {
                         const value = row[column.id];
                         return (
                           <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value}
+                            {column.id === "quantity" ? (
+                              <EditItemField
+                                value={value}
+                                item={row}
+                                id={row.id}
+                              />
+                            ) : column.format && typeof value === "number" ? (
+                              column.format(value)
+                            ) : (
+                              value
+                            )}
                           </TableCell>
                         );
                       })}
-                      <DeleteItemButton
-                        id={row.id}
-                        item={row.name}
-                        stateChanger={stateChanger}
-                      />
+                      <DeleteItemButton id={row.id} item={row.name} />
                     </TableRow>
+                  ) : (
+                    <div />
                   );
                 })}
             </TableBody>

@@ -3,10 +3,10 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import InventoryTable from "../Inventory/InventoryTable";
 import { useState } from "react";
 
-export default function AddInventory({ stateChanger }) {
+export default function AddInventory({ stateChanger, filter }) {
+  console.log(filter);
   const {
     register,
     handleSubmit,
@@ -29,6 +29,7 @@ export default function AddInventory({ stateChanger }) {
   return (
     <div className="flex-child">
       <div>
+        <h1></h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <TextField
             id="filled-basic"
@@ -39,14 +40,16 @@ export default function AddInventory({ stateChanger }) {
           {errors.exampleRequired && <p>This field is required</p>}
 
           <TextField
-            id="filled-basic"
+            disabled
+            id="outlined-disabled"
             label="Type"
-            variant="filled"
-            {...register("type", { required: true })}
+            value={filter}
+            {...register("type", { value: filter })}
           />
           {errors.exampleRequired && <p>This field is required</p>}
 
           <TextField
+            type="number"
             id="filled-basic"
             label="Quantity"
             variant="filled"
