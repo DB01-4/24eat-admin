@@ -3,9 +3,8 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import "../App.css";
+import InventoryTable from "../Inventory/InventoryTable";
 import { useState } from "react";
-import InventoryTable from "./InventoryTable";
 
 export default function AddInventory({ stateChanger }) {
   const {

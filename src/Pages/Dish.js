@@ -5,7 +5,7 @@ import "../Style/categories.css";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import useFetch from "../API/useFetch";
-import DishList from "../Components/DishList";
+import DishList from "../Components/Dish/DishList";
 
 export default function Dish(){
 
