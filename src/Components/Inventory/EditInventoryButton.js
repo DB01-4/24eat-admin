@@ -4,7 +4,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
 import EditIcon from "@mui/icons-material/Edit";
-import "../App.css";
 
 export default function EditInventoryButton() {
   return (

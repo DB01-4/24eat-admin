@@ -1,11 +1,10 @@
 import React from "react";
-import AddInventory from "../Components/AddInventory";
-import EditInventoryButton from "../Components/EditInventoryButton";
-import InventoryTable from "../Components/InventoryTable";
-import useFetch from "../useFetch";
-import "../App.css";
+import AddInventory from "../Components/Inventory/AddInventory";
+import EditInventoryButton from "../Components/Inventory/EditInventoryButton";
+import InventoryTable from "../Components/Inventory/InventoryTable";
+import "../Style/inventory.css";
 import { useState } from "react";
-import FetchAndShowTable from "../Components/FetchAndShowTable";
+import FetchAndShowTable from "../Components/Inventory/FetchAndShowTable";
 
 const InventoryPage = () => {
   const [value, setValue] = useState(1);

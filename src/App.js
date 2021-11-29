@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "../src/Components/Navbar.js";
+import Navbar from "../src/Components/Main/Navbar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Category from "./Pages/Category";
 import Dish from "./Pages/Dish";

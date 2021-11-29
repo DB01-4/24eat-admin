@@ -1,35 +1,20 @@
 import React from "react";
 import { useEffect, useState} from "react";
 import PropTypes from 'prop-types';
-import dishEdit from "../Style/dishEdit.css";
 import axios from "axios";
-import {Dialog, DialogActions, DialogTitle, Button, TextField, Select, InputLabel, MenuItem} from '@mui/material';
-import useFetch from "../API/useFetch";
+import {Dialog, DialogActions, DialogTitle, Button, TextField} from '@mui/material';
 
 
-export default function DishEdit(props) {
+export default function CategoryEdit(props) {
 
   const initialFValues = {
     name: '',
     description: null,
-    allergies: '',
-    price: 0,
-    category: '',
     image: ''
-  }
+}
 
   const { onClose, selectedCard, open, url} = props;
   const [values, setValues] = useState(initialFValues);
-  const { data: categories } = useFetch("http://localhost:8080/categories/"); 
-
- const getCategoryIndex = (id, categories) => {
-   if(categories == null){return ''}
-   for (let i = 0; i < categories.length; i++) {
-      if(categories[i].id === id) {
-        return i;
-      }
-   }
- }
 
   const handleClose = () => {
     onClose();
@@ -51,7 +36,6 @@ export default function DishEdit(props) {
 }, [selectedCard])
 
   const handleSubmit = e => {
-    console.log(values)
   axios.put(url+selectedCard.id, values)
     .then(function (response) {
       console.log(response);
@@ -66,7 +50,7 @@ export default function DishEdit(props) {
 
   return (
     <Dialog onClose={handleClose} open={open}>
-        <DialogTitle>Edit Dish</DialogTitle>
+        <DialogTitle className="editheader">Edit</DialogTitle>
         <form className="form">
           <div className="textfield">
           <TextField
@@ -93,57 +77,20 @@ export default function DishEdit(props) {
           />
           </div>
 
-          <div className="textfield">
-            <TextField
-           id="outlined-multiline-flexible"
-           label="allergies"
-           name="allergies"
-           multiline
-           maxRows={4}
-           defaultValue={values.allergies}
-           onChange={onChange}
-          />
-          </div>
 
 
           <div className="textfield">
-          <TextField
-           id="outlined-multiline-flexible"
-           label="price"
-           name="price"
-           type="number"
-           multiline
-           maxRows={4}
-           defaultValue={values.price}
-           onChange={onChange}
-          />
-          </div>
-
-          <InputLabel>Category</InputLabel>
-          <Select
-            id="outlined-multiline-flexible"
-            label="category"
-            name="category"
-            defaultValue={categories && categories[getCategoryIndex(values.category.id, categories)]}
-            //renderValue=
-            onChange={onChange}
-          >
-            {categories && categories.map(category => {
-              return (
-              <MenuItem key={category.id} value={category}>{category.name}</MenuItem>
-              )}
-              )}
-          </Select>
-
             <TextField
            id="outlined-multiline-flexible"
            label="image"
            name="image"
            multiline
            maxRows={4}
-           defaultValue={values.image}
+           defaultValue={values.description}
            onChange={onChange}
           />
+          </div>
+
 
         </form>
         <DialogActions>
@@ -154,7 +101,7 @@ export default function DishEdit(props) {
   );
 }
 
-DishEdit.propTypes = {
+CategoryEdit.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
 };
