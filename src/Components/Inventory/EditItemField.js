@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import UndoButton from "./UndoButton";
+import { Prompt } from "react-router";
 
 const queryParams = new URLSearchParams(window.location.search);
 
@@ -21,6 +22,8 @@ export default function EditItemField(props) {
   const [open, setOpen] = React.useState(false);
   const [validInput, setValidInput] = useState(true);
   const [error, setError] = useState("undefined error");
+  const [dbValue, setDbValue] = useState(props.value);
+  const [unsavedChanges, setUnsavedChanges] = useState(false);
 
   const [values, setValues] = React.useState({
     weight: props.value,
@@ -29,10 +32,22 @@ export default function EditItemField(props) {
   function Undo(newValue) {
     console.log("UNDO");
     setValues({ ...values, weight: newValue });
+    CheckIfChanged(newValue);
+  }
+
+  function CheckIfChanged(_value) {
+    if (dbValue == _value) {
+      setUnsavedChanges(false);
+      console.log("set to false");
+    } else {
+      setUnsavedChanges(true);
+      console.log("set to true");
+    }
   }
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
+    CheckIfChanged(event.target.value); //idk why this works
   };
 
   const handleSnackbarOpen = () => {
@@ -61,6 +76,7 @@ export default function EditItemField(props) {
       setError("value can't be below zero");
     }
     item.quantity = _quantity;
+    setDbValue(_quantity);
     console.log(item);
 
     if (_quantity > 0) {
@@ -81,15 +97,18 @@ export default function EditItemField(props) {
         setError(e);
       } finally {
         handleSnackbarOpen();
+        setUnsavedChanges(false);
       }
     } else {
       handleSnackbarOpen();
+      setUnsavedChanges(true);
     }
   }
 
   if (canEdit === "true") {
     return (
       <div>
+        <Prompt message="sure?" />
         <OutlinedInput
           type="number"
           onKeyDown={_handleKeyDown}
@@ -106,6 +125,13 @@ export default function EditItemField(props) {
           }
           label="check"
         />
+        <h5>dbValue:{dbValue}</h5>
+        <h5>inputValue:{values.weight}</h5>
+        {unsavedChanges ? (
+          <h5>unsaved changes?: true</h5>
+        ) : (
+          <h5>unsaved changes?: false</h5>
+        )}
         <UndoButton value={values.weight} Undo={Undo} />
         {validInput ? (
           <Snackbar
