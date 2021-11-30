@@ -6,6 +6,7 @@ import Dish from "./Pages/Dish";
 import AddCategory from "./Pages/AddCategory.js";
 import InventoryPage from "./Pages/InventoryPage.js";
 import AddDish from "./Pages/AddDish.js";
+import Kitchen from "./Pages/Kitchen.js";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route exact path="/addcategory" component={AddCategory} />
           <Route exact path="/adddish" component={AddDish} />
           <Route exact path="/Inventory" component={InventoryPage} />
+          <Route exact path="/Kitchen" component={Kitchen} />
         </Switch>
       </div>
     </Router>
