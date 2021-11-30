@@ -9,6 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import LoginButton from '../Login/LoginButton';
+import LogoutButton from '../Login/LogoutButton';
 
 export default function ButtonAppBar() {
 
@@ -56,6 +57,7 @@ export default function ButtonAppBar() {
             Admin panel
           </Typography>
           <LoginButton/>
+          <LogoutButton/>
         </Toolbar>
       </AppBar>
     </Box>
