@@ -4,9 +4,9 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Category from "./Pages/Category";
 import Dish from "./Pages/Dish";
 import AddCategory from "./Pages/AddCategory.js";
+import Loading from "../src/Components/Login/Loading";
 import InventoryPage from "./Pages/InventoryPage.js";
-import AddDish from "./Pages/AddDish.js";
-import LoginButton from "./Components/Login/LoginButton";
+import AddDish from "./Pages/AddDish";
 import { useAuth0 } from "@auth0/auth0-react";
 
 function App() {
@@ -25,6 +25,7 @@ function App() {
           <Route exact path="/addcategory" component={AddCategory} />
           <Route exact path="/adddish" component={AddDish} />
           <Route exact path="/Inventory" component={InventoryPage} />
+          <Route exact path="/loading" component={Loading} />
         </Switch>
       </div>
     </Router>

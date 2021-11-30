@@ -5,8 +5,10 @@ import useFetch from "../API/useFetch";
 import "../Style/addCrud.css"
 import {Button, TextField, Select, InputLabel, MenuItem} from '@mui/material';
 import { useHistory } from "react-router-dom";
+import Loading from "../Components/Login/Loading";
+import { withAuthenticationRequired } from '@auth0/auth0-react';
 
-export default function AddDish(){
+const AddDish = () => {
   let history = useHistory();
 
   const initialFValues = {
@@ -136,3 +138,7 @@ export default function AddDish(){
     </div>
   )
 }
+
+export default withAuthenticationRequired(AddDish, {
+  onRedirecting: () => <Loading/>,
+});

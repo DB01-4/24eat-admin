@@ -5,8 +5,10 @@ import "../Style/addCrud.css"
 import useFetch from "../API/useFetch"; 
 import {Button, TextField } from '@mui/material';
 import { useHistory } from "react-router-dom";
+import Loading from "../Components/Login/Loading";
+import { withAuthenticationRequired } from '@auth0/auth0-react';
 
-export default function AddCategory(){
+const AddCategory = () => {
   let history = useHistory();
 
   const initialFValues = {
@@ -85,3 +87,7 @@ export default function AddCategory(){
     </div>
   )
 }
+
+export default withAuthenticationRequired(AddCategory, {
+  onRedirecting: () => <Loading/>,
+});

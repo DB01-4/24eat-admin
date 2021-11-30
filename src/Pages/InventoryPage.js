@@ -5,8 +5,9 @@ import "../Style/App.css";
 import { useState } from "react";
 import FetchAndShowTable from "../Components/Inventory/FetchAndShowTable";
 import Typography from "@mui/material/Typography";
-import { Button } from "@mui/material";
 import SelectType from "../Components/Inventory/SelectType";
+import Loading from "../Components/Login/Loading";
+import { withAuthenticationRequired } from '@auth0/auth0-react';
 
 function useForceUpdate() {
   let [value, setState] = useState(true);
@@ -44,4 +45,8 @@ const InventoryPage = () => {
     </div>
   );
 };
-export default InventoryPage;
+
+export default withAuthenticationRequired(InventoryPage, {
+  onRedirecting: () => <Loading/>,
+});
+

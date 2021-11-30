@@ -6,8 +6,10 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import useFetch from "../API/useFetch";
 import DishList from "../Components/Dish/DishList";
+import Loading from "../Components/Login/Loading";
+import { withAuthenticationRequired } from '@auth0/auth0-react';
 
-export default function Dish(){
+const Dish = () => {
 
   const url  = "http://localhost:8080/products/"
 
@@ -39,3 +41,8 @@ export default function Dish(){
           </div>
       )
 }
+
+
+export default withAuthenticationRequired(Dish, {
+  onRedirecting: () => <Loading/>,
+});
