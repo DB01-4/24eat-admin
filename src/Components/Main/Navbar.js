@@ -8,6 +8,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import LoginButton from '../Login/LoginButton';
 
 export default function ButtonAppBar() {
 
@@ -54,7 +55,7 @@ export default function ButtonAppBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Admin panel
           </Typography>
-          <Button color="inherit">Login</Button>
+          <LoginButton/>
         </Toolbar>
       </AppBar>
     </Box>
