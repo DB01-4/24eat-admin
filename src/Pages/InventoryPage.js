@@ -39,7 +39,8 @@ const InventoryPage = () => {
       />
       <div className="flex-container">
         <AddInventory stateChanger={setValue} filter={filter} />
-        <EditInventoryButton />
+        <EditInventoryButton unsavedChanges={true} />
+        {/* Always assumes there were changes */}
       </div>
     </div>
   );
