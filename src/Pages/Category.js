@@ -22,7 +22,7 @@ export default function Category(){
   const [categoriess, setCategories] = useState(null);
 
   useEffect(() => {
-  fetchCategories(url)
+  fetchCategories()
   }, [])
 
   const fetchCategories = () =>
@@ -73,7 +73,14 @@ export default function Category(){
 
               { error && <div>{ error }</div> }
               { isPending && <div>Loading...</div> }
-              { categoriess && <CategoryList fetchCategories={fetchCategories} handleSuccesAlert={handleSuccesAlert} onDelete={handleDelete} url={url} categories={categoriess} /> }
+
+              { categoriess && <CategoryList 
+              fetchCategories={fetchCategories} 
+              handleSuccesAlert={handleSuccesAlert} 
+              onDelete={handleDelete} 
+              url={url} 
+              categories={categoriess} /> }
+
               <Snackbar open={open} autoHideDuration={1000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                   Action performed successfully 

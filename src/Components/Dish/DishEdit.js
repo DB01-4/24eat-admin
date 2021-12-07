@@ -17,7 +17,7 @@ export default function DishEdit(props) {
     image: ''
   }
 
-  const { onClose, selectedCard, open, url} = props;
+  const { onClose, selectedCard, open, url, handleSuccesAlert, fetchDishes } = props;
   const [values, setValues] = useState(initialFValues);
   const { data: categories } = useFetch("http://localhost:8080/categories/"); 
 
@@ -54,10 +54,13 @@ export default function DishEdit(props) {
   axios.put(url+selectedCard.id, values)
     .then(function (response) {
       console.log(response);
-      window.location.reload(false);
+      fetchDishes()
     })
     .catch(function (error) {
      console.log(error);
+  })
+  .finally(function () {
+    handleSuccesAlert()
   });
   handleClose();
 }

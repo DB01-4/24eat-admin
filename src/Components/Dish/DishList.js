@@ -13,7 +13,7 @@ import Paper from '@mui/material/Paper';
 
 export default function DishList  (props) {
 
-  const { dishes, url, onDelete } = props
+  const { dishes, url, onDelete, handleSuccesAlert, fetchDishes } = props
   const [open, setOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState();
 
@@ -41,6 +41,8 @@ export default function DishList  (props) {
         open={open}
         onClose={handleClose}
         url={url}
+        handleSuccesAlert={handleSuccesAlert}
+        fetchDishes={fetchDishes}
         />
       <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
