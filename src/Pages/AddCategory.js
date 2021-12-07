@@ -2,7 +2,6 @@ import React from "react";
 import {useState} from "react";
 import axios from "axios";
 import "../Style/addCrud.css"
-import useFetch from "../API/useFetch"; 
 import {Button, TextField } from '@mui/material';
 import { useHistory } from "react-router-dom";
 
@@ -16,7 +15,6 @@ export default function AddCategory(){
   }
   const [values, setValues] = useState(initialFValues);
   const categoryUrl  = "http://localhost:8080/categories/"
-  const { data: categories, error, isPending } = useFetch(categoryUrl);
 
     
 
@@ -26,17 +24,14 @@ export default function AddCategory(){
       ...values,
       [name]: value
     })
-    console.log(values)
   }
 
   const handleSubmit = e => {
     axios.post(categoryUrl, values)
-      .then(function (response) {
-      console.log(response);
+      .then(function () {
       history.push('/Category')
       })
-      .catch(function (error) {
-      console.log(error);
+      .catch(function () {
       });
   }
         
