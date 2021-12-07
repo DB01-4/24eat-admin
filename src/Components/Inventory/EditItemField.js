@@ -8,6 +8,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import UndoButton from "./UndoButton";
 import { Prompt } from "react-router";
+import UploadIcon from "@mui/icons-material/Upload";
 
 const queryParams = new URLSearchParams(window.location.search);
 
@@ -122,19 +123,27 @@ export default function EditItemField(props) {
               <IconButton
                 onClick={() => UpdateQuantityById(props.id, values.weight)}
               >
-                <Check />
+                {unsavedChanges ? (
+                  <div>
+                    <UploadIcon />
+                  </div>
+                ) : (
+                  <div>
+                    <Check color="primary" />
+                  </div>
+                )}
               </IconButton>
             </InputAdornment>
           }
           label="check"
         />
-        <h5>dbValue:{dbValue}</h5>
+        {/* <h5>dbValue:{dbValue}</h5>
         <h5>inputValue:{values.weight}</h5>
         {unsavedChanges ? (
           <h5>unsaved changes?: true</h5>
         ) : (
           <h5>unsaved changes?: false</h5>
-        )}
+        )} */}
         <UndoButton value={values.weight} Undo={Undo} />
         {validInput ? (
           <Snackbar
