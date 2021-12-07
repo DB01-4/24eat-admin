@@ -26,23 +26,19 @@ export default function CategoryEdit(props) {
       ...values,
       [name]: value
   })
-    console.log(values)
 }
 
   useEffect(() => {
-    console.log("test")
     if (selectedCard != null)
         setValues({...selectedCard})
 }, [selectedCard])
 
   const handleSubmit = e => {
   axios.put(url+selectedCard.id, values)
-    .then(function (response) {
-      console.log(response);
+    .then(function () {
       fetchCategories()
     })
-    .catch(function (error) {
-     console.log(error);
+    .catch(function () {
   })
   .finally(function () {
     handleSuccesAlert()

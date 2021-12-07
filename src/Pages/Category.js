@@ -2,11 +2,10 @@ import React from "react";
 import {useEffect, useState, forwardRef }from "react";
 import axios from "axios";
 import "../Style/categories.css";
-import useFetch from "../API/useFetch";
 import CategoryList from "../Components/Category/CategoryList";
-import Button from '@mui/material/Button';
-import Snackbar from '@mui/material/Snackbar';
+import {Button, Snackbar } from "@mui/material";
 import MuiAlert from '@mui/material/Alert';
+
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -17,9 +16,8 @@ export default function Category(){
 
   const url  = "http://localhost:8080/categories/"
 
-  const { data: categories, error, isPending } = useFetch(url);
   const [open, setOpen] = useState(false);
-  const [categoriess, setCategories] = useState(null);
+  const [categories, setCategories] = useState(null);
 
   useEffect(() => {
   fetchCategories()
@@ -28,22 +26,18 @@ export default function Category(){
   const fetchCategories = () =>
   axios.get(url)
   .then( function (response) {
-    console.log(response)
     setCategories(response.data)
   })
   .catch(function (error){
-    console.log(error)
   });
 
   
   const handleDelete = data => 
   axios.delete(url+data.id)
-    .then(function (response) {
-      console.log(response);
+    .then(function () {
       fetchCategories()
     })
-    .catch(function (error) {
-      console.log(error);
+    .catch(function () {
   })
   .finally(function (){
     handleSuccesAlert()
@@ -70,16 +64,12 @@ export default function Category(){
                   <Button variant="contained" href="/AddCategory">Add category</Button>
               </div>
 
-
-              { error && <div>{ error }</div> }
-              { isPending && <div>Loading...</div> }
-
-              { categoriess && <CategoryList 
+              { categories && <CategoryList 
               fetchCategories={fetchCategories} 
               handleSuccesAlert={handleSuccesAlert} 
               onDelete={handleDelete} 
               url={url} 
-              categories={categoriess} /> }
+              categories={categories} /> }
 
               <Snackbar open={open} autoHideDuration={1000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>

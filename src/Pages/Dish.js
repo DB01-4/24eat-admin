@@ -2,11 +2,9 @@ import React from "react";
 import { useEffect, useState, forwardRef} from "react";
 import axios from "axios";
 import "../Style/categories.css";
-import Button from "@mui/material/Button";
-import useFetch from "../API/useFetch";
-import DishList from "../Components/Dish/DishList";
-import Snackbar from '@mui/material/Snackbar';
+import {Button, Snackbar } from "@mui/material";
 import MuiAlert from '@mui/material/Alert';
+import DishList from "../Components/Dish/DishList";
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -16,9 +14,8 @@ export default function Dish(){
 
   const url  = "http://localhost:8080/products/"
 
-  const { data: dishes, error, isPending } = useFetch(url);
   const [open, setOpen] = useState(false);
-  const [dishess, setDishes] = useState(null);
+  const [dishes, setDishes] = useState(null);
 
   useEffect(() => {
     fetchDishes()
@@ -27,21 +24,17 @@ export default function Dish(){
     const fetchDishes = () =>
     axios.get(url)
     .then( function (response) {
-      console.log(response)
       setDishes(response.data)
     })
-    .catch(function (error){
-      console.log(error)
+    .catch(function (){
     });
   
   const handleDelete = data => 
   axios.delete(url+data.id)
     .then(function (response) {
-      console.log(response);
       fetchDishes()
     })
-    .catch(function (error) {
-      console.log(error);
+    .catch(function () {
   })
   .finally(function () {
     handleSuccesAlert()
@@ -69,15 +62,12 @@ export default function Dish(){
                   <Button variant="contained" href="/AddDish">Add dish</Button>
               </div>
 
-              { error && <div>{ error }</div> }
-              { isPending && <div>Loading...</div> }
-
               { dishes && <DishList 
               fetchDishes={fetchDishes}  
               handleSuccesAlert={handleSuccesAlert}  
               onDelete={handleDelete} 
               url={url}
-              dishes={dishess} /> }
+              dishes={dishes} /> }
 
               <Snackbar open={open} autoHideDuration={1000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
