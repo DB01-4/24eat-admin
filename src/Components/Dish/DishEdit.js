@@ -12,6 +12,7 @@ export default function DishEdit(props) {
     name: '',
     description: null,
     allergies: '',
+    nutrition: '',
     price: 0,
     category: '',
     image: ''
@@ -100,6 +101,18 @@ export default function DishEdit(props) {
            multiline
            maxRows={4}
            defaultValue={values.allergies}
+           onChange={onChange}
+          />
+          </div>
+
+          <div className="textfield">
+            <TextField
+           id="outlined-multiline-flexible"
+           label="nutrition"
+           name="nutrition"
+           multiline
+           maxRows={4}
+           defaultValue={values.nutrition}
            onChange={onChange}
           />
           </div>

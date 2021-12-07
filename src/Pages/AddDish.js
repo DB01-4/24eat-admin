@@ -13,6 +13,7 @@ export default function AddDish(){
     name: '',
     description: null,
     allergies: '',
+    nutrition: '',
     price: 0,
     category: '',
     image: ''
@@ -85,6 +86,17 @@ export default function AddDish(){
           id="outlined-multiline-flexible"
           label="Allergies"
           name="allergies"
+          multiline
+          maxRows={4}
+          onChange={onChange}
+        />
+        </div>
+
+        <div className="txtfield">
+        <TextField
+          id="outlined-multiline-flexible"
+          label="Nutrition"
+          name="nutrition"
           multiline
           maxRows={4}
           onChange={onChange}
