@@ -13,7 +13,7 @@ import Paper from '@mui/material/Paper';
 
 export default function CategoryList  (props) {
 
-  const { categories, url, onDelete } = props
+  const { categories, url, onDelete, handleSuccesAlert, fetchCategories } = props
   const [open, setOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState();
 
@@ -41,6 +41,8 @@ export default function CategoryList  (props) {
         open={open}
         onClose={handleClose}
         url={url}
+        handleSuccesAlert={handleSuccesAlert}
+        fetchCategories={fetchCategories}
         />
       <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">

@@ -13,7 +13,7 @@ export default function CategoryEdit(props) {
     image: ''
 }
 
-  const { onClose, selectedCard, open, url} = props;
+  const { onClose, selectedCard, open, url, handleSuccesAlert, fetchCategories } = props;
   const [values, setValues] = useState(initialFValues);
 
   const handleClose = () => {
@@ -39,10 +39,13 @@ export default function CategoryEdit(props) {
   axios.put(url+selectedCard.id, values)
     .then(function (response) {
       console.log(response);
-      window.location.reload(false);
+      fetchCategories()
     })
     .catch(function (error) {
      console.log(error);
+  })
+  .finally(function () {
+    handleSuccesAlert()
   });
   handleClose();
 }
