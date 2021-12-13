@@ -27,7 +27,7 @@ export default function AddCategory() {
     })
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = async (e) => {
     const token = await getAccessTokenSilently();
     axios
     .post(`${categoryUrl}/api/private/categories`, values, {

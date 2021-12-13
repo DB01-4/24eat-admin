@@ -3,16 +3,30 @@ import { useState, useEffect } from "react";
 import {Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@mui/material';
 import Dialog from './CategoryEdit';
 import { useAuth0 } from "@auth0/auth0-react";
+import axios from 'axios'
 
 
 export default function CategoryList  (props) {
 
   const { categories, url, onDelete, handleSuccesAlert, fetchCategories } = props
-
+  const [open, setOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState();
+  
   const serverUrl = "http://localhost:8080";
 
   const { getAccessTokenSilently, isLoading, user } = useAuth0();
 
+
+  const handleClickOpen = (value) => {
+    setSelectedCard({...value, value})
+    setOpen(true);
+  };
+
+
+  const handleClose = () => {
+    setOpen(false);
+
+  };
 
   const deleteCategories = async (data) => {
     try {

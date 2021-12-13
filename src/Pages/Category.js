@@ -13,11 +13,14 @@ const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-
 const Category = () => {
+  const serverUrl = "http://localhost:8080";
+  const url= "http://localhost:8080"
 
   const [open, setOpen] = useState(false);
   const [categories, setCategories] = useState(null);
+
+  const { getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
   fetchCategories()
@@ -62,7 +65,6 @@ const Category = () => {
               { categories && <CategoryList 
               fetchCategories={fetchCategories} 
               handleSuccesAlert={handleSuccesAlert} 
-              onDelete={handleDelete} 
               url={url} 
               categories={categories} /> }
 

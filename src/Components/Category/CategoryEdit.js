@@ -40,7 +40,7 @@ export default function CategoryEdit(props) {
         setValues({...selectedCard})
 }, [selectedCard])
 
-  const handleSubmit = e => {
+  const handleSubmit = async (e) => {
     const token = await getAccessTokenSilently();
   axios
   .put(`${categoryUrl}/api/private/categories/` + selectedCard.id, values, {
