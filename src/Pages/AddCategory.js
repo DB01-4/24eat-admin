@@ -1,87 +1,87 @@
 import React from "react";
-import {useState} from "react";
+import { useState } from "react";
 import axios from "axios";
-import "../Style/addCrud.css"
-import useFetch from "../API/useFetch"; 
-import {Button, TextField } from '@mui/material';
+import "../Style/addCrud.css";
+import { Button, TextField } from "@mui/material";
 import { useHistory } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
-export default function AddCategory(){
+export default function AddCategory() {
   let history = useHistory();
 
   const initialFValues = {
-    name: '',
+    name: "",
     description: null,
-    image: ''
-  }
+    image: "",
+  };
   const [values, setValues] = useState(initialFValues);
-  const categoryUrl  = "http://localhost:8080/categories/"
-  const { data: categories, error, isPending } = useFetch(categoryUrl);
+  const categoryUrl = "http://localhost:8080";
+  const { getAccessTokenSilently } = useAuth0();
 
-    
-
-  const onChange = e => {
-    const { name, value } = e.target
+  const onChange = (e) => {
+    const { name, value } = e.target;
     setValues({
       ...values,
-      [name]: value
-    })
-    console.log(values)
-  }
+      [name]: value,
+    });
+  };
 
-  const handleSubmit = e => {
-    axios.post(categoryUrl, values)
-      .then(function (response) {
-      console.log(response);
-      history.push('/Category')
+  const handleSubmit = async (e) => {
+    const token = await getAccessTokenSilently();
+    axios
+      .post(`${categoryUrl}/api/private/categories`, values, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .catch(function (error) {
-      console.log(error);
-      });
-  }
-        
-  
+      .then(function () {
+        history.push("/Category");
+      })
+      .catch(function () {});
+  };
+
   return (
     <div>
       <h1>Add Categories</h1>
       <form>
         <div className="txtfield">
-        <TextField
-          id="outlined-multiline-flexible"
-          label="Category name"
-          name="name"
-          multiline
-          maxRows={4}
-          onChange={onChange}
-        />
+          <TextField
+            id="outlined-multiline-flexible"
+            label="Category name"
+            name="name"
+            multiline
+            maxRows={4}
+            onChange={onChange}
+          />
         </div>
 
         <div className="txtfield">
-        <TextField
-          id="outlined-multiline-flexible"
-          label="Description"
-          name="description"
-          multiline
-          maxRows={4}
-          onChange={onChange}
-        />
+          <TextField
+            id="outlined-multiline-flexible"
+            label="Description"
+            name="description"
+            multiline
+            maxRows={4}
+            onChange={onChange}
+          />
         </div>
 
         <div className="txtfield">
-        <TextField
-          id="outlined-multiline-flexible"
-          label="Image url"
-          name="image"
-          multiline
-          maxRows={4}
-          onChange={onChange}
-        />
+          <TextField
+            id="outlined-multiline-flexible"
+            label="Image url"
+            name="image"
+            multiline
+            maxRows={4}
+            onChange={onChange}
+          />
         </div>
-
-        </form>
-        <div className="btn">
-        <Button onClick={handleSubmit} autoFocus>Submit</Button>
-        </div>
+      </form>
+      <div className="btn">
+        <Button onClick={handleSubmit} autoFocus>
+          Submit
+        </Button>
+      </div>
     </div>
-  )
+  );
 }

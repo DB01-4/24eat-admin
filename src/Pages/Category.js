@@ -1,41 +1,16 @@
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "../Style/categories.css";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import useFetch from "../API/useFetch";
+import { useAuth0 } from "@auth0/auth0-react";
+import Loading from "../Components/Login/Loading";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 import CategoryList from "../Components/Category/CategoryList";
 
-export default function Category(){
+const Category = () => {
+  return <CategoryList />;
+};
 
-  const url  = "http://localhost:8080/categories/"
+// export default withAuthenticationRequired(Category, {
+//   onRedirecting: () => <Loading />,
+// });
 
-  const { data: categories, error, isPending } = useFetch(url);
-  
-  const handleDelete = data => 
-  axios.delete(url+data.id)
-    .then(function (response) {
-      console.log(response);
-      window.location.reload(false);
-    })
-    .catch(function (error) {
-      console.log(error);
-  });
-
-      return (
-          <div>
-              <div>
-                  <h1>Categories</h1>
-              </div>
-              <div>
-                  <Button variant="contained" href="/AddCategory">Add category</Button>
-              </div>
-
-
-              { error && <div>{ error }</div> }
-              { isPending && <div>Loading...</div> }
-              { categories && <CategoryList onDelete={handleDelete} url={url} categories={categories} /> }
-          </div>
-      )
-}
+export default Category;
