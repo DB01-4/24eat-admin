@@ -35,10 +35,6 @@ const InventoryPage = () => {
     console.log("boolCount: " + boolCount);
   }
 
-  function CountChildren(bool) {
-    setChildCount(bool);
-    console.log("childCountbool: " + bool);
-  }
   return (
     <div>
       <h1>
