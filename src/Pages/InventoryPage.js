@@ -11,7 +11,6 @@ function useForceUpdate() {
   let [value, setState] = useState(true);
   return () => setState(!value);
 }
-let count = 0;
 
 const InventoryPage = () => {
   const [value, setValue] = useState(1);
