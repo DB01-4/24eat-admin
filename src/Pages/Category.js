@@ -1,7 +1,9 @@
-import React from "react";
-import {useEffect, useState, forwardRef }from "react";
+import React, { useEffect, useState, forwardRef } from "react";
 import axios from "axios";
 import "../Style/categories.css";
+import { useAuth0 } from "@auth0/auth0-react";
+import Loading from "../Components/Login/Loading";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 import CategoryList from "../Components/Category/CategoryList";
 import {Button, Snackbar } from "@mui/material";
 import MuiAlert from '@mui/material/Alert';
@@ -11,37 +13,33 @@ const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-
-export default function Category(){
-
-  const url  = "http://localhost:8080/categories/"
+const Category = () => {
+  const serverUrl = "http://localhost:8080";
+  const url= "http://localhost:8080"
 
   const [open, setOpen] = useState(false);
   const [categories, setCategories] = useState(null);
 
+  const { getAccessTokenSilently } = useAuth0();
+
   useEffect(() => {
   fetchCategories()
   }, [])
-
-  const fetchCategories = () =>
-  axios.get(url)
+  
+  const fetchCategories = async () =>{
+  const token = await getAccessTokenSilently();
+  axios
+  .get(`${serverUrl}/api/private/categories`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
   .then( function (response) {
     setCategories(response.data)
   })
   .catch(function (error){
   });
-
-  
-  const handleDelete = data => 
-  axios.delete(url+data.id)
-    .then(function () {
-      fetchCategories()
-    })
-    .catch(function () {
-  })
-  .finally(function (){
-    handleSuccesAlert()
-  });
+}
 
   const handleSuccesAlert = () => {
     setOpen(true);
@@ -67,7 +65,6 @@ export default function Category(){
               { categories && <CategoryList 
               fetchCategories={fetchCategories} 
               handleSuccesAlert={handleSuccesAlert} 
-              onDelete={handleDelete} 
               url={url} 
               categories={categories} /> }
 
@@ -79,3 +76,7 @@ export default function Category(){
           </div>
       )
 }
+
+ export default withAuthenticationRequired(Category, {
+   onRedirecting: () => <Loading />,
+ });
