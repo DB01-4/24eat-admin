@@ -52,6 +52,7 @@ export default function CategoryEdit(props) {
   })
   .finally(function () {
     handleSuccesAlert()
+    fetchCategories()
   });
   handleClose();
 }

@@ -15,7 +15,7 @@ export default function AddCategory() {
     image: "",
   };
   const [values, setValues] = useState(initialFValues);
-  const categoryUrl  = "http://localhost:8080/categories/"
+  const categoryUrl  = "http://localhost:8080/"
   const categoryUrll = "http://localhost:8080";
   const { getAccessTokenSilently } = useAuth0();
 
@@ -30,7 +30,7 @@ export default function AddCategory() {
   const handleSubmit = async (e) => {
     const token = await getAccessTokenSilently();
     axios
-    .post(`${categoryUrl}/api/private/categories`, values, {
+    .post(`${categoryUrl}api/private/categories`, values, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
