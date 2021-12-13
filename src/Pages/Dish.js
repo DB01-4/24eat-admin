@@ -5,14 +5,15 @@ import "../Style/categories.css";
 import {Button, Snackbar } from "@mui/material";
 import MuiAlert from '@mui/material/Alert';
 import DishList from "../Components/Dish/DishList";
+import Loading from "../Components/Login/Loading";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export default function Dish(){
-
-  const url  = "http://localhost:8080/products/"
+const Dish = () => {
+  const url = "http://localhost:8080/api/public/products/";
 
   const [open, setOpen] = useState(false);
   const [dishes, setDishes] = useState(null);
@@ -58,10 +59,6 @@ export default function Dish(){
                   <h1>Dishes</h1>
               </div>
 
-              <div>
-                  <Button variant="contained" href="/AddDish">Add dish</Button>
-              </div>
-
               { dishes && <DishList 
               fetchDishes={fetchDishes}  
               handleSuccesAlert={handleSuccesAlert}  
@@ -75,5 +72,8 @@ export default function Dish(){
                 </Alert>
               </Snackbar>
           </div>
-      )
-}
+  );
+};
+export default withAuthenticationRequired(Dish, {
+  onRedirecting: () => <Loading />,
+});

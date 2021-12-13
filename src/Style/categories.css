@@ -1,14 +1,18 @@
 .title {
-    text-align: center;
-    margin-top: 100px;
+  text-align: center;
+  margin-top: 100px;
 }
 
 .field {
-    text-align: center;
-    margin-top: 20px;
+  text-align: center;
+  margin-top: 20px;
 }
 
 .inputbtn {
-    text-align: center;
-    margin-top: 20px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.button {
+  margin-top: 100px;
 }
