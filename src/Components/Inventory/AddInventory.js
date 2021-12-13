@@ -6,7 +6,6 @@ import TextField from "@mui/material/TextField";
 import { useState } from "react";
 
 export default function AddInventory({ stateChanger, filter }) {
-  console.log(filter);
   const {
     register,
     handleSubmit,

@@ -20,42 +20,26 @@ const AddDish = () => {
     image: "",
   };
   const [values, setValues] = useState(initialFValues);
-  const dishUrl = "http://localhost:8080/products/";
-  const { data: dishes, error, isPending } = useFetch(dishUrl);
-  const { data: categories } = useFetch("http://localhost:8080/categories/");
+  const dishUrl  = "http://localhost:8080/products/"
+  const { data: categories } = useFetch("http://localhost:8080/categories/"); 
 
   const onChange = (e) => {
     const { name, value } = e.target;
     setValues({
       ...values,
-      [name]: value,
-    });
-    console.log(values);
-  };
+      [name]: value
+    })
+  }
 
-  const handleSubmit = (e) => {
-    axios
-      .post(dishUrl, values)
-      .then(function (response) {
-        console.log(response);
-        history.push("/Dish");
+  const handleSubmit = e => {
+    axios.post(dishUrl, values)
+      .then(function () {
+      history.push('/Dish')
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch(function () {
       });
-  };
-
-  const handleDelete = (data) =>
-    axios
-      .delete(dishUrl + data.id)
-      .then(function (response) {
-        console.log(response);
-        window.location.reload(false);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
+  }     
+  
   return (
     <div>
       <h1>Dishes</h1>
