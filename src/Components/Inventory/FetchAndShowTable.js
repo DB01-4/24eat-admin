@@ -10,6 +10,7 @@ export default class FetchAndShowTable extends Component {
     filter: "",
     CountChildren: "",
     DetectChanges: "",
+    stateChanger: "",
   };
 
   async componentDidMount() {
@@ -23,6 +24,7 @@ export default class FetchAndShowTable extends Component {
       filter: this.props.filter,
       CountChildren: this.props.CountChildren,
       DetectChanges: this.props.DetectChanges,
+      stateChanger: this.props.stateChanger,
     });
   }
 
@@ -42,6 +44,7 @@ export default class FetchAndShowTable extends Component {
         filter: this.props.filter,
         CountChildren: this.props.CountChildren,
         DetectChanges: this.props.DetectChanges,
+        stateChanger: this.props.stateChanger,
       });
     }
   }

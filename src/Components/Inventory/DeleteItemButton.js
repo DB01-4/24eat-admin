@@ -8,9 +8,14 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Button from "@mui/material/Button";
+import { useState } from "react";
+import { Snackbar } from "@mui/material";
+import { Alert } from "@mui/material";
 
 const DeleteItemButton = (props) => {
   const [open, setOpen] = React.useState(false);
+  const [count, setCount] = useState(0);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -20,15 +25,37 @@ const DeleteItemButton = (props) => {
     setOpen(false);
   };
 
+  const handleSnackbarOpen = () => {
+    setSnackbarOpen(true);
+  };
+
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setSnackbarOpen(false);
+  };
+
+  function HandleReload() {
+    setCount(count + 1);
+    handleSnackbarOpen();
+    props.stateChanger(count);
+    handleClose();
+  }
+
   function DeleteItem(id) {
     axios
       .delete("http://localhost:8084/api/delete/" + id)
+      .then(function (response) {
+        HandleReload();
+      })
       .catch(function (error) {
         console.log(error);
         console.log(id);
       });
-    handleClose();
-    window.location.reload();
+
+    // window.location.reload();
   }
   return (
     <div>
@@ -59,6 +86,19 @@ const DeleteItemButton = (props) => {
           </Button>
         </DialogActions>
       </Dialog>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={2000}
+        onClose={handleSnackbarClose}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          {props.item} Deleted Succesfully.
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
