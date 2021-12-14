@@ -11,6 +11,7 @@ export default function AddInventory({ stateChanger, filter }) {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  console.log(filter);
   const [count, setCount] = useState(0);
   const onSubmit = (data) =>
     axios
@@ -43,7 +44,7 @@ export default function AddInventory({ stateChanger, filter }) {
             id="outlined-disabled"
             label="Type"
             value={filter}
-            {...register("type", { value: filter })}
+            {...register("type", { value: "produce" })}
           />
           {errors.exampleRequired && <p>This field is required</p>}
 

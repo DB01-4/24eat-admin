@@ -40,7 +40,7 @@ const DeleteItemButton = (props) => {
   function HandleReload() {
     setCount(count + 1);
     handleSnackbarOpen();
-    props.stateChanger(count);
+    props.stateChanger(count + 10000000);
     handleClose();
   }
 

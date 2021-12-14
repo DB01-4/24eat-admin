@@ -7,7 +7,7 @@ import FetchAndShowTable from "../Components/Inventory/FetchAndShowTable";
 import Typography from "@mui/material/Typography";
 import SelectType from "../Components/Inventory/SelectType";
 import Loading from "../Components/Login/Loading";
-import { withAuthenticationRequired } from '@auth0/auth0-react';
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 function useForceUpdate() {
   let [value, setState] = useState(true);
@@ -15,7 +15,7 @@ function useForceUpdate() {
 }
 
 const InventoryPage = () => {
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState(-1);
   const [filter, setFilter] = useState("produce");
   let forceUpdate = useForceUpdate();
   const [childCount, setChildCount] = useState();
@@ -61,6 +61,5 @@ const InventoryPage = () => {
 };
 
 export default withAuthenticationRequired(InventoryPage, {
-  onRedirecting: () => <Loading/>,
+  onRedirecting: () => <Loading />,
 });
-
