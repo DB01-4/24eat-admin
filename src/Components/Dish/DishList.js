@@ -45,6 +45,7 @@ export default function DishList  (props) {
             <TableCell align="left">Description</TableCell>
             <TableCell align="left">price</TableCell>
             <TableCell align="left">allergies</TableCell>
+            <TableCell align="left">nutrition</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -60,6 +61,7 @@ export default function DishList  (props) {
               <TableCell align="left">{dish.description}</TableCell>
               <TableCell align="left">{dish.price}</TableCell>
               <TableCell align="left">{dish.allergies}</TableCell>
+              <TableCell align="left">{dish.nutrition}</TableCell>
               <TableCell align="left"><Button onClick={() => handleClickOpen(dish)}>Edit</Button></TableCell>
               <TableCell align="left"><Button onClick={() => handleDelete(dish)}>Delete</Button></TableCell>
             </TableRow>
