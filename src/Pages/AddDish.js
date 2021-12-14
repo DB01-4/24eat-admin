@@ -14,12 +14,8 @@ const AddDish = () => {
   const initialFValues = {
     name: "",
     description: null,
-<<<<<<< HEAD
     allergies: '',
     nutrition: '',
-=======
-    allergies: "",
->>>>>>> origin/development
     price: 0,
     category: "",
     image: "",
@@ -83,7 +79,6 @@ const AddDish = () => {
         </div>
 
         <div className="txtfield">
-<<<<<<< HEAD
         <TextField
           id="outlined-multiline-flexible"
           label="Nutrition"
@@ -103,16 +98,6 @@ const AddDish = () => {
           maxRows={1}
           onChange={onChange}
         />
-=======
-          <TextField
-            id="outlined-multiline-flexible"
-            label="Price"
-            name="price"
-            type="Number"
-            maxRows={1}
-            onChange={onChange}
-          />
->>>>>>> origin/development
         </div>
 
         <div className="txtfield">
