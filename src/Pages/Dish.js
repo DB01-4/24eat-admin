@@ -1,27 +1,57 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useState, forwardRef} from "react";
 import axios from "axios";
 import "../Style/categories.css";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import useFetch from "../API/useFetch";
+import {Button, Snackbar } from "@mui/material";
+import MuiAlert from '@mui/material/Alert';
 import DishList from "../Components/Dish/DishList";
+import Loading from "../Components/Login/Loading";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 
-export default function Dish(){
+const Alert = forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
-  const url  = "http://localhost:8080/products/"
+const Dish = () => {
+  const url = "http://localhost:8080/api/public/products/";
 
-  const { data: dishes, error, isPending } = useFetch(url);
+  const [open, setOpen] = useState(false);
+  const [dishes, setDishes] = useState(null);
 
+  useEffect(() => {
+    fetchDishes()
+    }, [])
+  
+    const fetchDishes = () =>
+    axios.get(url)
+    .then( function (response) {
+      setDishes(response.data)
+    })
+    .catch(function (){
+    });
+  
   const handleDelete = data => 
   axios.delete(url+data.id)
     .then(function (response) {
-      console.log(response);
-      window.location.reload(false);
+      fetchDishes()
     })
-    .catch(function (error) {
-      console.log(error);
+    .catch(function () {
+  })
+  .finally(function () {
+    handleSuccesAlert()
   });
+
+  const handleSuccesAlert = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
       return (
           <div>
@@ -29,13 +59,21 @@ export default function Dish(){
                   <h1>Dishes</h1>
               </div>
 
-              <div>
-                  <Button variant="contained" href="/AddDish">Add dish</Button>
-              </div>
+              { dishes && <DishList 
+              fetchDishes={fetchDishes}  
+              handleSuccesAlert={handleSuccesAlert}  
+              onDelete={handleDelete} 
+              url={url}
+              dishes={dishes} /> }
 
-              { error && <div>{ error }</div> }
-              { isPending && <div>Loading...</div> }
-              { dishes && <DishList onDelete={handleDelete} url={url} dishes={dishes} /> }
+              <Snackbar open={open} autoHideDuration={1000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                  Action performed successfully 
+                </Alert>
+              </Snackbar>
           </div>
-      )
-}
+  );
+};
+export default withAuthenticationRequired(Dish, {
+  onRedirecting: () => <Loading />,
+});

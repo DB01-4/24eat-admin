@@ -14,7 +14,6 @@ export default function UndoButton({ Undo, value }) {
   const [originalValue, SetOriginalValue] = useState(value);
   const [newValue, SetNewValue] = useState(value);
   React.useEffect(() => {
-    console.log("undo updated");
     SetNewValue(value);
   });
 
