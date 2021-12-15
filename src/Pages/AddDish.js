@@ -22,7 +22,7 @@ const AddDish = () => {
   };
   const [values, setValues] = useState(initialFValues);
 
-  const dishUrl  = "https://db01-4-menuservice.herokuapp.com/api/private/products"
+  const baseUrl  = "https://db01-4-menuservice.herokuapp.com"
 
   const [categories, setCategories] = useState(null);
   const { getAccessTokenSilently } = useAuth0();
@@ -34,7 +34,7 @@ const AddDish = () => {
   const fetchcat = async () => {
     const token = await getAccessTokenSilently();
     axios
-      .get(`${dishUrl}/api/private/categories`, {
+      .get(`${baseUrl}/api/private/categories`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -56,7 +56,7 @@ const AddDish = () => {
   const handleSubmit = async (e) => {
     const token = await getAccessTokenSilently();
     axios
-      .post(`${dishUrl}/api/private/products`, values, {
+      .post(`${baseUrl}/api/private/products`, values, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
