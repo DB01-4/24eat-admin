@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
-import useFetch from "../API/useFetch";
 import "../Style/addCrud.css";
 import { Button, TextField, Select, InputLabel, MenuItem } from "@mui/material";
 import { useHistory } from "react-router-dom";
 import Loading from "../Components/Login/Loading";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const AddDish = () => {
   let history = useHistory();
@@ -20,26 +20,50 @@ const AddDish = () => {
     image: "",
   };
   const [values, setValues] = useState(initialFValues);
-  const dishUrl  = "http://localhost:8080/products/"
-  const { data: categories } = useFetch("http://localhost:8080/categories/"); 
+  const dishUrl = "http://localhost:8080";
+  const [categories, setCategories] = useState(null);
+  const { getAccessTokenSilently } = useAuth0();
+
+  useEffect(() => {
+    fetchcat();
+  }, []);
+
+  const fetchcat = async () => {
+    const token = await getAccessTokenSilently();
+    axios
+      .get(`${dishUrl}/api/private/categories`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(function (response) {
+        setCategories(response.data);
+      })
+      .catch(function (error) {});
+  };
 
   const onChange = (e) => {
     const { name, value } = e.target;
     setValues({
       ...values,
-      [name]: value
-    })
-  }
+      [name]: value,
+    });
+  };
 
-  const handleSubmit = e => {
-    axios.post(dishUrl, values)
-      .then(function () {
-      history.push('/Dish')
+  const handleSubmit = async (e) => {
+    const token = await getAccessTokenSilently();
+    axios
+      .post(`${dishUrl}/api/private/products`, values, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .catch(function () {
-      });
-  }     
-  
+      .then(function () {
+        history.push("/Dish");
+      })
+      .catch(function () {});
+  };
+
   return (
     <div>
       <h1>Dishes</h1>
