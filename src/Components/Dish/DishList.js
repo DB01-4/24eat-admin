@@ -19,8 +19,6 @@ export default function DishList(props) {
   const [open, setOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState();
 
-  const serverUrl = "http://localhost:8080";
-
   const { getAccessTokenSilently } = useAuth0();
 
   const handleClickOpen = (value) => {
@@ -37,7 +35,7 @@ export default function DishList(props) {
       const token = await getAccessTokenSilently();
 
       axios
-        .delete(`${serverUrl}/api/private/products/${data.id}`, {
+        .delete(`${url}/api/private/products/${data.id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
