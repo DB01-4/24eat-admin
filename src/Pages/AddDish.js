@@ -21,8 +21,8 @@ const AddDish = () => {
     image: "",
   };
   const [values, setValues] = useState(initialFValues);
-  const dishUrl  = "http://localhost:8080/products/"
-  const { data: categories } = useFetch("http://localhost:8080/categories/"); 
+  const dishUrl  = "https://db01-4-menuservice.herokuapp.com/api/private/products"
+  const { data: categories } = useFetch("https://db01-4-menuservice.herokuapp.com/api/private/categories"); 
 
   const onChange = (e) => {
     const { name, value } = e.target;

@@ -15,8 +15,7 @@ export default function AddCategory() {
     image: "",
   };
   const [values, setValues] = useState(initialFValues);
-  const categoryUrl  = "http://localhost:8080/"
-  const categoryUrll = "http://localhost:8080";
+  const categoryUrl  = "https://db01-4-menuservice.herokuapp.com/"
   const { getAccessTokenSilently } = useAuth0();
 
   const onChange = (e) => {

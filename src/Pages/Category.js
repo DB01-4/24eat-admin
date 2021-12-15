@@ -13,9 +13,9 @@ const Alert = forwardRef(function Alert(props, ref) {
 });
 
 const Category = () => {
-  const serverUrl = "http://localhost:8080";
-  const url = "http://localhost:8080";
 
+  const serverUrl = "https://db01-4-menuservice.herokuapp.com";
+  const url= "https://db01-4-menuservice.herokuapp.com"
   const [open, setOpen] = useState(false);
   const [categories, setCategories] = useState(null);
 
@@ -23,7 +23,7 @@ const Category = () => {
 
   useEffect(() => {
     fetchCategories();
-  }, []);
+  });
 
   const fetchCategories = async () => {
     const token = await getAccessTokenSilently();
