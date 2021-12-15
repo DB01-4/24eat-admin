@@ -24,7 +24,7 @@ const Category = () => {
 
   useEffect(() => {
   fetchCategories()
-  }, [])
+  })
   
   const fetchCategories = async () =>{
   const token = await getAccessTokenSilently();
