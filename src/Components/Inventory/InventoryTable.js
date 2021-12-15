@@ -76,7 +76,11 @@ export default function InventoryTable({ props }) {
                           </TableCell>
                         );
                       })}
-                      <DeleteItemButton id={row.id} item={row.name} />
+                      <DeleteItemButton
+                        id={row.id}
+                        item={row.name}
+                        stateChanger={props.stateChanger}
+                      />
                     </TableRow>
                   ) : (
                     <div />

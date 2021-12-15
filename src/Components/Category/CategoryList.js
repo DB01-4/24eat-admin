@@ -1,26 +1,16 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import {
-  Button,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-} from "@mui/material";
-import Dialog from "./CategoryEdit";
+import React from 'react';
+import { useState } from "react";
+import {Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@mui/material';
+import Dialog from './CategoryEdit';
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 
-export default function CategoryList(props) {
-  const { categories, url, onDelete, handleSuccesAlert, fetchCategories } =
-    props;
+
+export default function CategoryList  (props) {
+
+  const { categories, url, handleSuccesAlert, fetchCategories } = props
   const [open, setOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState();
-
-  const serverUrl = "http://localhost:8080";
 
   const { getAccessTokenSilently } = useAuth0();
 
@@ -40,7 +30,7 @@ export default function CategoryList(props) {
 
       //private endpoint
       axios
-        .delete(`${serverUrl}/api/private/categories/${data.id}`, {
+        .delete(`${url}/api/private/categories/${data.id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

@@ -19,7 +19,8 @@ export default function DishEdit(props) {
   const initialFValues = {
     name: "",
     description: null,
-    allergies: "",
+    allergies: '',
+    nutrition: '',
     price: 0,
     category: "",
     image: "",
@@ -129,6 +130,7 @@ export default function DishEdit(props) {
             multiline
             maxRows={4}
             defaultValue={values.allergies}
+            defaultValue={values.nutrition}
             onChange={onChange}
           />
         </div>

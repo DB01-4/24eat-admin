@@ -18,6 +18,10 @@ return (
 <input></input>
 <br></br>
 
+<label>Nutrition:</label>
+<input></input>
+<br></br>
+
 <label>Price:</label>
 <input></input>
 <br></br>

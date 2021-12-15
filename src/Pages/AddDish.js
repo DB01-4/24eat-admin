@@ -14,19 +14,22 @@ const AddDish = () => {
   const initialFValues = {
     name: "",
     description: null,
-    allergies: "",
+    allergies: '',
+    nutrition: '',
     price: 0,
     category: "",
     image: "",
   };
   const [values, setValues] = useState(initialFValues);
-  const dishUrl = "http://localhost:8080";
+
+  const dishUrl  = "https://db01-4-menuservice.herokuapp.com/api/private/products"
+
   const [categories, setCategories] = useState(null);
   const { getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
     fetchcat();
-  }, []);
+  });
 
   const fetchcat = async () => {
     const token = await getAccessTokenSilently();
@@ -102,14 +105,25 @@ const AddDish = () => {
         </div>
 
         <div className="txtfield">
-          <TextField
-            id="outlined-multiline-flexible"
-            label="Price"
-            name="price"
-            type="Number"
-            maxRows={1}
-            onChange={onChange}
-          />
+        <TextField
+          id="outlined-multiline-flexible"
+          label="Nutrition"
+          name="nutrition"
+          multiline
+          maxRows={4}
+          onChange={onChange}
+        />
+        </div>
+
+        <div className="txtfield">
+        <TextField
+          id="outlined-multiline-flexible"
+          label="Price"
+          name="price"
+          type="Number"
+          maxRows={1}
+          onChange={onChange}
+        />
         </div>
 
         <div className="txtfield">
