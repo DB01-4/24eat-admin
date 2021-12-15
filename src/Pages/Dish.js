@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState, forwardRef } from "react";
 import axios from "axios";
 import "../Style/categories.css";
-import { Snackbar } from "@mui/material";
+import {Button, Snackbar } from "@mui/material";
 import MuiAlert from '@mui/material/Alert';
 import DishList from "../Components/Dish/DishList";
 import Loading from "../Components/Login/Loading";
@@ -21,7 +21,7 @@ const Dish = () => {
 
   useEffect(() => {
     fetchDishes();
-  }, []);
+  });
 
   const fetchDishes = async () => {
     const token = await getAccessTokenSilently();

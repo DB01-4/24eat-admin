@@ -30,17 +30,16 @@ export default function DishEdit(props) {
     props;
   const [values, setValues] = useState(initialFValues);
   const [categories, setCategories] = useState(null);
-  const dishUrl = "http://localhost:8080";
   const { getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
     fetchCategories();
-  }, []);
+  });
 
   const fetchCategories = async () => {
     const token = await getAccessTokenSilently();
     axios
-      .get(`${dishUrl}/api/private/categories`, {
+      .get(`${url}/api/private/categories`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -81,7 +80,7 @@ export default function DishEdit(props) {
   const handleSubmit = async (e) => {
     const token = await getAccessTokenSilently();
     axios
-      .put(`${dishUrl}/api/private/products/` + selectedCard.id, values, {
+      .put(`${url}/api/private/products/` + selectedCard.id, values, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -130,6 +129,16 @@ export default function DishEdit(props) {
             multiline
             maxRows={4}
             defaultValue={values.allergies}
+            onChange={onChange}
+          />
+        </div>
+        <div className="textfield">
+          <TextField
+            id="outlined-multiline-flexible"
+            label="allergies"
+            name="allergies"
+            multiline
+            maxRows={4}
             defaultValue={values.nutrition}
             onChange={onChange}
           />
