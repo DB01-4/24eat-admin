@@ -20,7 +20,6 @@ export default function CategoryEdit(props) {
 
   const { onClose, selectedCard, open, url, handleSuccesAlert, fetchCategories } = props;
   const [values, setValues] = useState(initialFValues);
-  const categoryUrl = "http://localhost:8080";
   const { getAccessTokenSilently } = useAuth0();
 
   const handleClose = () => {
@@ -43,7 +42,7 @@ export default function CategoryEdit(props) {
   const handleSubmit = async (e) => {
     const token = await getAccessTokenSilently();
   axios
-  .put(`${categoryUrl}/api/private/categories/` + selectedCard.id, values, {
+  .put(`${url}/api/private/categories/` + selectedCard.id, values, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

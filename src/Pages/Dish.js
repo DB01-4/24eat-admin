@@ -13,7 +13,7 @@ const Alert = forwardRef(function Alert(props, ref) {
 });
 
 const Dish = () => {
-  const url = "http://localhost:8080/api/public/products/";
+  const url = "https://db01-4-menuservice.herokuapp.com/";
 
   const [open, setOpen] = useState(false);
   const [dishes, setDishes] = useState(null);
