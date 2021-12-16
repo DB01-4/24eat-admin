@@ -2,8 +2,8 @@ import React from "react";
 import { useEffect, useState, forwardRef } from "react";
 import axios from "axios";
 import "../Style/categories.css";
-import {Button, Snackbar } from "@mui/material";
-import MuiAlert from '@mui/material/Alert';
+import { Button, Snackbar } from "@mui/material";
+import MuiAlert from "@mui/material/Alert";
 import DishList from "../Components/Dish/DishList";
 import Loading from "../Components/Login/Loading";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
@@ -26,7 +26,7 @@ const Dish = () => {
   const fetchDishes = async () => {
     const token = await getAccessTokenSilently();
     axios
-      .get(`${url}/api/private/products/`, {
+      .get(`${url}/api/public/products/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

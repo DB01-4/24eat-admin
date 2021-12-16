@@ -1,14 +1,21 @@
-import React from 'react';
+import React from "react";
 import { useState } from "react";
-import {Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@mui/material';
-import Dialog from './CategoryEdit';
+import {
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from "@mui/material";
+import Dialog from "./CategoryEdit";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 
-
-export default function CategoryList  (props) {
-
-  const { categories, url, handleSuccesAlert, fetchCategories } = props
+export default function CategoryList(props) {
+  const { categories, url, handleSuccesAlert, fetchCategories } = props;
   const [open, setOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState();
 

@@ -13,8 +13,7 @@ const Alert = forwardRef(function Alert(props, ref) {
 });
 
 const Category = () => {
-
-  const url= "https://db01-4-menuservice.herokuapp.com"
+  const url = "https://db01-4-menuservice.herokuapp.com";
   const [open, setOpen] = useState(false);
   const [categories, setCategories] = useState(null);
 
@@ -27,7 +26,7 @@ const Category = () => {
   const fetchCategories = async () => {
     const token = await getAccessTokenSilently();
     axios
-      .get(`${url}/api/private/categories`, {
+      .get(`${url}/api/public/categories`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
