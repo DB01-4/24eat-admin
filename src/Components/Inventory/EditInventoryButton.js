@@ -11,8 +11,7 @@ const queryParams = new URLSearchParams(window.location.search);
 
 export default function EditInventoryButton(props) {
   const [canEdit] = useState(queryParams.get("edit"));
-  const [link, setLink] = useState("http://localhost:3000/Inventory");
-  const [confirmation, setConfirmation] = useState(false);
+
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
