@@ -46,7 +46,7 @@ const DeleteItemButton = (props) => {
 
   function DeleteItem(id) {
     axios
-      .delete("http://localhost:8084/api/delete/" + id)
+      .delete("https://db01-4-imsservice.herokuapp.com/api/delete/" + id)
       .then(function (response) {
         HandleReload();
       })

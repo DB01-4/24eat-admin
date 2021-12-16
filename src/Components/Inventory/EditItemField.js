@@ -83,7 +83,7 @@ export default function EditItemField(props) {
 
     if (_quantity > 0) {
       try {
-        fetch("http://localhost:8084/api/update/" + _id, {
+        fetch("https://db01-4-imsservice.herokuapp.com/api/update/" + _id, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(item),
