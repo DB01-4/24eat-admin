@@ -29,7 +29,6 @@ export default function AddInventory({ stateChanger, filter }) {
   return (
     <div className="flex-child">
       <div>
-        <h1></h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <TextField
             id="filled-basic"

@@ -155,7 +155,6 @@ export default function DishEdit(props) {
             onChange={onChange}
           />
         </div>
-        //! category value doesn't change
         <div className="textfield">
           <InputLabel>Category</InputLabel>
           <Select
