@@ -11,10 +11,11 @@ export default function AddInventory({ stateChanger, filter }) {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  console.log(filter);
   const [count, setCount] = useState(0);
   const onSubmit = (data) =>
     axios
-      .post("http://localhost:8084/api/post", data)
+      .post("https://db01-4-imsservice.herokuapp.com/api/post", data)
       .then(function (response) {
         console.log(response);
         setCount(count + 1);
@@ -28,7 +29,6 @@ export default function AddInventory({ stateChanger, filter }) {
   return (
     <div className="flex-child">
       <div>
-        <h1></h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <TextField
             id="filled-basic"
@@ -43,7 +43,7 @@ export default function AddInventory({ stateChanger, filter }) {
             id="outlined-disabled"
             label="Type"
             value={filter}
-            {...register("type", { value: filter })}
+            {...register("type", { value: "produce" })}
           />
           {errors.exampleRequired && <p>This field is required</p>}
 

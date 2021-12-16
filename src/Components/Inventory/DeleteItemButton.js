@@ -40,13 +40,13 @@ const DeleteItemButton = (props) => {
   function HandleReload() {
     setCount(count + 1);
     handleSnackbarOpen();
-    props.stateChanger(count);
+    props.stateChanger(count + 10000000);
     handleClose();
   }
 
   function DeleteItem(id) {
     axios
-      .delete("http://localhost:8084/api/delete/" + id)
+      .delete("https://db01-4-imsservice.herokuapp.com/api/delete/" + id)
       .then(function (response) {
         HandleReload();
       })
