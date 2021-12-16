@@ -14,15 +14,15 @@ const AddDish = () => {
   const initialFValues = {
     name: "",
     description: null,
-    allergies: '',
-    nutrition: '',
+    allergies: "",
+    nutrition: "",
     price: 0,
     category: "",
     image: "",
   };
   const [values, setValues] = useState(initialFValues);
 
-  const baseUrl  = "https://db01-4-menuservice.herokuapp.com"
+  const baseUrl = "https://db01-4-menuservice.herokuapp.com";
 
   const [categories, setCategories] = useState(null);
   const { getAccessTokenSilently } = useAuth0();
@@ -34,7 +34,7 @@ const AddDish = () => {
   const fetchcat = async () => {
     const token = await getAccessTokenSilently();
     axios
-      .get(`${baseUrl}/api/private/categories`, {
+      .get(`${baseUrl}/api/public/categories`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -105,25 +105,25 @@ const AddDish = () => {
         </div>
 
         <div className="txtfield">
-        <TextField
-          id="outlined-multiline-flexible"
-          label="Nutrition"
-          name="nutrition"
-          multiline
-          maxRows={4}
-          onChange={onChange}
-        />
+          <TextField
+            id="outlined-multiline-flexible"
+            label="Nutrition"
+            name="nutrition"
+            multiline
+            maxRows={4}
+            onChange={onChange}
+          />
         </div>
 
         <div className="txtfield">
-        <TextField
-          id="outlined-multiline-flexible"
-          label="Price"
-          name="price"
-          type="Number"
-          maxRows={1}
-          onChange={onChange}
-        />
+          <TextField
+            id="outlined-multiline-flexible"
+            label="Price"
+            name="price"
+            type="Number"
+            maxRows={1}
+            onChange={onChange}
+          />
         </div>
 
         <div className="txtfield">
