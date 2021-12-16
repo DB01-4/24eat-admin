@@ -4,27 +4,65 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button'
 import { CardActions } from '@mui/material';
+import axios from 'axios';
 
+const apiUrl = "http://localhost:8080/api";
 
 const OrderCard = ({order, FinishOrder}) => {
 
+
+    const ChangeStatusColor = () => {
+        switch(orderStatus) {
+            case 0: setStatusColor('Red');
+            break;
+            case 1: setStatusColor('Yellow');
+            break;
+            case 2: setStatusColor('Green');
+            break;
+            default: setStatusColor('Purple');
+        }
+    }
+
     const [orderStatus, setOrderStatus] = useState(order.status);
-    const [statusColor, setStatusColor]= useState('Red');
+    const [statusColor, setStatusColor]= useState();
+
+
+    useEffect(() => {
+        ChangeStatusColor();
+    })
+
+    const UpdateStatus = (status) => {
+        axios
+        .put(`${apiUrl}/public/orders/${order.id}`, {status: status})
+        .then((response) => {
+            console.log(response);
+            var old_data = JSON.parse(localStorage.getItem('orders'));
+            old_data.find((element) => {
+            if(element.id === order.id){
+                element.status = response.data.status;
+            }})
+            localStorage.setItem('orders', JSON.stringify(old_data));
+            order.status = response.data.status;
+        })
+    }
+
 
     const ChangeStatus = (order) => {
         switch(orderStatus) {
-            case 0: setOrderStatus(1)
-                    setStatusColor('Yellow');
+            case 0: setOrderStatus(1);
+                    ChangeStatusColor();
+                    UpdateStatus(1);
             break;
             case 1: setOrderStatus(2)
-                    setStatusColor('Green');
+                    ChangeStatusColor();
+                    UpdateStatus(2);
             break;
             case 2: FinishOrder(order);
             break;
             default: setOrderStatus(0)
-                     setStatusColor('Purple');
+                     ChangeStatusColor();
         }
-        order.status = orderStatus;
+
     }
 
     const GetNextStatusText = () => {
@@ -36,19 +74,20 @@ const OrderCard = ({order, FinishOrder}) => {
             default: return '';
         }
     }
+
  
 
     return (
     <Card sx={{ minWidth: 275 }} style={{ display: 'inline-block', margin: '15px', border: '5px solid', borderColor: statusColor}} variant="outlined">
         <CardContent>
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                Table {order.tableNr} Order 1
+                Table: {order.tableId} | Order: {order.id} | Status: {orderStatus}
             </Typography>
-            {order.dishes.map(dish => (
-                <Typography variant="h6" component="div">
-                    {dish.quantity} x {dish.name}
+            {order.orderItems.map(dish => ( 
+                <Typography key={dish.id} variant="h6" component="div">
+                     {dish.quantity} x {dish.product.name} 
                 </Typography>
-            ))}
+             ))}
         </CardContent>
         <CardActions sx={{ float: 'right'}}>
             <Button onClick={() => ChangeStatus(order)} size="small">{GetNextStatusText()}</Button>
