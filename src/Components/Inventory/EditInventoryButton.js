@@ -45,7 +45,7 @@ export default function EditInventoryButton(props) {
               <DialogActions>
                 <Button onClick={handleClose}>Cancel</Button>
                 <Button
-                  href="http://localhost:3000/Inventory"
+                  href="/Inventory"
                   variant="outlined"
                   color="error"
                   autoFocus
@@ -69,7 +69,7 @@ export default function EditInventoryButton(props) {
             <Button
               variant="outlined"
               startIcon={<EditIcon />}
-              href="http://localhost:3000/Inventory"
+              href="/Inventory"
             >
               Cancel
             </Button>
@@ -83,7 +83,7 @@ export default function EditInventoryButton(props) {
         <Button
           variant="outlined"
           startIcon={<EditIcon />}
-          href="http://localhost:3000/Inventory/?edit=true"
+          href="/Inventory/?edit=true"
         >
           Edit Items
         </Button>
