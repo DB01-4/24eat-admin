@@ -19,8 +19,8 @@ export default function DishEdit(props) {
   const initialFValues = {
     name: "",
     description: null,
-    allergies: '',
-    nutrition: '',
+    allergies: "",
+    nutrition: "",
     price: 0,
     category: "",
     image: "",
@@ -39,7 +39,7 @@ export default function DishEdit(props) {
   const fetchCategories = async () => {
     const token = await getAccessTokenSilently();
     axios
-      .get(`${url}/api/private/categories`, {
+      .get(`${url}/api/public/categories`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

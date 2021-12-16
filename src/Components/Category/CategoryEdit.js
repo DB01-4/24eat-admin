@@ -18,7 +18,14 @@ export default function CategoryEdit(props) {
     image: "",
   };
 
-  const { onClose, selectedCard, open, url, handleSuccesAlert, fetchCategories } = props;
+  const {
+    onClose,
+    selectedCard,
+    open,
+    url,
+    handleSuccesAlert,
+    fetchCategories,
+  } = props;
   const [values, setValues] = useState(initialFValues);
   const { getAccessTokenSilently } = useAuth0();
 
@@ -30,32 +37,29 @@ export default function CategoryEdit(props) {
     const { name, value } = e.target;
     setValues({
       ...values,
-      [name]: value
-  })
-}
+      [name]: value,
+    });
+  };
 
   useEffect(() => {
-    if (selectedCard != null)
-        setValues({...selectedCard})
-}, [selectedCard])
+    if (selectedCard != null) setValues({ ...selectedCard });
+  }, [selectedCard]);
 
   const handleSubmit = async (e) => {
     const token = await getAccessTokenSilently();
-  axios
-  .put(`${url}/api/private/categories/` + selectedCard.id, values, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-    .catch(function () {
-  })
-  .finally(function () {
-    handleSuccesAlert()
-    fetchCategories()
-  });
-  handleClose();
-}
-
+    axios
+      .put(`${url}/api/private/categories/` + selectedCard.id, values, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .catch(function () {})
+      .finally(function () {
+        handleSuccesAlert();
+        fetchCategories();
+      });
+    handleClose();
+  };
 
   return (
     <Dialog onClose={handleClose} open={open}>

@@ -4,6 +4,7 @@ import axios from "axios";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function AddInventory({ stateChanger, filter }) {
   const {
@@ -13,9 +14,16 @@ export default function AddInventory({ stateChanger, filter }) {
   } = useForm();
   console.log(filter);
   const [count, setCount] = useState(0);
-  const onSubmit = (data) =>
+  const { getAccessTokenSilently } = useAuth0();
+
+  const onSubmit = async (data) => {
+    const token = await getAccessTokenSilently();
     axios
-      .post("https://db01-4-imsservice.herokuapp.com/api/post", data)
+      .post("https://db01-4-imsservice.herokuapp.com/api/private/post", data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then(function (response) {
         console.log(response);
         setCount(count + 1);
@@ -25,6 +33,7 @@ export default function AddInventory({ stateChanger, filter }) {
         console.log(error);
         console.log(data);
       });
+  };
 
   return (
     <div className="flex-child">
