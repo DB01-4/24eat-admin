@@ -25,7 +25,6 @@ export default function DishList  (props) {
   const handleDelete = (data) => {
     onDelete(data);
   }
-  console.log(dishes);
   return (
     <div>
       <Dialog
