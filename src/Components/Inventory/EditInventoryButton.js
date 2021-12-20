@@ -11,8 +11,7 @@ const queryParams = new URLSearchParams(window.location.search);
 
 export default function EditInventoryButton(props) {
   const [canEdit] = useState(queryParams.get("edit"));
-  const [link, setLink] = useState("http://localhost:3000/Inventory");
-  const [confirmation, setConfirmation] = useState(false);
+
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -45,7 +44,7 @@ export default function EditInventoryButton(props) {
               <DialogActions>
                 <Button onClick={handleClose}>Cancel</Button>
                 <Button
-                  href="http://localhost:3000/Inventory"
+                  href="/Inventory"
                   variant="outlined"
                   color="error"
                   autoFocus
@@ -69,7 +68,7 @@ export default function EditInventoryButton(props) {
             <Button
               variant="outlined"
               startIcon={<EditIcon />}
-              href="http://localhost:3000/Inventory"
+              href="/Inventory"
             >
               Cancel
             </Button>
@@ -83,7 +82,7 @@ export default function EditInventoryButton(props) {
         <Button
           variant="outlined"
           startIcon={<EditIcon />}
-          href="http://localhost:3000/Inventory/?edit=true"
+          href="/Inventory/?edit=true"
         >
           Edit Items
         </Button>

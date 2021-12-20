@@ -2,6 +2,8 @@ import InventoryTable from "../Inventory/InventoryTable";
 
 import React, { Component } from "react";
 
+const baseUrl = "https://db01-4-imsservice.herokuapp.com";
+
 export default class FetchAndShowTable extends Component {
   state = {
     loading: true,
@@ -14,8 +16,7 @@ export default class FetchAndShowTable extends Component {
   };
 
   async componentDidMount() {
-    const url = "http://localhost:8084/api/items";
-    const response = await fetch(url);
+    const response = await fetch(baseUrl + "/api/public/items");
     const data = await response.json();
     this.setState({
       items: data,
@@ -34,8 +35,7 @@ export default class FetchAndShowTable extends Component {
       this.props.filter !== prevState.filter
     ) {
       console.log("count changed");
-      const url = "http://localhost:8084/api/items";
-      const response = await fetch(url);
+      const response = await fetch(baseUrl + "/api/public/items");
       const data = await response.json();
       this.setState({
         items: data,
