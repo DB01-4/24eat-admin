@@ -14,7 +14,7 @@ import { Alert } from "@mui/material";
 
 const DeleteItemButton = (props) => {
   const [open, setOpen] = React.useState(false);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(Math.random());
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -38,9 +38,9 @@ const DeleteItemButton = (props) => {
   };
 
   function HandleReload() {
-    setCount(count + 1);
+    setCount(Math.random());
     handleSnackbarOpen();
-    props.stateChanger(count + 10000000);
+    props.stateChanger(count + 3);
     handleClose();
   }
 
