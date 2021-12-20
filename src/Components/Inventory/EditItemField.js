@@ -9,6 +9,8 @@ import MuiAlert from "@mui/material/Alert";
 import UndoButton from "./UndoButton";
 import { Prompt } from "react-router";
 import UploadIcon from "@mui/icons-material/Upload";
+import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const queryParams = new URLSearchParams(window.location.search);
 
@@ -25,6 +27,7 @@ export default function EditItemField(props) {
   const [error, setError] = useState("undefined error");
   const [dbValue, setDbValue] = useState(props.value);
   const [unsavedChanges, setUnsavedChanges] = useState(false);
+  const { getAccessTokenSilently } = useAuth0();
 
   const [values, setValues] = React.useState({
     weight: props.value,
@@ -83,11 +86,16 @@ export default function EditItemField(props) {
 
     if (_quantity > 0) {
       try {
-        fetch("http://localhost:8084/api/update/" + _id, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(item),
-        })
+        const token = getAccessTokenSilently();
+        axios
+          .get(
+            "https://db01-4-imsservice.herokuapp.com/api/private/update/" + _id,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
           .then(() => {
             console.log("item" + _id + "updated");
           })

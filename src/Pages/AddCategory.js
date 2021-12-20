@@ -15,33 +15,31 @@ export default function AddCategory() {
     image: "",
   };
   const [values, setValues] = useState(initialFValues);
-  const categoryUrl  = "http://localhost:8080/"
-  const categoryUrll = "http://localhost:8080";
+  const categoryUrl  = "https://db01-4-menuservice.herokuapp.com/"
   const { getAccessTokenSilently } = useAuth0();
 
   const onChange = (e) => {
     const { name, value } = e.target;
     setValues({
       ...values,
-      [name]: value
-    })
-  }
+      [name]: value,
+    });
+  };
 
   const handleSubmit = async (e) => {
     const token = await getAccessTokenSilently();
     axios
-    .post(`${categoryUrl}api/private/categories`, values, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then(function () {
-      history.push('/Category')
+      .post(`${categoryUrl}api/private/categories`, values, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .catch(function () {
-      });
-  }
-        
+      .then(function () {
+        history.push("/Category");
+      })
+      .catch(function () {});
+  };
+
   return (
     <div>
       <h1>Add Categories</h1>

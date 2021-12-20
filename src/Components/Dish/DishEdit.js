@@ -1,36 +1,66 @@
 import React from "react";
-import { useEffect, useState} from "react";
-import PropTypes from 'prop-types';
+import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import axios from "axios";
-import {Dialog, DialogActions, DialogTitle, Button, TextField, Select, InputLabel, MenuItem, Switch} from '@mui/material';
-import useFetch from "../../API/useFetch";
-
+import "../Dish/dishedit.css";
+import { useAuth0 } from "@auth0/auth0-react";
+import {
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  Button,
+  TextField,
+  Select,
+  InputLabel,
+  MenuItem,
+} from "@mui/material";
 
 export default function DishEdit(props) {
-
   const initialFValues = {
-    name: '',
+    name: "",
     description: null,
-    allergies: '',
-    nutrition: '',
+    allergies: "",
+    nutrition: "",
     price: 0,
     category: '',
     image: '',
     inStock: false
   }
 
-  const { onClose, selectedCard, open, url, handleSuccesAlert, fetchDishes } = props;
+  const { onClose, selectedCard, open, url, handleSuccesAlert, fetchDishes } =
+    props;
   const [values, setValues] = useState(initialFValues);
-  const { data: categories } = useFetch("http://localhost:8080/categories/"); 
+  const [categories, setCategories] = useState(null);
+  const { getAccessTokenSilently } = useAuth0();
 
- const getCategoryIndex = (id, categories) => {
-   if(categories == null){return ''}
-   for (let i = 0; i < categories.length; i++) {
-  if(categories[i].id === id) {
+  useEffect(() => {
+    fetchCategories();
+  });
+
+  const fetchCategories = async () => {
+    const token = await getAccessTokenSilently();
+    axios
+      .get(`${url}/api/public/categories`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(function (response) {
+        setCategories(response.data);
+      })
+      .catch(function (error) {});
+  };
+
+  const getCategoryIndex = (id, categories) => {
+    if (categories == null) {
+      return "";
+    }
+    for (let i = 0; i < categories.length; i++) {
+      if (categories[i].id === id) {
         return i;
       }
-   }
- }
+    }
+  };
 
   const handleClose = () => {
     onClose();
@@ -49,7 +79,7 @@ export default function DishEdit(props) {
         [name]: value
       })
     }
-}
+  }
 
 
 useEffect(() => {
@@ -57,93 +87,89 @@ useEffect(() => {
   }, [values])
 
   useEffect(() => {
-    if (selectedCard != null)
-        setValues({...selectedCard})
-}, [selectedCard])
+    if (selectedCard != null) setValues({ ...selectedCard });
+  }, [selectedCard]);
 
-  const handleSubmit = e => {
-  axios.put(url+selectedCard.id, values)
-    .then(function () {
-      fetchDishes()
-    })
-    .catch(function () {
-  })
-  .finally(function () {
-    handleSuccesAlert()
-  });
-  handleClose();
-}
-
+  const handleSubmit = async (e) => {
+    const token = await getAccessTokenSilently();
+    axios
+      .put(`${url}/api/private/products/` + selectedCard.id, values, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(function () {
+        fetchDishes();
+      })
+      .catch(function () {})
+      .finally(function () {
+        handleSuccesAlert();
+      });
+    handleClose();
+  };
 
   return (
     <Dialog onClose={handleClose} open={open}>
-        <DialogTitle>Edit Dish</DialogTitle>
-        <form className="form">
-          <div className="textfield">
+      <DialogTitle>Edit Dish</DialogTitle>
+      <form className="form">
+        <div className="textfield">
           <TextField
-           id="outlined-multiline-flexible"
-           label="name"
-           name="name"
-           multiline
-           maxRows={4}
-           defaultValue={values.name}
-           onChange={onChange}
+            id="outlined-multiline-flexible"
+            label="name"
+            name="name"
+            multiline
+            maxRows={4}
+            defaultValue={values.name}
+            onChange={onChange}
           />
-          </div>
-
-
-          <div className="textfield">
-            <TextField
-           id="outlined-multiline-flexible"
-           label="description"
-           name="description"
-           multiline
-           maxRows={4}
-           defaultValue={values.description}
-           onChange={onChange}
-          />
-          </div>
-
-          <div className="textfield">
-            <TextField
-           id="outlined-multiline-flexible"
-           label="allergies"
-           name="allergies"
-           multiline
-           maxRows={4}
-           defaultValue={values.allergies}
-           onChange={onChange}
-          />
-          </div>
-
-          <div className="textfield">
-            <TextField
-           id="outlined-multiline-flexible"
-           label="nutrition"
-           name="nutrition"
-           multiline
-           maxRows={4}
-           defaultValue={values.nutrition}
-           onChange={onChange}
-          />
-          </div>
-
-
-          <div className="textfield">
+        </div>
+        <div className="textfield">
           <TextField
-           id="outlined-multiline-flexible"
-           label="price"
-           name="price"
-           type="number"
-           multiline
-           maxRows={4}
-           defaultValue={values.price}
-           onChange={onChange}
+            id="outlined-multiline-flexible"
+            label="description"
+            name="description"
+            multiline
+            maxRows={4}
+            defaultValue={values.description}
+            onChange={onChange}
           />
-          </div>
+        </div>
+        <div className="textfield">
+          <TextField
+            id="outlined-multiline-flexible"
+            label="allergies"
+            name="allergies"
+            multiline
+            maxRows={4}
+            defaultValue={values.allergies}
+            onChange={onChange}
+          />
+        </div>
+        <div className="textfield">
+          <TextField
+            id="outlined-multiline-flexible"
+            label="allergies"
+            name="allergies"
+            multiline
+            maxRows={4}
+            defaultValue={values.nutrition}
+            onChange={onChange}
+          />
+        </div>
+        <div className="textfield">
+          <TextField
+            id="outlined-multiline-flexible"
+            label="price"
+            name="price"
+            type="number"
+            multiline
+            maxRows={4}
+            defaultValue={values.price}
+            onChange={onChange}
+          />
+        </div>
 
-          
-          <div className="switch">
+        <div className="switch">
             <InputLabel>in stock</InputLabel>
             <Switch
               checked={values.inStock}
@@ -151,40 +177,46 @@ useEffect(() => {
               label="inStock"
               name="inStock"
             />
-          </div>
+        </div>
 
-
+        <div className="textfield">
           <InputLabel>Category</InputLabel>
           <Select
             id="outlined-multiline-flexible"
             label="category"
             name="category"
-            defaultValue={categories && categories[getCategoryIndex(values.category.id, categories)]}
-            //renderValue=
             onChange={onChange}
+            defaultValue={
+              categories &&
+              categories[getCategoryIndex(values.category.id, categories)]
+            }
           >
-            {categories && categories.map(category => {
-              return (
-              <MenuItem key={category.id} value={category}>{category.name}</MenuItem>
-              )}
-              )}
+            {categories &&
+              categories.map((category) => {
+                return (
+                  <MenuItem key={category.id} value={category}>
+                    {category.name}
+                  </MenuItem>
+                );
+              })}
           </Select>
-
-            <TextField
-           id="outlined-multiline-flexible"
-           label="image"
-           name="image"
-           multiline
-           maxRows={4}
-           defaultValue={values.image}
-           onChange={onChange}
-          />
-
-        </form>
-        <DialogActions>
-          <Button onClick={handleClose}>Close</Button>
-          <Button onClick={handleSubmit} autoFocus>Submit</Button>
-        </DialogActions>
+        </div>
+        <TextField
+          id="outlined-multiline-flexible"
+          label="image"
+          name="image"
+          multiline
+          maxRows={4}
+          defaultValue={values.image}
+          onChange={onChange}
+        />
+      </form>
+      <DialogActions>
+        <Button onClick={handleClose}>Close</Button>
+        <Button onClick={handleSubmit} autoFocus>
+          Submit
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 }
