@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState} from "react";
 import PropTypes from 'prop-types';
 import axios from "axios";
-import {Dialog, DialogActions, DialogTitle, Button, TextField, Select, InputLabel, MenuItem} from '@mui/material';
+import {Dialog, DialogActions, DialogTitle, Button, TextField, Select, InputLabel, MenuItem, Switch} from '@mui/material';
 import useFetch from "../../API/useFetch";
 
 
@@ -15,7 +15,8 @@ export default function DishEdit(props) {
     nutrition: '',
     price: 0,
     category: '',
-    image: ''
+    image: '',
+    inStock: false
   }
 
   const { onClose, selectedCard, open, url, handleSuccesAlert, fetchDishes } = props;
@@ -25,7 +26,7 @@ export default function DishEdit(props) {
  const getCategoryIndex = (id, categories) => {
    if(categories == null){return ''}
    for (let i = 0; i < categories.length; i++) {
-      if(categories[i].id === id) {
+  if(categories[i].id === id) {
         return i;
       }
    }
@@ -37,11 +38,23 @@ export default function DishEdit(props) {
 
   const onChange = e => {
     const { name, value } = e.target
-    setValues({
-      ...values,
-      [name]: value
-  })
+    if (e.target.checked !== undefined ) {
+      setValues({
+        ...values,
+        [name]: e.target.checked
+      })
+    }else{
+      setValues({
+        ...values,
+        [name]: value
+      })
+    }
 }
+
+
+useEffect(() => {
+    console.log(values)
+  }, [values])
 
   useEffect(() => {
     if (selectedCard != null)
@@ -128,6 +141,18 @@ export default function DishEdit(props) {
            onChange={onChange}
           />
           </div>
+
+          
+          <div className="switch">
+            <InputLabel>in stock</InputLabel>
+            <Switch
+              checked={values.inStock}
+              onChange={onChange}
+              label="inStock"
+              name="inStock"
+            />
+          </div>
+
 
           <InputLabel>Category</InputLabel>
           <Select
