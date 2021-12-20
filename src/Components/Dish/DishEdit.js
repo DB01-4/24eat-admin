@@ -22,10 +22,9 @@ export default function DishEdit(props) {
     allergies: "",
     nutrition: "",
     price: 0,
-    category: '',
-    image: '',
-    inStock: false
-  }
+    category: "",
+    image: "",
+  };
 
   const { onClose, selectedCard, open, url, handleSuccesAlert, fetchDishes } =
     props;
@@ -66,25 +65,13 @@ export default function DishEdit(props) {
     onClose();
   };
 
-  const onChange = e => {
-    const { name, value } = e.target
-    if (e.target.checked !== undefined ) {
-      setValues({
-        ...values,
-        [name]: e.target.checked
-      })
-    }else{
-      setValues({
-        ...values,
-        [name]: value
-      })
-    }
-  }
-
-
-useEffect(() => {
-    console.log(values)
-  }, [values])
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
 
   useEffect(() => {
     if (selectedCard != null) setValues({ ...selectedCard });
@@ -168,17 +155,6 @@ useEffect(() => {
             onChange={onChange}
           />
         </div>
-
-        <div className="switch">
-            <InputLabel>in stock</InputLabel>
-            <Switch
-              checked={values.inStock}
-              onChange={onChange}
-              label="inStock"
-              name="inStock"
-            />
-        </div>
-
         <div className="textfield">
           <InputLabel>Category</InputLabel>
           <Select
