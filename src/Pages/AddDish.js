@@ -93,8 +93,12 @@ const AddDish = () => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(function () {
+      .then(function (error) {
         history.push("/Dish");
+        setErrorTrigger(true);
+        setError(error.message);
+        console.log(error.message);
+        console.log(values);
       })
       .catch(function (error) {
         setErrorTrigger(true);
@@ -200,8 +204,9 @@ const AddDish = () => {
           Submit
         </Button>
       </div>
+      
       {errorTrigger ? (
-          <Snackbar
+        <Snackbar
           open={open}
           autoHideDuration={6000}
           onClose={handleSnackbarClose}
