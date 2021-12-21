@@ -102,7 +102,7 @@ export default function AddCategory() {
           />
         </div>
         <div className="btn">
-          <Button onClick={handleSubmit} autoFocus>
+          <Button type="submit" onClick={handleSubmit} autoFocus>
             Submit
           </Button>
         </div>
