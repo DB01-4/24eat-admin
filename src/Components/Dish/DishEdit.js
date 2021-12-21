@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import axios from "axios";
 import {Dialog, DialogActions, DialogTitle, Button, TextField, Select, InputLabel, MenuItem, Switch} from '@mui/material';
 import useFetch from "../../API/useFetch";
-
+import FormControl from '@mui/material/FormControl';
 
 export default function DishEdit(props) {
 
@@ -21,7 +21,7 @@ export default function DishEdit(props) {
 
   const { onClose, selectedCard, open, url, handleSuccesAlert, fetchDishes } = props;
   const [values, setValues] = useState(initialFValues);
-  const { data: categories } = useFetch("http://localhost:8080/categories/"); 
+  const { data: categories } = useFetch("https://db01-4-menuservice.herokuapp.com/api/public/categories"); 
 
  const getCategoryIndex = (id, categories) => {
    if(categories == null){return ''}
@@ -153,7 +153,7 @@ useEffect(() => {
             />
           </div>
 
-
+          <FormControl fullWidth>
           <InputLabel>Category</InputLabel>
           <Select
             id="outlined-multiline-flexible"
@@ -169,7 +169,7 @@ useEffect(() => {
               )}
               )}
           </Select>
-
+          </FormControl>
             <TextField
            id="outlined-multiline-flexible"
            label="image"
