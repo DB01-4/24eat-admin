@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import "../Style/addCrud.css";
-import { Button, TextField, Select, InputLabel, MenuItem } from "@mui/material";
+import { Button, TextField, Select, InputLabel, MenuItem, Snackbar, Alert } from "@mui/material";
 import { useHistory } from "react-router-dom";
 import Loading from "../Components/Login/Loading";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
@@ -29,6 +29,9 @@ const AddDish = () => {
   const [values, setValues] = useState(initialFValues);
   const [categories, setCategories] = useState(null);
   const { getAccessTokenSilently } = useAuth0();
+  const [error, setError] = useState("undefined error");
+  const [errorTrigger, setErrorTrigger] = useState(false);
+  const [open, setOpen] = React.useState(false);
 
   const getCategoryIndex = (id, categories) => {
     console.log('id: '+ id + ' categories: ' + categories)
@@ -70,7 +73,19 @@ const AddDish = () => {
     });
   };
 
+  const handleSnackbarOpen = () => {
+    setOpen(true);
+  };
+
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
   const handleSubmit = async (e) => {
+    setErrorTrigger(false);
     const token = await getAccessTokenSilently();
     axios
       .post(`${baseUrl}/api/private/products`, values, {
@@ -81,7 +96,15 @@ const AddDish = () => {
       .then(function () {
         history.push("/Dish");
       })
-      .catch(function () {});
+      .catch(function (error) {
+        setErrorTrigger(true);
+        setError(error.message);
+        console.log(error.message);
+        console.log(values);
+      })
+      .finally(function (){
+        handleSnackbarOpen();
+      });
   };
 
   return (
@@ -177,6 +200,35 @@ const AddDish = () => {
           Submit
         </Button>
       </div>
+      {errorTrigger ? (
+          <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          onClose={handleSnackbarClose}
+        >
+          <Alert
+            onClose={handleSnackbarClose}
+            severity="error"
+            sx={{ width: "100%" }}
+          >
+            Error: {error}
+          </Alert>
+        </Snackbar>
+        ) : (
+          <Snackbar
+            open={open}
+            autoHideDuration={2000}
+            onClose={handleSnackbarClose}
+          >
+            <Alert
+              onClose={handleSnackbarClose}
+              severity="success"
+              sx={{ width: "100%" }}
+            >
+              succes
+            </Alert>
+          </Snackbar>
+        )}
     </div>
   );
 };
