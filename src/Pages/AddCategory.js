@@ -15,7 +15,7 @@ export default function AddCategory() {
     image: "",
   };
   const [values, setValues] = useState(initialFValues);
-  const categoryUrl  = "https://db01-4-menuservice.herokuapp.comm/"
+  const categoryUrl  = "https://db01-4-menuservice.herokuapp.com/"
   const { getAccessTokenSilently } = useAuth0();
   const [error, setError] = useState("undefined error");
   const [errorTrigger, setErrorTrigger] = useState(false);
