@@ -107,8 +107,6 @@ export default function AddCategory() {
           </Button>
         </div>
       </form>
-
-
       {errorTrigger ? (
           <Snackbar
           open={open}

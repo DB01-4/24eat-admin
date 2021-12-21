@@ -100,6 +100,12 @@ const AddDish = () => {
         console.log(error.message);
         console.log(values);
       })
+      .catch(function (error) {
+        setErrorTrigger(true);
+        setError(error.message);
+        console.log(error.message);
+        console.log(values);
+      })
       .finally(function (){
         handleSnackbarOpen();
       });
@@ -227,6 +233,7 @@ const AddDish = () => {
               succes
             </Alert>
           </Snackbar>
+        )}
     </div>
   );
 };
