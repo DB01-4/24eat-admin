@@ -15,7 +15,7 @@ export default function AddCategory() {
     image: "",
   };
   const [values, setValues] = useState(initialFValues);
-  const categoryUrl  = "https://db01-4-menuservice.herokuapp.com/"
+  const categoryUrl  = "https://db01-4-menuservice.herokuapp.comm/"
   const { getAccessTokenSilently } = useAuth0();
   const [error, setError] = useState("undefined error");
   const [errorTrigger, setErrorTrigger] = useState(false);
@@ -67,7 +67,9 @@ export default function AddCategory() {
   return (
     <div>
       <h1>Add Categories</h1>
-      <form>
+      <form
+        onSubmit={handleSubmit}
+      >
         <div className="txtfield">
           <TextField
             required
@@ -102,7 +104,7 @@ export default function AddCategory() {
           />
         </div>
         <div className="btn">
-          <Button type="submit" onClick={handleSubmit} autoFocus>
+          <Button type="submit" autoFocus>
             Submit
           </Button>
         </div>
