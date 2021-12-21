@@ -7,9 +7,14 @@ import { useHistory } from "react-router-dom";
 import Loading from "../Components/Login/Loading";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { useAuth0 } from "@auth0/auth0-react";
+import FormControl from '@mui/material/FormControl';
+import Box from '@mui/material/Box';
+
 
 const AddDish = () => {
   let history = useHistory();
+
+  const baseUrl = "https://db01-4-menuservice.herokuapp.com";
 
   const initialFValues = {
     name: "",
@@ -17,15 +22,27 @@ const AddDish = () => {
     allergies: "",
     nutrition: "",
     price: 0,
-    category: "",
+    category: {id: null, name: '', description: '', image: ''},
     image: "",
   };
+
   const [values, setValues] = useState(initialFValues);
-
-  const baseUrl = "https://db01-4-menuservice.herokuapp.com";
-
   const [categories, setCategories] = useState(null);
   const { getAccessTokenSilently } = useAuth0();
+
+  const getCategoryIndex = (id, categories) => {
+    console.log('id: '+ id + ' categories: ' + categories)
+    if(categories == null){return ''}
+    if(id === null){
+      console.log('id = null')
+      return ''}
+    for (let i = 0; i < categories.length; i++) {
+   if(categories[i].id === id) {
+     console.log('return category')
+         return categories[i];
+       }
+    }
+  }
 
   useEffect(() => {
     fetchcat();
@@ -126,16 +143,15 @@ const AddDish = () => {
           />
         </div>
 
-        <div className="txtfield">
+        <FormControl fullWidth>
           <InputLabel>Category</InputLabel>
           <Select
-            id="outlined-multiline-flexible"
             label="Category"
             name="category"
             onChange={onChange}
+            value={categories && getCategoryIndex(values.category.id, categories)}
           >
-            {categories &&
-              categories.map((category) => {
+            {categories && categories.map((category) => {
                 return (
                   <MenuItem key={category.id} value={category}>
                     {category.name}
@@ -143,7 +159,7 @@ const AddDish = () => {
                 );
               })}
           </Select>
-        </div>
+          </FormControl>
 
         <div className="txtfield">
           <TextField
