@@ -38,11 +38,9 @@ export default function EditItemField(props) {
   function CheckIfChanged(_value) {
     if (dbValue === _value) {
       setUnsavedChanges(false);
-      props.CountChildren(false);
       console.log("set to false");
     } else {
       setUnsavedChanges(true);
-      props.CountChildren(true);
       console.log("set to true");
     }
   }
@@ -100,12 +98,10 @@ export default function EditItemField(props) {
       } finally {
         handleSnackbarOpen();
         setUnsavedChanges(false);
-        props.CountChildren(false);
       }
     } else {
       handleSnackbarOpen();
       setUnsavedChanges(true);
-      props.CountChildren(true);
     }
   }
 

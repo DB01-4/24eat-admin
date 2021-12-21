@@ -14,7 +14,6 @@ import { Alert } from "@mui/material";
 
 const DeleteItemButton = (props) => {
   const [open, setOpen] = React.useState(false);
-  const [count, setCount] = useState(Math.random());
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -38,13 +37,12 @@ const DeleteItemButton = (props) => {
   };
 
   function HandleReload() {
-    setCount(Math.random());
     handleSnackbarOpen();
-    props.stateChanger(count + 3);
+    props.getItems();
     handleClose();
   }
 
-  function DeleteItem(id) {
+  const DeleteItem = async (id) => {
     axios
       .delete("http://localhost:8084/api/delete/" + id)
       .then(function (response) {
@@ -54,9 +52,7 @@ const DeleteItemButton = (props) => {
         console.log(error);
         console.log(id);
       });
-
-    // window.location.reload();
-  }
+  };
   return (
     <div>
       <IconButton aria-label="delete" onClick={handleClickOpen}>

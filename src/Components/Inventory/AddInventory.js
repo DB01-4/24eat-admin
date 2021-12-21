@@ -13,13 +13,14 @@ export default function AddInventory({ stateChanger, filter }) {
   } = useForm();
   console.log(filter);
   const [count, setCount] = useState(0);
-  const onSubmit = (data) =>
+  const onSubmit = async (data) =>
     axios
       .post("http://localhost:8084/api/post", data)
       .then(function (response) {
         console.log(response);
         setCount(count + 1);
         stateChanger(count);
+        console.log("changed count to: " + count);
       })
       .catch(function (error) {
         console.log(error);
@@ -53,6 +54,9 @@ export default function AddInventory({ stateChanger, filter }) {
             id="filled-basic"
             label="Quantity"
             variant="filled"
+            inputProps={{
+              step: "0.001",
+            }}
             {...register("quantity", { required: true })}
           />
           {errors.exampleRequired && <p>This field is required</p>}
