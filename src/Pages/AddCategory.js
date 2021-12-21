@@ -67,7 +67,9 @@ export default function AddCategory() {
   return (
     <div>
       <h1>Add Categories</h1>
-      <form>
+      <form
+        onSubmit={handleSubmit}
+      >
         <div className="txtfield">
           <TextField
             required
@@ -102,7 +104,7 @@ export default function AddCategory() {
           />
         </div>
         <div className="btn">
-          <Button type="submit" onClick={handleSubmit} autoFocus>
+          <Button type="submit" autoFocus>
             Submit
           </Button>
         </div>
