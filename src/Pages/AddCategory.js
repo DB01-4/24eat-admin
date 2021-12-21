@@ -70,7 +70,6 @@ export default function AddCategory() {
       <form>
         <div className="txtfield">
           <TextField
-            required
             id="outlined-multiline-flexible"
             label="Category name"
             name="name"
@@ -101,14 +100,12 @@ export default function AddCategory() {
             onChange={onChange}
           />
         </div>
-        <div className="btn">
-          <Button type="submit" onClick={handleSubmit} autoFocus>
-            Submit
-          </Button>
-        </div>
       </form>
-
-
+      <div className="btn">
+        <Button onClick={handleSubmit} autoFocus>
+          Submit
+        </Button>
+      </div>
       {errorTrigger ? (
           <Snackbar
           open={open}
