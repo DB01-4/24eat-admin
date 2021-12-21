@@ -9,10 +9,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 export default function AddCategory() {
   let history = useHistory();
 
-  const [error, setError] = useState("undefined error");
-  const [errorTrigger, setErrorTrigger] = useState(false);
-  const [open, setOpen] = React.useState(false);
-
   const initialFValues = {
     name: "",
     description: null,
@@ -21,6 +17,9 @@ export default function AddCategory() {
   const [values, setValues] = useState(initialFValues);
   const categoryUrl  = "https://db01-4-menuservice.herokuapp.com/"
   const { getAccessTokenSilently } = useAuth0();
+  const [error, setError] = useState("undefined error");
+  const [errorTrigger, setErrorTrigger] = useState(false);
+  const [open, setOpen] = React.useState(false);
 
   const onChange = (e) => {
     const { name, value } = e.target;
