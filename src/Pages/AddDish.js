@@ -22,7 +22,7 @@ const AddDish = () => {
   };
   const [values, setValues] = useState(initialFValues);
 
-  const baseUrl = "https://db01-4-menuservice.herokuapp.comm";
+  const baseUrl = "https://db01-4-menuservice.herokuapp.com";
 
   const [categories, setCategories] = useState(null);
   const { getAccessTokenSilently } = useAuth0();
@@ -68,6 +68,7 @@ const AddDish = () => {
   };
 
   const handleSubmit = async (e) => {
+    setErrorTrigger(false);
     const token = await getAccessTokenSilently();
     axios
       .post(`${baseUrl}/api/private/products`, values, {
@@ -78,7 +79,15 @@ const AddDish = () => {
       .then(function () {
         history.push("/Dish");
       })
-      .catch(function () {});
+      .catch(function (error) {
+        setErrorTrigger(true);
+        setError(error.message);
+        console.log(error.message);
+        console.log(values);
+      })
+      .finally(function (){
+        handleSnackbarOpen();
+      });
   };
 
   return (
