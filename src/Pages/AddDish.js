@@ -114,9 +114,12 @@ const AddDish = () => {
   return (
     <div>
       <h1>Dishes</h1>
-      <form>
+      <form
+        onSubmit={handleSubmit}
+      >
         <div className="txtfield">
           <TextField
+            required
             id="outlined-multiline-flexible"
             label="Dish name"
             name="name"
@@ -161,6 +164,7 @@ const AddDish = () => {
 
         <div className="txtfield">
           <TextField
+            required
             id="outlined-multiline-flexible"
             label="Price"
             name="price"
@@ -173,6 +177,7 @@ const AddDish = () => {
         <FormControl fullWidth>
           <InputLabel>Category</InputLabel>
           <Select
+            required
             label="Category"
             name="category"
             onChange={onChange}
@@ -198,12 +203,12 @@ const AddDish = () => {
             onChange={onChange}
           />
         </div>
+        <div className="btn">
+          <Button type="submit" autoFocus>
+            Submit
+          </Button>
+        </div>
       </form>
-      <div className="btn">
-        <Button onClick={handleSubmit} autoFocus>
-          Submit
-        </Button>
-      </div>
       
       {errorTrigger ? (
         <Snackbar
