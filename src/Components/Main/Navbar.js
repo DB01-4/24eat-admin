@@ -3,7 +3,6 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
@@ -36,6 +35,7 @@ export default function ButtonAppBar() {
             aria-expanded={open ? "true" : undefined}
           >
             <MenuIcon />
+            </IconButton>
             <div>
               <Menu
                 id="basic-menu"
@@ -57,7 +57,6 @@ export default function ButtonAppBar() {
                 </MenuItem>
               </Menu>
             </div>
-          </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Admin panel
           </Typography>
