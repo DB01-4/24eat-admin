@@ -3,9 +3,9 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
+import OrderItems from "./OrderItems";
 
-export default function BillList(props) {
-  const { bill } = props;
+export default function BillList({ bill, props }) {
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
@@ -16,6 +16,9 @@ export default function BillList(props) {
             </Typography>
             <Typography variant="body1" color="text.secondary">
               {bill.total_price}
+            </Typography>
+            <Typography variant="body1" color="text.secondary">
+              {bill.billitems.id}
             </Typography>
           </CardContent>
         ))}
