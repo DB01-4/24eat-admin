@@ -15,8 +15,6 @@ import { useHistory } from "react-router-dom";
 import Loading from "../Components/Login/Loading";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { useAuth0 } from "@auth0/auth0-react";
-import FormControl from "@mui/material/FormControl";
-import Box from "@mui/material/Box";
 
 const AddDish = () => {
   let history = useHistory();
@@ -184,11 +182,10 @@ const AddDish = () => {
           />
         </div>
 
-        <FormControl fullWidth>
-          <InputLabel>Category</InputLabel>
+        <div className="txtfield">
+          <InputLabel>Category*</InputLabel>
           <Select
             required
-            label="Category"
             name="category"
             onChange={onChange}
             value={
@@ -204,7 +201,7 @@ const AddDish = () => {
                 );
               })}
           </Select>
-        </FormControl>
+        </div>
 
         <div className="txtfield">
           <TextField
