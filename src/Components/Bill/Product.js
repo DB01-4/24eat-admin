@@ -4,8 +4,12 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 
+
 export default function Product({product}) {
     return (
-        <div>{product.product.name}</div>
+        <div className='productdiv'>
+            <h4 style={{textAlign: "center"}}>{product.quantity}x {product.product.name} €{product.product.price}</h4>
+        </div>
+        
     )
 }
