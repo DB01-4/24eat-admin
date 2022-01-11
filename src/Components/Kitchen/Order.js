@@ -4,14 +4,14 @@ import "../../Style/kitchen.css"
 import OrderCard from './OrderCard';
 import axios from 'axios';
 
-const client = new W3CWebSocket('ws://127.0.0.1:8000');
+const client = new W3CWebSocket('ws://websocket-server-mediaan.herokuapp.com');
 const apiUrl = "http://localhost:8080/api"
 
 export default function Order() {
 
     if(localStorage.getItem('orders') == null) { localStorage.setItem('orders', '[]') }
     const [newOrders, setNewOrders] = useState(JSON.parse(localStorage.getItem('orders')));
-    const apiUrl = "http://localhost:8080/api";
+    const apiUrl = "https://db01-4-menuservice.herokuapp.com/api";
 
     const getNewOrder = async (orderId) => {
         
