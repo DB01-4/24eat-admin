@@ -17,6 +17,7 @@ import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { useAuth0 } from "@auth0/auth0-react";
 import FormControl from "@mui/material/FormControl";
 
+
 const AddDish = () => {
   let history = useHistory();
 
