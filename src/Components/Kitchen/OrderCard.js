@@ -6,12 +6,12 @@ import Button from '@mui/material/Button'
 import { CardActions } from '@mui/material';
 import axios from 'axios';
 
-const apiUrl = "http://localhost:8080/api";
+const apiUrl = "https://db01-4-menuservice.herokuapp.com/api";
 
-const OrderCard = ({order, FinishOrder}) => {
+const OrderCard = ({order, GetOrders}) => {
 
     const [orderStatus, setOrderStatus] = useState(order.status);
-    const [statusColor, setStatusColor]= useState();
+    const [statusColor, setStatusColor] = useState();
 
     const UpdateStatusColor = () => {
         switch(orderStatus) {
@@ -21,23 +21,12 @@ const OrderCard = ({order, FinishOrder}) => {
             break;
             case 2: setStatusColor('Green');
             break;
-            default: setStatusColor('Purple');
+            default: setStatusColor('Grey');
         }
     }
 
-    const UpdateStatus = (status) => {
-        axios
-        .put(`${apiUrl}/public/orders/${order.id}`, {status: status})
-        .then((response) => {
-            console.log("New order status is: " + response.data.status);
-            //change order status in local storage array
-            var old_data = JSON.parse(localStorage.getItem('orders'));
-            old_data.find((element) => {
-            if(element.id === order.id){
-                element.status = response.data.status;
-            }})
-            localStorage.setItem('orders', JSON.stringify(old_data));
-        })
+    const UpdateDB = (status) => {
+        axios.put(`${apiUrl}/public/orders/${order.id}`, {status: status})
     }
 
     const GetNextStatusText = () => {
@@ -50,21 +39,11 @@ const OrderCard = ({order, FinishOrder}) => {
         }
     }
 
-    const ChangeStatus = (order) => {
-        switch(orderStatus) {
-            case 0: setOrderStatus(1);
-                    UpdateStatusColor();
-                    UpdateStatus(1);
-            break;
-            case 1: setOrderStatus(2)
-                    UpdateStatusColor();
-                    UpdateStatus(2);
-            break;
-            case 2: FinishOrder(order);
-            break;
-            default: setOrderStatus(0)
-                     UpdateStatusColor();
-        }
+    const UpdateStatus = () => {
+        UpdateDB(orderStatus + 1);
+        setOrderStatus(orderStatus + 1);
+        GetOrders();
+        GetOrders();
     }
 
     useEffect(() => {
@@ -84,7 +63,7 @@ const OrderCard = ({order, FinishOrder}) => {
              ))}
         </CardContent>
         <CardActions sx={{ float: 'right'}}>
-            <Button onClick={() => ChangeStatus(order)} size="small">{GetNextStatusText()}</Button>
+            <Button onClick={() => UpdateStatus()} size="small">{GetNextStatusText()}</Button>
         </CardActions>
     </Card>
     )

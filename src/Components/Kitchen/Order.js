@@ -9,48 +9,24 @@ const apiUrl = "https://db01-4-menuservice.herokuapp.com/api"
 
 export default function Order() {
 
-    //create new empty array if localstorage is not already set
-    if(localStorage.getItem('orders') == null) { localStorage.setItem('orders', '[]') }
-
-    const [newOrders, setNewOrders] = useState(JSON.parse(localStorage.getItem('orders')));
+    const [newOrders, setNewOrders] = useState(null);
     const { getAccessTokenSilently } = useAuth0();
+    const [isLoading, setIsLoading] = useState(true);
 
-
-    const SetLocalStorageArray = (array) => {
-        localStorage.setItem('orders', JSON.stringify(array));
-        setNewOrders(JSON.parse(localStorage.getItem('orders')));
-    }
-
-    const FinishOrder = (order) => {
-        //get all orders
-        var array = JSON.parse(localStorage.getItem('orders'));
-        //delete order from index
-        const index = array.indexOf(order)
-        array.splice(index - 1, 1);
-        //set new array to localstorage
-        SetLocalStorageArray(array)
-    }
-
-
-    const GetOrderFromId = async(orderId) => {
+    const GetAllOpenOrders = async () => {
         const token = await getAccessTokenSilently();
         axios
-        .get(`${apiUrl}/public/orders/${orderId}`, {
+          .get(`${apiUrl}/public/orders`, {
             headers: {
-                Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${token}`,
             },
-        })
-        .then((response) => {
-            const newOrder = response.data;
-            console.log(response);
-            setNewOrders([...newOrders, newOrder]);
-            var old_data = JSON.parse(localStorage.getItem('orders'));
-            old_data.push(newOrder);
-            localStorage.setItem('orders', JSON.stringify(old_data));
-            setNewOrders(JSON.parse(localStorage.getItem('orders')));
-            console.log(newOrders);
-        })
-    }
+          })
+          .then(function (response) {
+            setNewOrders(response.data);
+            setIsLoading(false);
+          })
+          .catch(function (error) {});
+      };
 
 
     useEffect(() =>  {
@@ -58,22 +34,31 @@ export default function Order() {
             console.log('WebSocket client connected!');
         };
         client.onmessage = function (event) {
-            console.log("incoming order: " + event.data);
-            const orderId = event.data;
-            GetOrderFromId(orderId);
-          };
-
+            console.log("incoming order: " + event);
+            GetAllOpenOrders();
+        };
     });
 
+    
+    useEffect(() => {
+        if(newOrders == null) {
+            GetAllOpenOrders();
+        }
+    }, [newOrders]);
 
+
+
+
+    if (isLoading) {
+        return <div>loading...</div>;
+      }
+    
+    if (!isLoading) {
     return (
-    <>
-    <div class="orders">
+        <div class="orders">
         <h1>Incoming orders:</h1>
-            {newOrders.map(order => (
-                <OrderCard order = {order} FinishOrder = {FinishOrder}/>
-            ))}
+            {newOrders.sort((a, b) => a.id - b.id).map(order => { if(order.status !== 3) return <OrderCard order = {order} GetOrders = {GetAllOpenOrders}/>})}
     </div>
-    </>
-    )
+    );
+    }
 }
