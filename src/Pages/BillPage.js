@@ -8,16 +8,13 @@ import BillList from "../Components/Bill/BillList";
 
 const BillPage = () => {
   const url = "http://localhost:8080";
-  const [bill, setbills] = useState(null);
-  const [order, setOrders] = useState(null);
-  const [item, setitem] = useState(null);
-  const [billItems, setBillItems] = useState([]);
+  const [bills, setbills] = useState([]);
 
   const { getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
     fetchBills();
-  });
+  },[]);
 
   const fetchBills = async () => {
     const token = await getAccessTokenSilently();
@@ -39,8 +36,8 @@ const BillPage = () => {
         <h1>Bills</h1>
       </div>
 
-      {bill && (
-        <BillList fetchBills={fetchBills} url={url} bill={bill} order={order} />
+      {bills && (
+        <BillList key={bills.id} bills={bills}/>
       )}
     </div>
   );
