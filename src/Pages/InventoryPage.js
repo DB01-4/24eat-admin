@@ -16,7 +16,7 @@ function useForceUpdate() {
 
 const InventoryPage = () => {
   const [value, setValue] = useState(-1);
-  const [filter, setFilter] = useState("produce");
+  const [filter, setFilter] = useState();
   let forceUpdate = useForceUpdate();
   const [childCount, setChildCount] = useState();
   const [boolCount, setBoolCount] = useState(0);
