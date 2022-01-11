@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../src/Components/Main/Navbar";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import Category from "./Pages/Category";
 import Dish from "./Pages/Dish";
 import AddCategory from "./Pages/AddCategory.js";
@@ -14,6 +14,9 @@ function App() {
       <Navbar />
       <div>
         <Switch>
+          <Route exact path="/">
+            <Redirect to="/kitchen" />
+          </Route>
           <Route exact path="/category" component={Category} />
           <Route exact path="/dish" component={Dish} />
           <Route exact path="/addcategory" component={AddCategory} />
