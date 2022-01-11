@@ -1,26 +1,18 @@
 import React from 'react';
 import { useState } from 'react';
-import {Card, CardContent, CardActionArea, Button, Typography} from '@mui/material';
+import {Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@mui/material';
 import Dialog from './DishEdit';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 
 
 export default function DishList  (props) {
 
-  const { dishes, url, onDelete } = props
+  const { dishes, url, onDelete, handleSuccesAlert, fetchDishes } = props
   const [open, setOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState();
 
 
   const handleClickOpen = (value) => {
     setSelectedCard({...value, value})
-    console.log(selectedCard)
     setOpen(true);
   };
 
@@ -41,6 +33,8 @@ export default function DishList  (props) {
         open={open}
         onClose={handleClose}
         url={url}
+        handleSuccesAlert={handleSuccesAlert}
+        fetchDishes={fetchDishes}
         />
       <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -51,6 +45,7 @@ export default function DishList  (props) {
             <TableCell align="left">Description</TableCell>
             <TableCell align="left">price</TableCell>
             <TableCell align="left">allergies</TableCell>
+            <TableCell align="left">nutrition</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -66,6 +61,7 @@ export default function DishList  (props) {
               <TableCell align="left">{dish.description}</TableCell>
               <TableCell align="left">{dish.price}</TableCell>
               <TableCell align="left">{dish.allergies}</TableCell>
+              <TableCell align="left">{dish.nutrition}</TableCell>
               <TableCell align="left"><Button onClick={() => handleClickOpen(dish)}>Edit</Button></TableCell>
               <TableCell align="left"><Button onClick={() => handleDelete(dish)}>Delete</Button></TableCell>
             </TableRow>

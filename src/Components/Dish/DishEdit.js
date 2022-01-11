@@ -12,12 +12,13 @@ export default function DishEdit(props) {
     name: '',
     description: null,
     allergies: '',
+    nutrition: '',
     price: 0,
     category: '',
     image: ''
   }
 
-  const { onClose, selectedCard, open, url} = props;
+  const { onClose, selectedCard, open, url, handleSuccesAlert, fetchDishes } = props;
   const [values, setValues] = useState(initialFValues);
   const { data: categories } = useFetch("http://localhost:8080/categories/"); 
 
@@ -40,24 +41,22 @@ export default function DishEdit(props) {
       ...values,
       [name]: value
   })
-    console.log(values)
 }
 
   useEffect(() => {
-    console.log("test")
     if (selectedCard != null)
         setValues({...selectedCard})
 }, [selectedCard])
 
   const handleSubmit = e => {
-    console.log(values)
   axios.put(url+selectedCard.id, values)
-    .then(function (response) {
-      console.log(response);
-      window.location.reload(false);
+    .then(function () {
+      fetchDishes()
     })
-    .catch(function (error) {
-     console.log(error);
+    .catch(function () {
+  })
+  .finally(function () {
+    handleSuccesAlert()
   });
   handleClose();
 }
@@ -100,6 +99,18 @@ export default function DishEdit(props) {
            multiline
            maxRows={4}
            defaultValue={values.allergies}
+           onChange={onChange}
+          />
+          </div>
+
+          <div className="textfield">
+            <TextField
+           id="outlined-multiline-flexible"
+           label="nutrition"
+           name="nutrition"
+           multiline
+           maxRows={4}
+           defaultValue={values.nutrition}
            onChange={onChange}
           />
           </div>

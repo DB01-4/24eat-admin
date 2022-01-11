@@ -4,11 +4,16 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-d
 import Category from "./Pages/Category";
 import Dish from "./Pages/Dish";
 import AddCategory from "./Pages/AddCategory.js";
+import Loading from "../src/Components/Login/Loading";
 import InventoryPage from "./Pages/InventoryPage.js";
-import AddDish from "./Pages/AddDish.js";
-import Kitchen from "./Pages/Kitchen.js";
+import AddDish from "./Pages/AddDish";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function App() {
+  const { isLoading } = useAuth0();
+
+  if (isLoading) return <div>Loading...</div>;
+
   return (
     <Router>
       <Navbar />

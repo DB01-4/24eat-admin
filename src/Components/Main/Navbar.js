@@ -1,16 +1,16 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import LoginButton from "../Login/LoginButton";
+import LogoutButton from "../Login/LogoutButton";
 
 export default function ButtonAppBar() {
-
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -19,9 +19,9 @@ export default function ButtonAppBar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  
+
   return (
-    <Box sx={{ flexGrow: 1 } }>
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar>
         <Toolbar>
           <IconButton
@@ -32,30 +32,36 @@ export default function ButtonAppBar() {
             sx={{ mr: 2 }}
             onClick={handleClick}
             aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
+            aria-expanded={open ? "true" : undefined}
           >
             <MenuIcon />
-    <div>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-        <MenuItem onClick={handleClose}><a href="/Category">Category</a></MenuItem>
-        <MenuItem onClick={handleClose}><a href="/Dish">Dish</a></MenuItem>
-        <MenuItem onClick={handleClose}><a href="/Inventory">Inventory</a></MenuItem>
-        <MenuItem onClick={handleClose}><a href="/Kitchen">Kitchen</a></MenuItem>
-      </Menu>
-    </div>
+            <div>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}
+              >
+                <MenuItem onClick={handleClose}>
+                  <a href="/Category">Category</a>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
+                  <a href="/Dish">Dish</a>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
+                  <a href="/Inventory">Inventory</a>
+                </MenuItem>
+              </Menu>
+            </div>
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Admin panel
           </Typography>
-          <Button color="inherit">Login</Button>
+          <LoginButton />
+          <LogoutButton />
         </Toolbar>
       </AppBar>
     </Box>

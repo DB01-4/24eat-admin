@@ -26,8 +26,6 @@ export default function InventoryTable({ props }) {
   const [page] = React.useState(0);
   const [rowsPerPage] = React.useState(100);
   const items = props.items;
-  console.log(props.items);
-  console.log("!!!!!!!!!!!!" + props.filter);
 
   return (
     <div>
@@ -67,6 +65,8 @@ export default function InventoryTable({ props }) {
                                 value={value}
                                 item={row}
                                 id={row.id}
+                                DetectChanges={props.DetectChanges}
+                                CountChildren={props.CountChildren}
                               />
                             ) : column.format && typeof value === "number" ? (
                               column.format(value)
@@ -76,7 +76,11 @@ export default function InventoryTable({ props }) {
                           </TableCell>
                         );
                       })}
-                      <DeleteItemButton id={row.id} item={row.name} />
+                      <DeleteItemButton
+                        id={row.id}
+                        item={row.name}
+                        stateChanger={props.stateChanger}
+                      />
                     </TableRow>
                   ) : (
                     <div />
