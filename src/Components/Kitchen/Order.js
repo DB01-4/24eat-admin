@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { w3cwebsocket as W3CWebSocket } from "websocket";
 import "../../Style/kitchen.css"
 import OrderCard from './OrderCard';
 import axios from 'axios';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const client = new WebSocket('ws://websocket-server-mediaan.herokuapp.com');
 const apiUrl = "https://db01-4-menuservice.herokuapp.com/api"
@@ -13,7 +13,7 @@ export default function Order() {
     if(localStorage.getItem('orders') == null) { localStorage.setItem('orders', '[]') }
 
     const [newOrders, setNewOrders] = useState(JSON.parse(localStorage.getItem('orders')));
-
+    const { getAccessTokenSilently } = useAuth0();
 
 
     const SetLocalStorageArray = (array) => {
@@ -31,9 +31,15 @@ export default function Order() {
         SetLocalStorageArray(array)
     }
 
-    const GetOrderFromId = (orderId) => {
+
+    const GetOrderFromId = async(orderId) => {
+        const token = await getAccessTokenSilently();
         axios
-        .get(`${apiUrl}/private/orders/${orderId}`)
+        .get(`${apiUrl}/public/orders/${orderId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
         .then((response) => {
             const newOrder = response.data;
             console.log(response);
@@ -59,11 +65,6 @@ export default function Order() {
 
     });
 
-    const test = () => {
-    client.send(1);
-    console.log("check")
-    };
-
 
     return (
     <>
@@ -72,7 +73,6 @@ export default function Order() {
             {newOrders.map(order => (
                 <OrderCard order = {order} FinishOrder = {FinishOrder}/>
             ))}
-            <button onClick={() => test()}>SEND</button>
     </div>
     </>
     )

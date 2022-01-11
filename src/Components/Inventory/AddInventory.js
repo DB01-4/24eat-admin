@@ -4,6 +4,7 @@ import axios from "axios";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function AddInventory({ stateChanger, filter }) {
   const {
@@ -11,24 +12,33 @@ export default function AddInventory({ stateChanger, filter }) {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  console.log(filter);
   const [count, setCount] = useState(0);
-  const onSubmit = (data) =>
+  const { getAccessTokenSilently } = useAuth0();
+
+  const onSubmit = async (data) => {
+    const token = await getAccessTokenSilently();
     axios
-      .post("http://localhost:8084/api/post", data)
+      .post("https://db01-4-imsservice.herokuapp.com/api/private/post", data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then(function (response) {
         console.log(response);
         setCount(count + 1);
         stateChanger(count);
+        console.log("changed count to: " + count);
       })
       .catch(function (error) {
         console.log(error);
         console.log(data);
       });
+  };
 
   return (
     <div className="flex-child">
       <div>
-        <h1></h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <TextField
             id="filled-basic"
@@ -43,7 +53,7 @@ export default function AddInventory({ stateChanger, filter }) {
             id="outlined-disabled"
             label="Type"
             value={filter}
-            {...register("type", { value: filter })}
+            {...register("type", { value: "produce" })}
           />
           {errors.exampleRequired && <p>This field is required</p>}
 
@@ -52,6 +62,9 @@ export default function AddInventory({ stateChanger, filter }) {
             id="filled-basic"
             label="Quantity"
             variant="filled"
+            inputProps={{
+              step: "0.001",
+            }}
             {...register("quantity", { required: true })}
           />
           {errors.exampleRequired && <p>This field is required</p>}

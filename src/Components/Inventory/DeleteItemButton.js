@@ -11,11 +11,12 @@ import Button from "@mui/material/Button";
 import { useState } from "react";
 import { Snackbar } from "@mui/material";
 import { Alert } from "@mui/material";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const DeleteItemButton = (props) => {
   const [open, setOpen] = React.useState(false);
-  const [count, setCount] = useState(0);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const { getAccessTokenSilently } = useAuth0();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -38,15 +39,22 @@ const DeleteItemButton = (props) => {
   };
 
   function HandleReload() {
-    setCount(count + 1);
     handleSnackbarOpen();
-    props.stateChanger(count);
+    props.getItems();
     handleClose();
   }
 
-  function DeleteItem(id) {
+  async function DeleteItem(id) {
+    const token = await getAccessTokenSilently();
     axios
-      .delete("http://localhost:8084/api/delete/" + id)
+      .delete(
+        "https://db01-4-imsservice.herokuapp.com/api/private/delete/" + id,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then(function (response) {
         HandleReload();
       })
@@ -54,8 +62,6 @@ const DeleteItemButton = (props) => {
         console.log(error);
         console.log(id);
       });
-
-    // window.location.reload();
   }
   return (
     <div>

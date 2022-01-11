@@ -8,6 +8,7 @@ import Loading from "../src/Components/Login/Loading";
 import InventoryPage from "./Pages/InventoryPage.js";
 import AddDish from "./Pages/AddDish";
 import { useAuth0 } from "@auth0/auth0-react";
+import Kitchen from "./Pages/Kitchen";
 
 function App() {
   const { isLoading } = useAuth0();
