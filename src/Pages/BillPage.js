@@ -7,14 +7,14 @@ import "../Style/App.css";
 import BillList from "../Components/Bill/BillList";
 
 const BillPage = () => {
-  const url = "http://localhost:8080";
+  const url = "https://db01-4-menuservice.herokuapp.com";
   const [bills, setbills] = useState([]);
 
   const { getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
     fetchBills();
-  },[]);
+  }, []);
 
   const fetchBills = async () => {
     const token = await getAccessTokenSilently();
@@ -36,9 +36,7 @@ const BillPage = () => {
         <h1>Bills</h1>
       </div>
 
-      {bills && (
-        <BillList key={bills.id} bills={bills}/>
-      )}
+      {bills && <BillList key={bills.id} bills={bills} />}
     </div>
   );
 };
