@@ -184,11 +184,10 @@ const AddDish = () => {
           />
         </div>
 
-        <FormControl fullWidth>
-          <InputLabel>Category</InputLabel>
+        <div className="txtfield">
+          <InputLabel>Category*</InputLabel>
           <Select
             required
-            label="Category"
             name="category"
             onChange={onChange}
             value={
@@ -204,7 +203,7 @@ const AddDish = () => {
                 );
               })}
           </Select>
-        </FormControl>
+        </div>
 
         <div className="txtfield">
           <TextField

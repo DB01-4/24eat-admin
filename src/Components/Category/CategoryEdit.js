@@ -10,6 +10,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useAuth0 } from "@auth0/auth0-react";
+import "../../Style/FormEdit.css";
 
 export default function CategoryEdit(props) {
   const initialFValues = {
@@ -64,8 +65,12 @@ export default function CategoryEdit(props) {
   return (
     <Dialog onClose={handleClose} open={open}>
       <DialogTitle className="editheader">Edit</DialogTitle>
-      <form className="form">
-        <div className="textfield">
+      <form 
+      class="form"
+      className="form"
+      onSubmit={handleSubmit}
+      >
+        <div className="inputfield">
           <TextField
             id="outlined-multiline-flexible"
             label="name"
@@ -77,7 +82,7 @@ export default function CategoryEdit(props) {
           />
         </div>
 
-        <div className="textfield">
+        <div className="inputfield">
           <TextField
             id="outlined-multiline-flexible"
             label="description"
@@ -89,7 +94,7 @@ export default function CategoryEdit(props) {
           />
         </div>
 
-        <div className="textfield">
+        <div className="inputfield">
           <TextField
             id="outlined-multiline-flexible"
             label="image"
@@ -100,13 +105,13 @@ export default function CategoryEdit(props) {
             onChange={onChange}
           />
         </div>
+
+        <DialogActions>
+            <Button onClick={handleClose}>Close</Button>
+            <Button type="submit" autoFocus>Submit</Button>
+          </DialogActions>
+
       </form>
-      <DialogActions>
-        <Button onClick={handleClose}>Close</Button>
-        <Button onClick={handleSubmit} autoFocus>
-          Submit
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 }
