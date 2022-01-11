@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import axios from "axios";
 import {Dialog, DialogActions, DialogTitle, Button, TextField, Select, InputLabel, MenuItem, Switch} from '@mui/material';
 import useFetch from "../../API/useFetch";
-import FormControl from '@mui/material/FormControl';
+import "../../Style/FormEdit.css";
 
 export default function DishEdit(props) {
 
@@ -78,113 +78,124 @@ useEffect(() => {
   return (
     <Dialog onClose={handleClose} open={open}>
         <DialogTitle>Edit Dish</DialogTitle>
-        <form className="form">
-          <div className="textfield">
+        <form 
+        class="form"
+        className="form"
+        onSubmit={handleSubmit}
+        >
+          <div className="inputfield">
           <TextField
-           id="outlined-multiline-flexible"
-           label="name"
-           name="name"
-           multiline
-           maxRows={4}
-           defaultValue={values.name}
-           onChange={onChange}
+          required
+          id="outlined-multiline-flexible"
+          label="name"
+          name="name"
+          multiline
+          maxRows={4}
+          defaultValue={values.name}
+          onChange={onChange}
           />
           </div>
 
 
-          <div className="textfield">
+          <div className="inputfield">
             <TextField
-           id="outlined-multiline-flexible"
-           label="description"
-           name="description"
-           multiline
-           maxRows={4}
-           defaultValue={values.description}
-           onChange={onChange}
-          />
-          </div>
-
-          <div className="textfield">
-            <TextField
-           id="outlined-multiline-flexible"
-           label="allergies"
-           name="allergies"
-           multiline
-           maxRows={4}
-           defaultValue={values.allergies}
-           onChange={onChange}
-          />
-          </div>
-
-          <div className="textfield">
-            <TextField
-           id="outlined-multiline-flexible"
-           label="nutrition"
-           name="nutrition"
-           multiline
-           maxRows={4}
-           defaultValue={values.nutrition}
-           onChange={onChange}
-          />
-          </div>
-
-
-          <div className="textfield">
-          <TextField
-           id="outlined-multiline-flexible"
-           label="price"
-           name="price"
-           type="number"
-           multiline
-           maxRows={4}
-           defaultValue={values.price}
-           onChange={onChange}
-          />
-          </div>
-
-          
-          <div className="switch">
-            <InputLabel>in stock</InputLabel>
-            <Switch
-              checked={values.inStock}
-              onChange={onChange}
-              label="inStock"
-              name="inStock"
+            id="outlined-multiline-flexible"
+            label="description"
+            name="description"
+            multiline
+            maxRows={4}
+            defaultValue={values.description}
+            onChange={onChange}
             />
           </div>
 
-          <FormControl fullWidth>
-          <InputLabel>Category</InputLabel>
-          <Select
+          <div className="inputfield">
+            <TextField
+            id="outlined-multiline-flexible"
+            label="allergies"
+            name="allergies"
+            multiline
+            maxRows={4}
+            defaultValue={values.allergies}
+            onChange={onChange}
+            />
+          </div>
+
+          <div className="inputfield">
+            <TextField
+            id="outlined-multiline-flexible"
+            label="nutrition"
+            name="nutrition"
+            multiline
+            maxRows={4}
+            defaultValue={values.nutrition}
+            onChange={onChange}
+            />  
+          </div>
+
+
+          <div className="inputfield">
+            <TextField
+            required
+            id="outlined-multiline-flexible"
+            label="price"
+            name="price"
+            type="number"
+            multiline
+            maxRows={4}
+            defaultValue={values.price}
+            onChange={onChange}
+            />
+          </div>
+
+          
+          <div className="switch inputfield">
+            <InputLabel>in stock</InputLabel>
+            <Switch
+            checked={values.inStock}
+            onChange={onChange}
+            label="inStock"
+            name="inStock"
+            />
+          </div>
+          
+          <div className="inputfield">
+            <InputLabel>Category</InputLabel>
+            <Select
             id="outlined-multiline-flexible"
             label="category"
             name="category"
             defaultValue={categories && categories[getCategoryIndex(values.category.id, categories)]}
             //renderValue=
             onChange={onChange}
-          >
-            {categories && categories.map(category => {
-              return (
-              <MenuItem key={category.id} value={category}>{category.name}</MenuItem>
-              )}
-              )}
-          </Select>
-          </FormControl>
+            >
+              {categories && categories.map(category => {
+                return (
+                <MenuItem key={category.id} value={category}>{category.name}</MenuItem>
+                )}
+                )}
+            </Select>
+          </div>
+
+          <div className="inputfield">
             <TextField
-           id="outlined-multiline-flexible"
-           label="image"
-           name="image"
-           multiline
-           maxRows={4}
-           defaultValue={values.image}
-           onChange={onChange}
-          />
+            id="outlined-multiline-flexible"
+            label="image"
+            name="image"
+            multiline
+            maxRows={4}
+            defaultValue={values.image}
+            onChange={onChange}
+            />
+          </div>
+
+          <DialogActions>
+            <Button onClick={handleClose}>Close</Button>
+            <Button type="submit" autoFocus>Submit</Button>
+          </DialogActions>
 
         </form>
-        <DialogActions>
-          <Button onClick={handleClose}>Close</Button>
-          <Button onClick={handleSubmit} autoFocus>Submit</Button>
-        </DialogActions>
+
     </Dialog>
   );
 }
