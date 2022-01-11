@@ -35,8 +35,7 @@ const BillPage = () => {
       <div>
         <h1>Bills</h1>
       </div>
-
-      {bills && <BillList key={bills.id} bills={bills} />}
+      {bills && <BillList Key={bills.id} bills={bills} />}
     </div>
   );
 };
