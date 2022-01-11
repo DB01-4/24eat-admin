@@ -2,6 +2,8 @@ import React from 'react';
 import { useState } from 'react';
 import {Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@mui/material';
 import Dialog from './DishEdit';
+import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 export default function DishList  (props) {
@@ -10,6 +12,7 @@ export default function DishList  (props) {
   const [open, setOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState();
 
+  const { getAccessTokenSilently } = useAuth0();
 
   const handleClickOpen = (value) => {
     setSelectedCard({...value, value})
@@ -22,9 +25,25 @@ export default function DishList  (props) {
 
   };
 
-  const handleDelete = (data) => {
-    onDelete(data);
-  }
+  const handleDelete = async (data) => {
+    try {
+      const token = await getAccessTokenSilently();
+
+      axios
+        .delete(`${url}/api/private/products/${data.id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(() => {
+          fetchDishes();
+          handleSuccesAlert();
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <Dialog

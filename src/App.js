@@ -9,6 +9,7 @@ import InventoryPage from "./Pages/InventoryPage.js";
 import AddDish from "./Pages/AddDish";
 import { useAuth0 } from "@auth0/auth0-react";
 import BillPage from "./Pages/BillPage";
+import Kitchen from "./Pages/Kitchen.js";
 
 function App() {
   const { isLoading } = useAuth0();
@@ -27,6 +28,7 @@ function App() {
           <Route exact path="/Inventory" component={InventoryPage} />
           <Route exact path="/bills" component={BillPage} />
           <Route exact path="/loading" component={Loading} />
+          <Route exact path="/Kitchen" component={Kitchen} />
         </Switch>
       </div>
     </Router>
