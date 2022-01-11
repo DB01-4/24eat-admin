@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import axios from "axios";
 import {Dialog, DialogActions, DialogTitle, Button, TextField, Select, InputLabel, MenuItem, Switch} from '@mui/material';
 import useFetch from "../../API/useFetch";
-import FormControl from '@mui/material/FormControl';
 import "../../Style/FormEdit.css";
 
 export default function DishEdit(props) {

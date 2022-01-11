@@ -15,8 +15,6 @@ import { useHistory } from "react-router-dom";
 import Loading from "../Components/Login/Loading";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { useAuth0 } from "@auth0/auth0-react";
-import FormControl from "@mui/material/FormControl";
-import Box from "@mui/material/Box";
 
 const AddDish = () => {
   let history = useHistory();
