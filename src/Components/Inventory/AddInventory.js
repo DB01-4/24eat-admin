@@ -28,6 +28,7 @@ export default function AddInventory({ stateChanger, filter }) {
         console.log(response);
         setCount(count + 1);
         stateChanger(count);
+        console.log("changed count to: " + count);
       })
       .catch(function (error) {
         console.log(error);
@@ -61,6 +62,9 @@ export default function AddInventory({ stateChanger, filter }) {
             id="filled-basic"
             label="Quantity"
             variant="filled"
+            inputProps={{
+              step: "0.001",
+            }}
             {...register("quantity", { required: true })}
           />
           {errors.exampleRequired && <p>This field is required</p>}

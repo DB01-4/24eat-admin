@@ -22,10 +22,14 @@ const columns = [
   },
 ];
 
-export default function InventoryTable({ props }) {
+export default function InventoryTable({
+  props,
+  items,
+  stateChanger,
+  getItems,
+}) {
   const [page] = React.useState(0);
   const [rowsPerPage] = React.useState(100);
-  const items = props.items;
 
   return (
     <div>
@@ -79,7 +83,8 @@ export default function InventoryTable({ props }) {
                       <DeleteItemButton
                         id={row.id}
                         item={row.name}
-                        stateChanger={props.stateChanger}
+                        stateChanger={stateChanger}
+                        getItems={getItems}
                       />
                     </TableRow>
                   ) : (
