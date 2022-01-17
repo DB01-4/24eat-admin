@@ -1,5 +1,4 @@
 import * as React from "react";
-import { List } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -8,11 +7,11 @@ import BillItem from "./BillItem";
 
 export default function BillList({ bills }) {
   return (
-    <List>
+    <>
         {bills.map(bill => {
           console.log("bill is: ", bill)
           return(
-            <div>
+            <div key={bill.id}>
              <Card sx={{ maxWidth: 345,  border: 1, borderRadius: 3 }}>
              <CardActionArea>
                <h1 style={{marginTop: "20px"}}>Bill number: {bill.id}</h1>
@@ -28,7 +27,7 @@ export default function BillList({ bills }) {
            </div>
           )
         })}
-    </List>
+    </>
   );
 }
 
