@@ -40,8 +40,14 @@ export default function Order() {
             console.log('WebSocket client connected!');
         };
         client.onmessage = function (event) {
-            console.log("incoming order: " + event);
-            GetAllOpenOrders();
+            try{          
+                console.log("incoming order: " + event);
+                GetAllOpenOrders();
+            }
+            catch{
+
+            }
+
         };
     });
 
