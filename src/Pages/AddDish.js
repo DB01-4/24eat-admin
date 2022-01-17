@@ -2,14 +2,19 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import "../Style/addCrud.css";
-import { Button, TextField, Select, InputLabel, MenuItem, Snackbar, Alert } from "@mui/material";
+import {
+  Button,
+  TextField,
+  Select,
+  InputLabel,
+  MenuItem,
+  Snackbar,
+  Alert,
+} from "@mui/material";
 import { useHistory } from "react-router-dom";
 import Loading from "../Components/Login/Loading";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { useAuth0 } from "@auth0/auth0-react";
-import FormControl from '@mui/material/FormControl';
-import Box from '@mui/material/Box';
-
 
 const AddDish = () => {
   let history = useHistory();
@@ -22,7 +27,7 @@ const AddDish = () => {
     allergies: "",
     nutrition: "",
     price: 0,
-    category: {id: null, name: '', description: '', image: ''},
+    category: { id: null, name: "", description: "", image: "" },
     image: "",
   };
 
@@ -34,21 +39,26 @@ const AddDish = () => {
   const [open, setOpen] = React.useState(false);
 
   const getCategoryIndex = (id, categories) => {
-    console.log('id: '+ id + ' categories: ' + categories)
-    if(categories == null){return ''}
-    if(id === null){
-      console.log('id = null')
-      return ''}
-    for (let i = 0; i < categories.length; i++) {
-   if(categories[i].id === id) {
-     console.log('return category')
-         return categories[i];
-       }
+    console.log("id: " + id + " categories: " + categories);
+    if (categories == null) {
+      return "";
     }
-  }
+    if (id === null) {
+      console.log("id = null");
+      return "";
+    }
+    for (let i = 0; i < categories.length; i++) {
+      if (categories[i].id === id) {
+        console.log("return category");
+        return categories[i];
+      }
+    }
+  };
 
   useEffect(() => {
-    fetchcat();
+    if (categories === null) {
+      fetchcat();
+    }
   });
 
   const fetchcat = async () => {
@@ -106,7 +116,7 @@ const AddDish = () => {
         console.log(error.message);
         console.log(values);
       })
-      .finally(function (){
+      .finally(function () {
         handleSnackbarOpen();
       });
   };
@@ -114,9 +124,7 @@ const AddDish = () => {
   return (
     <div>
       <h1>Dishes</h1>
-      <form
-        onSubmit={handleSubmit}
-      >
+      <form onSubmit={handleSubmit}>
         <div className="txtfield">
           <TextField
             required
@@ -174,14 +182,15 @@ const AddDish = () => {
           />
         </div>
 
-        <FormControl fullWidth>
-          <InputLabel>Category</InputLabel>
+        <div className="txtfield">
+          <InputLabel>Category*</InputLabel>
           <Select
             required
-            label="Category"
             name="category"
             onChange={onChange}
-            value={categories && getCategoryIndex(values.category.id, categories)}
+            value={
+              categories && getCategoryIndex(values.category.id, categories)
+            }
           >
             {categories && categories.map((category) => {
                 return (
@@ -191,7 +200,6 @@ const AddDish = () => {
                 );
               })}
           </Select>
-          </FormControl>
 
         <div className="txtfield">
           <TextField
@@ -209,7 +217,6 @@ const AddDish = () => {
           </Button>
         </div>
       </form>
-      
       {errorTrigger ? (
         <Snackbar
           open={open}
@@ -224,21 +231,21 @@ const AddDish = () => {
             Error: {error}
           </Alert>
         </Snackbar>
-        ) : (
-          <Snackbar
-            open={open}
-            autoHideDuration={2000}
+      ) : (
+        <Snackbar
+          open={open}
+          autoHideDuration={2000}
+          onClose={handleSnackbarClose}
+        >
+          <Alert
             onClose={handleSnackbarClose}
+            severity="success"
+            sx={{ width: "100%" }}
           >
-            <Alert
-              onClose={handleSnackbarClose}
-              severity="success"
-              sx={{ width: "100%" }}
-            >
-              succes
-            </Alert>
-          </Snackbar>
-        )}
+            succes
+          </Alert>
+        </Snackbar>
+      )}
     </div>
   );
 };

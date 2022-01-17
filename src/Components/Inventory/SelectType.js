@@ -27,6 +27,7 @@ export default function BasicSelect({ ChangeFilter }) {
           <MenuItem value={"produce"}>Produce</MenuItem>
           <MenuItem value={"meat"}>Meat</MenuItem>
           <MenuItem value={"packaged"}>Packaged</MenuItem>
+          <MenuItem value={"drinks"}>Drinks</MenuItem>
         </Select>
       </FormControl>
     </Box>

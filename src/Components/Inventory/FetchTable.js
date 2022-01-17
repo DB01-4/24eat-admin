@@ -11,12 +11,14 @@ export default function FetchTable(props, { stateChanger }) {
   const [newprops, setNewprops] = useState(props);
 
   const getItems = async () => {
-    axios.get("http://localhost:8084/api/items").then((response) => {
-      console.log(response.data);
-      const myItems = response.data;
-      setData(myItems);
-      setIsPending(false);
-    });
+    axios
+      .get("https://db01-4-imsservice.herokuapp.com/api/public/items")
+      .then((response) => {
+        console.log(response.data);
+        const myItems = response.data;
+        setData(myItems);
+        setIsPending(false);
+      });
   };
 
   useEffect(() => {
