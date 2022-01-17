@@ -192,7 +192,8 @@ const AddDish = () => {
               categories && getCategoryIndex(values.category.id, categories)
             }
           >
-            {categories && categories.map((category) => {
+            {categories &&
+              categories.map((category) => {
                 return (
                   <MenuItem key={category.id} value={category}>
                     {category.name}
@@ -200,6 +201,7 @@ const AddDish = () => {
                 );
               })}
           </Select>
+        </div>
 
         <div className="txtfield">
           <TextField
@@ -217,6 +219,7 @@ const AddDish = () => {
           </Button>
         </div>
       </form>
+
       {errorTrigger ? (
         <Snackbar
           open={open}
