@@ -5,7 +5,6 @@ import OrderCard from './OrderCard';
 import axios from 'axios';
 
 const client = new W3CWebSocket('ws://websocket-server-mediaan.herokuapp.com');
-const apiUrl = "http://localhost:8080/api"
 
 export default function Order() {
 
@@ -13,31 +12,35 @@ export default function Order() {
     const [newOrders, setNewOrders] = useState(JSON.parse(localStorage.getItem('orders')));
     const apiUrl = "https://db01-4-menuservice.herokuapp.com/api";
 
-    const getNewOrder = async (orderId) => {
-        
-        
-
-    }
-
+    setInterval(function(){
+      var object = {"message":"ARandonMessage"};
+      object = JSON.stringify(object);
+      client.send(object);
+    },40000)
 
     useEffect(() =>  {
         client.onopen = () => {
             console.log('WebSocket client connected!');
         };
         client.onmessage = (response) => {
-            const orderId = response.data;
-            axios
-            .get(`${apiUrl}/public/orders/${orderId}`)
-            .then((response) => {
-                const newOrder = response.data;
-                console.log(response);
-                setNewOrders([...newOrders, newOrder]);
-                var old_data = JSON.parse(localStorage.getItem('orders'));
-                old_data.push(newOrder);
-                localStorage.setItem('orders', JSON.stringify(old_data));
-                setNewOrders(JSON.parse(localStorage.getItem('orders')));
-                console.log(newOrders);
-            })
+            try{
+                const orderId = parseInt(response.data);
+                if(Number.isInteger(orderId))
+                axios
+                .get(`${apiUrl}/public/orders/${orderId}`)
+                .then((response) => {
+                    const newOrder = response.data;
+                    console.log(response);
+                    setNewOrders([...newOrders, newOrder]);
+                    var old_data = JSON.parse(localStorage.getItem('orders'));
+                    old_data.push(newOrder);
+                    localStorage.setItem('orders', JSON.stringify(old_data));
+                    setNewOrders(JSON.parse(localStorage.getItem('orders')));
+                    console.log(newOrders);
+                })
+            }
+            catch{
+            }
         }
     });
 
