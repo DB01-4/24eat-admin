@@ -1,62 +1,64 @@
 import { useEffect, useState } from 'react'
-import { w3cwebsocket as W3CWebSocket } from "websocket";
 import "../../Style/kitchen.css"
 import OrderCard from './OrderCard';
 import axios from 'axios';
+import { useAuth0 } from "@auth0/auth0-react";
 
-const client = new W3CWebSocket('ws://websocket-server-mediaan.herokuapp.com');
-const apiUrl = "http://localhost:8080/api"
+const client = new WebSocket('ws://websocket-server-mediaan.herokuapp.com');
+const apiUrl = "https://db01-4-menuservice.herokuapp.com/api"
 
 export default function Order() {
 
-    if(localStorage.getItem('orders') == null) { localStorage.setItem('orders', '[]') }
-    const [newOrders, setNewOrders] = useState(JSON.parse(localStorage.getItem('orders')));
-    const apiUrl = "https://db01-4-menuservice.herokuapp.com/api";
+    const [newOrders, setNewOrders] = useState(null);
+    const { getAccessTokenSilently } = useAuth0();
+    const [isLoading, setIsLoading] = useState(true);
 
-    const getNewOrder = async (orderId) => {
-        
-        
-
-    }
+    const GetAllOpenOrders = async () => {
+        const token = await getAccessTokenSilently();
+        axios
+          .get(`${apiUrl}/public/orders`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then(function (response) {
+            setNewOrders(response.data);
+            setIsLoading(false);
+          })
+          .catch(function (error) {});
+      };
 
 
     useEffect(() =>  {
         client.onopen = () => {
             console.log('WebSocket client connected!');
         };
-        client.onmessage = (response) => {
-            const orderId = response.data;
-            axios
-            .get(`${apiUrl}/public/orders/${orderId}`)
-            .then((response) => {
-                const newOrder = response.data;
-                console.log(response);
-                setNewOrders([...newOrders, newOrder]);
-                var old_data = JSON.parse(localStorage.getItem('orders'));
-                old_data.push(newOrder);
-                localStorage.setItem('orders', JSON.stringify(old_data));
-                setNewOrders(JSON.parse(localStorage.getItem('orders')));
-                console.log(newOrders);
-            })
-        }
+        client.onmessage = function (event) {
+            console.log("incoming order: " + event);
+            GetAllOpenOrders();
+        };
     });
 
-    const FinishOrder = (order) => {
-        var array = JSON.parse(localStorage.getItem('orders'));
-        const index = array.indexOf(order)
-        array.splice(index - 1, 1);
-        localStorage.setItem('orders', JSON.stringify(array));
-        setNewOrders(JSON.parse(localStorage.getItem('orders')));
-    }
+    
+    useEffect(() => {
+        if(newOrders == null) {
+            GetAllOpenOrders();
+        }
+    }, [newOrders]);
 
+
+
+
+    if (isLoading) {
+        return <div>loading...</div>;
+      }
+    
+    if (!isLoading) {
     return (
-    <>
-    <div class="orders">
+        <div class="orders">
         <h1>Incoming orders:</h1>
-            {newOrders.map(order => (
-                <OrderCard order = {order} FinishOrder = {FinishOrder}/>
-            ))}
+            {newOrders.sort((a, b) => a.id - b.id).map(order => { if(order.status !== 3) return <OrderCard order = {order} GetOrders = {GetAllOpenOrders}/>})}
     </div>
-    </>
-    )
+    );
+    }
 }
