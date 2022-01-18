@@ -1,4 +1,3 @@
-import React from "react";
 import { useEffect, useState} from "react";
 import PropTypes from 'prop-types';
 import axios from "axios";
@@ -55,7 +54,6 @@ export default function DishEdit(props) {
 
 useEffect(() => {
   if (selectedCard != null) setValues({ ...selectedCard });
-  console.log(values.category)
 }, [selectedCard]);
 
 const handleSubmit = async (e) => {
