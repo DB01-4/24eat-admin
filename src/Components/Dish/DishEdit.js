@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState} from "react";
 import PropTypes from 'prop-types';
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 import {Dialog, DialogActions, DialogTitle, Button, TextField, Select, InputLabel, MenuItem, Switch} from '@mui/material';
 import useFetch from "../../API/useFetch";
 import "../../Style/FormEdit.css";
@@ -21,7 +22,8 @@ export default function DishEdit(props) {
 
   const { onClose, selectedCard, open, url, handleSuccesAlert, fetchDishes } = props;
   const [values, setValues] = useState(initialFValues);
-  const { data: categories } = useFetch("https://db01-4-menuservice.herokuapp.com/api/public/categories"); 
+  const { data: categories } = useFetch("https://db01-4-menuservice.herokuapp.com/api/public/categories");  
+  const { getAccessTokenSilently } = useAuth0();
 
  const getCategoryIndex = (id, categories) => {
    if(categories == null){return ''}
@@ -53,26 +55,26 @@ export default function DishEdit(props) {
 
 
 useEffect(() => {
-    console.log(values)
-  }, [values])
+  if (selectedCard != null) setValues({ ...selectedCard });
+}, [selectedCard]);
 
-  useEffect(() => {
-    if (selectedCard != null)
-        setValues({...selectedCard})
-}, [selectedCard])
-
-  const handleSubmit = e => {
-  axios.put(url+selectedCard.id, values)
-    .then(function () {
-      fetchDishes()
+const handleSubmit = async (e) => {
+  const token = await getAccessTokenSilently();
+  axios
+    .put(`${url}/api/private/products/` + selectedCard.id, values, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
-    .catch(function () {
-  })
-  .finally(function () {
-    handleSuccesAlert()
-  });
+    .then(function () {
+      fetchDishes();
+    })
+    .catch(function () {})
+    .finally(function () {
+      handleSuccesAlert();
+    });
   handleClose();
-}
+};
 
 
   return (
