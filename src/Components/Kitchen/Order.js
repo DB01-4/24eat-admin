@@ -16,7 +16,7 @@ export default function Order() {
     const GetAllOpenOrders = async () => {
         const token = await getAccessTokenSilently();
         axios
-          .get(`${apiUrl}/public/orders`, {
+          .get(`${apiUrl}/private/orders`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },

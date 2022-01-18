@@ -8,8 +8,9 @@ import Loading from "../src/Components/Login/Loading";
 import InventoryPage from "./Pages/InventoryPage.js";
 import AddDish from "./Pages/AddDish";
 import { useAuth0 } from "@auth0/auth0-react";
-import BillPage from "./Pages/BillPage";
+import BillPage from "./Pages/Bill-backup";
 import Kitchen from "./Pages/Kitchen.js";
+import Bill from "./Pages/Bill";
 
 function App() {
   const { isLoading } = useAuth0();
@@ -28,10 +29,10 @@ function App() {
           <Route exact path="/dish" component={Dish} />
           <Route exact path="/addcategory" component={AddCategory} />
           <Route exact path="/adddish" component={AddDish} />
-          <Route exact path="/Inventory" component={InventoryPage} />
-          <Route exact path="/bills" component={BillPage} />
+          <Route exact path="/inventory" component={InventoryPage} />
+          <Route exact path="/bills" component={Bill} />
           <Route exact path="/loading" component={Loading} />
-          <Route exact path="/Kitchen" component={Kitchen} />
+          <Route exact path="/kitchen" component={Kitchen} />
         </Switch>
       </div>
     </Router>

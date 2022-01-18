@@ -19,7 +19,7 @@ const BillPage = () => {
   const fetchBills = async () => {
     const token = await getAccessTokenSilently();
     axios
-      .get(`${url}/api/public/bills`, {
+      .get(`${url}/api/private/orders`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

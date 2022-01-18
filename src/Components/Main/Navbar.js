@@ -47,13 +47,19 @@ export default function ButtonAppBar() {
                 }}
               >
                 <MenuItem onClick={handleClose}>
-                  <a href="/Category">Category</a>
+                  <a href="/category">Category</a>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
-                  <a href="/Dish">Dish</a>
+                  <a href="/dish">Dish</a>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
-                  <a href="/Inventory">Inventory</a>
+                  <a href="/inventory">Inventory</a>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
+                  <a href="/bills">Bills</a>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
+                  <a href="/kitchen">Kitchen</a>
                 </MenuItem>
               </Menu>
             </div>
