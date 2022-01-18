@@ -11,12 +11,31 @@ export default function Order() {
 
     const [newOrders, setNewOrders] = useState(null);
     const { getAccessTokenSilently } = useAuth0();
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true)
+    const [first, setFirst] = useState(true)
+
+
+    const sendMSG = () => {
+        if(client.readyState === WebSocket.OPEN){
+            var object = {"message":"ARandonMessage"};
+            object = JSON.stringify(object);
+            client.send(object);
+        }
+        if(client.readyState === WebSocket.CLOSED){
+            client = new WebSocket('ws://websocket-server-mediaan.herokuapp.com');
+        }
+    }
+
+    if(first){   
+        console.log("first")
+        setInterval(sendMSG, 40000)
+        setFirst(false)
+    }
 
     const GetAllOpenOrders = async () => {
         const token = await getAccessTokenSilently();
         axios
-          .get(`${apiUrl}/public/orders`, {
+          .get(`${apiUrl}/private/orders`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -28,17 +47,21 @@ export default function Order() {
           .catch(function (error) {});
       };
 
-
     useEffect(() =>  {
         client.onopen = () => {
             console.log('WebSocket client connected!');
         };
         client.onmessage = function (event) {
-            console.log("incoming order: " + event);
-            GetAllOpenOrders();
+            try{          
+                console.log("incoming order: " + event.data);
+                GetAllOpenOrders();
+            }
+            catch{
+
+            }
+
         };
     });
-
     
     useEffect(() => {
         if(newOrders == null) {
