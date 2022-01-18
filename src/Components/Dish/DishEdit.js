@@ -53,9 +53,9 @@ export default function DishEdit(props) {
     }
 }
 
-
 useEffect(() => {
   if (selectedCard != null) setValues({ ...selectedCard });
+  console.log(values.category)
 }, [selectedCard]);
 
 const handleSubmit = async (e) => {
@@ -167,8 +167,7 @@ const handleSubmit = async (e) => {
             id="outlined-multiline-flexible"
             label="category"
             name="category"
-            defaultValue={categories && categories[getCategoryIndex(values.category.id, categories)]}
-            //renderValue=
+            value={categories && categories[getCategoryIndex(values.category.id, categories)]}
             onChange={onChange}
             >
               {categories && categories.map(category => {
