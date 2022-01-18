@@ -26,7 +26,7 @@ const OrderCard = ({order, GetOrders}) => {
     }
 
     const UpdateDB = (status) => {
-        axios.put(`${apiUrl}/public/orders/${order.id}`, {status: status})
+        axios.put(`${apiUrl}/private/orders/${order.id}`, {status: status})
     }
 
     const GetNextStatusText = () => {

@@ -4,10 +4,12 @@ import OrderItems from './OrderItems';
 export default function BillItem({ bill }) {
     return (
         <div>
-                {bill.billitems.map(orderItems => {
-                    console.log("orderItems is: ", orderItems)
+                {bill.orderItems.map(orderItem => {
+                    console.log("orderItems is: ", orderItem)
                     return(
-                        <OrderItems orderItems={orderItems} key={orderItems.id}/>
+                        <div className='productdiv'>
+                        <h4 style={{textAlign: "center"}}>{orderItem.quantity}x {orderItem.product.name} €{orderItem.product.price}</h4>
+                    </div>
                     )
                 })}
         </div>
