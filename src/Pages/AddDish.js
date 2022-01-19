@@ -39,17 +39,14 @@ const AddDish = () => {
   const [open, setOpen] = React.useState(false);
 
   const getCategoryIndex = (id, categories) => {
-    console.log("id: " + id + " categories: " + categories);
     if (categories == null) {
       return "";
     }
     if (id === null) {
-      console.log("id = null");
       return "";
     }
     for (let i = 0; i < categories.length; i++) {
       if (categories[i].id === id) {
-        console.log("return category");
         return categories[i];
       }
     }
@@ -107,14 +104,10 @@ const AddDish = () => {
         history.push("/Dish");
         setErrorTrigger(true);
         setError(error.message);
-        console.log(error.message);
-        console.log(values);
       })
       .catch(function (error) {
         setErrorTrigger(true);
         setError(error.message);
-        console.log(error.message);
-        console.log(values);
       })
       .finally(function () {
         handleSnackbarOpen();

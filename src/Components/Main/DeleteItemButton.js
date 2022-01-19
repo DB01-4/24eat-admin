@@ -24,8 +24,6 @@ const DeleteItemButton = (props) => {
     axios
       .delete("http://localhost:8084/api/delete/" + id)
       .catch(function (error) {
-        console.log(error);
-        console.log(id);
       });
     handleClose();
     window.location.reload();

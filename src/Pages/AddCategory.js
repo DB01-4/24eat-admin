@@ -43,7 +43,6 @@ export default function AddCategory() {
   const handleSubmit = async (e) => {
     setErrorTrigger(false);
     const token = await getAccessTokenSilently();
-    console.log(e);
     axios
       .post(`${categoryUrl}api/private/categories`, values, {
         headers: {
@@ -56,8 +55,6 @@ export default function AddCategory() {
       .catch(function (error) {
         setErrorTrigger(true);
         setError(error.message);
-        console.log(error.message);
-        console.log(values);
       })
       .finally(function (){
         handleSnackbarOpen();

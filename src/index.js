@@ -13,7 +13,6 @@ ReactDOM.render(
     clientId={clientId}
     redirectUri={window.location.origin}
     audience="http://localhost:8080/"
-    // scope="read:current_user update:current_user_metadata"
   >
     <App />
   </Auth0Provider>,
