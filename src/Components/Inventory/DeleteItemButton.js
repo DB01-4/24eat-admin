@@ -45,6 +45,7 @@ const DeleteItemButton = (props) => {
   }
 
   async function DeleteItem(id) {
+    /* eslint-disable */
     const token = await getAccessTokenSilently();
     axios
       .delete(
@@ -53,8 +54,6 @@ const DeleteItemButton = (props) => {
         HandleReload();
       })
       .catch(function (error) {
-        console.log(error);
-        console.log(id);
       });
   }
   return (

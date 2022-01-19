@@ -19,21 +19,11 @@ const InventoryPage = () => {
   const [filter, setFilter] = useState();
   let forceUpdate = useForceUpdate();
   const [childCount] = useState();
-  console.log("reloaded inventory");
 
   function ChangeFilter(_filter) {
     setFilter(_filter);
     forceUpdate();
   }
-
-  // function DetectChanges(bool) {
-  //   if (!bool) {
-  //     setBoolCount(boolCount + 1);
-  //   } else {
-  //     setBoolCount(boolCount - 1);
-  //   }
-  //   console.log("boolCount: " + boolCount);
-  // }
 
   return (
     <div>
@@ -47,7 +37,6 @@ const InventoryPage = () => {
       <div className="flex-container">
         <AddInventory stateChanger={setValue} filter={filter} />
         <EditInventoryButton unsavedChanges={childCount} />
-        {/* Always assumes there were changes */}
       </div>
     </div>
   );

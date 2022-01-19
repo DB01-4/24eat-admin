@@ -46,9 +46,7 @@ export default function CategoryList(props) {
           fetchCategories();
           handleSuccesAlert();
         });
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error){}
   };
 
   return (
