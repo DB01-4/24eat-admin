@@ -9,7 +9,6 @@ export default function BillList({ bills }) {
   return (
     <>
         {bills.map(bill => {
-          console.log("bill is: ", bill)
           return(
             <div key={bill.id}>
              <Card sx={{ maxWidth: 345,  border: 1, borderRadius: 3 }}>

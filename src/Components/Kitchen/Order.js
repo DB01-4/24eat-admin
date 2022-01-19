@@ -27,7 +27,6 @@ export default function Order() {
     }
 
     if(first){   
-        console.log("first")
         setInterval(sendMSG, 40000)
         setFirst(false)
     }
@@ -53,7 +52,6 @@ export default function Order() {
         };
         client.onmessage = function (event) {
             try{          
-                console.log("incoming order: " + event.data);
                 GetAllOpenOrders();
             }
             catch{

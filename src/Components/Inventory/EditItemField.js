@@ -41,16 +41,14 @@ export default function EditItemField(props) {
   function CheckIfChanged(_value) {
     if (dbValue === _value) {
       setUnsavedChanges(false);
-      console.log("set to false");
     } else {
       setUnsavedChanges(true);
-      console.log("set to true");
     }
   }
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
-    CheckIfChanged(event.target.value); //idk why this works
+    CheckIfChanged(event.target.value);
   };
 
   const handleSnackbarOpen = () => {
@@ -80,16 +78,15 @@ export default function EditItemField(props) {
     }
     item.quantity = _quantity;
     setDbValue(_quantity);
-    console.log(item);
 
     if (_quantity > 0) {
       try {
+        /* eslint-disable */
         const token = getAccessTokenSilently();
         axios
           .get(
             "https://db01-4-imsservice.herokuapp.com/api/item/update/" + _id)
           .then(() => {
-            console.log("item" + _id + "updated");
           })
           .catch((e) => {
             setError(e);
@@ -135,13 +132,6 @@ export default function EditItemField(props) {
           }
           label="check"
         />
-        {/* <h5>dbValue:{dbValue}</h5>
-        <h5>inputValue:{values.weight}</h5>
-        {unsavedChanges ? (
-          <h5>unsaved changes?: true</h5>
-        ) : (
-          <h5>unsaved changes?: false</h5>
-        )} */}
         <UndoButton value={values.weight} Undo={Undo} />
         {validInput ? (
           <Snackbar

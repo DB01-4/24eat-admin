@@ -1,10 +1,7 @@
 import React from "react";
 import { useEffect, useState} from "react";
 import PropTypes from 'prop-types';
-import axios from "axios";
-import { useAuth0 } from "@auth0/auth0-react";
-import {Dialog, DialogActions, DialogTitle, Button, TextField, Select, InputLabel, MenuItem, Switch} from '@mui/material';
-import useFetch from "../../API/useFetch";
+import {Dialog, DialogActions, DialogTitle, Button } from '@mui/material';
 import "../../Style/FormEdit.css";
 
 export default function DishEdit(props) {
@@ -23,7 +20,6 @@ export default function DishEdit(props) {
 
   useEffect(() => {
     if (selectedBill != null) setValues({ ...selectedBill });
-    console.log(values);
   }, [selectedBill]);
 
 

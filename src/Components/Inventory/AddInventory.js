@@ -17,7 +17,6 @@ export default function AddInventory({ stateChanger, filter }) {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  console.log(filter);
   const [count, setCount] = useState(0);
   const { getAccessTokenSilently } = useAuth0();
   const [typeFilter, setTypeFilter] = useState(filter);
@@ -27,7 +26,6 @@ export default function AddInventory({ stateChanger, filter }) {
   };
 
   useEffect(() => {
-    console.log("USEFFECT ACTIVATED, filter: " + filter);
     register("type", { value: filter });
     /* eslint-disable */
   }, [filter]);
@@ -37,15 +35,11 @@ export default function AddInventory({ stateChanger, filter }) {
     axios
       .post("https://db01-4-imsservice.herokuapp.com/api/item/post", data)
       .then(function (response) {
-        console.log(response);
         setCount(count + 1);
         stateChanger(count);
-        console.log("changed count to: " + count);
       })
       .catch(function (error) {
         setCount(count + 1);
-        console.log(error);
-        console.log(data);
       });
   };
 
@@ -60,14 +54,6 @@ export default function AddInventory({ stateChanger, filter }) {
             {...register("name", { required: true })}
           />
           {errors.exampleRequired && <p>This field is required</p>}
-
-          {/* <TextField
-            id="outlined-disabled"
-            label="Type"
-            value={filter}
-            {...register("type", { required: true })}
-          />
-          {errors.exampleRequired && <p>This field is required</p>} */}
           <FormControl>
             <InputLabel>Type</InputLabel>
             <Select
