@@ -87,7 +87,7 @@ export default function EditItemField(props) {
         const token = getAccessTokenSilently();
         axios
           .get(
-            "https://db01-4-imsservice.herokuapp.com/api/update/" + _id)
+            "https://db01-4-imsservice.herokuapp.com/api/item/update/" + _id)
           .then(() => {
             console.log("item" + _id + "updated");
           })
