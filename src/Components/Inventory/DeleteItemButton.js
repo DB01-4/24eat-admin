@@ -48,7 +48,7 @@ const DeleteItemButton = (props) => {
     const token = await getAccessTokenSilently();
     axios
       .delete(
-        "https://db01-4-imsservice.herokuapp.com/api/delete/" + id)
+        "https://db01-4-imsservice.herokuapp.com/api/item/delete/" + id)
       .then(function (response) {
         HandleReload();
       })
