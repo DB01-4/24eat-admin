@@ -12,7 +12,7 @@ export default function FetchTable(props, { stateChanger }) {
 
   const getItems = async () => {
     axios
-      .get("https://db01-4-imsservice.herokuapp.com/api/public/items")
+      .get("https://db01-4-imsservice.herokuapp.com/api/items")
       .then((response) => {
         console.log(response.data);
         const myItems = response.data;
