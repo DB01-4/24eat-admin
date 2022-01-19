@@ -14,6 +14,7 @@ const BillPage = () => {
 
   useEffect(() => {
     fetchBills();
+    /* eslint-disable */
   }, []);
 
   const fetchBills = async () => {

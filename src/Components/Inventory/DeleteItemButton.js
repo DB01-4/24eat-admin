@@ -48,13 +48,7 @@ const DeleteItemButton = (props) => {
     const token = await getAccessTokenSilently();
     axios
       .delete(
-        "https://db01-4-imsservice.herokuapp.com/api/private/delete/" + id,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+        "https://db01-4-imsservice.herokuapp.com/api/delete/" + id)
       .then(function (response) {
         HandleReload();
       })
