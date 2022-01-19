@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react"
-import CategoryList from "../Components/CategoryList";
+import CategoryList from "../Components/Category/CategoryList";
 import '@testing-library/jest-dom/extend-expect';
 
 

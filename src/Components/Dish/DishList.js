@@ -8,7 +8,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 export default function DishList  (props) {
 
-  const { dishes, url, onDelete, handleSuccesAlert, fetchDishes } = props
+  const { dishes, url, handleSuccesAlert, fetchDishes } = props
   const [open, setOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState();
 
