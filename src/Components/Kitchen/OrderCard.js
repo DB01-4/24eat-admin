@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button'
 import { CardActions } from '@mui/material';
 import axios from 'axios';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const apiUrl = "https://db01-4-menuservice.herokuapp.com/api";
 
@@ -12,6 +13,7 @@ const OrderCard = ({order, GetOrders}) => {
 
     const [orderStatus, setOrderStatus] = useState(order.status);
     const [statusColor, setStatusColor] = useState();
+    const { getAccessTokenSilently } = useAuth0();
 
     const UpdateStatusColor = () => {
         switch(orderStatus) {
@@ -25,8 +27,18 @@ const OrderCard = ({order, GetOrders}) => {
         }
     }
 
-    const UpdateDB = (status) => {
-        axios.put(`${apiUrl}/private/orders/${order.id}`, {status: status})
+    const UpdateDB = async (status) => {
+        const token = await getAccessTokenSilently();
+        axios
+          .put(`${apiUrl}/private/orders/${order.id}`, {status: status},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then(function () {
+          })
+          .catch(function () {})
     }
 
     const GetNextStatusText = () => {
