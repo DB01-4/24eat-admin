@@ -86,8 +86,7 @@ export default function EditItemField(props) {
       try {
         const token = getAccessTokenSilently();
         axios
-          .get(
-            "https://db01-4-imsservice.herokuapp.com/api/item/update/" + _id)
+          .get("https://db01-4-imsservice.herokuapp.com/api/item/update/" + _id)
           .then(() => {
             console.log("item" + _id + "updated");
           })
@@ -110,8 +109,7 @@ export default function EditItemField(props) {
   if (canEdit === "true") {
     return (
       <div>
-        <Prompt message="sure?" />
-        <OutlinedInput
+        {/* <OutlinedInput
           type="number"
           onKeyDown={_handleKeyDown}
           value={values.weight}
@@ -135,13 +133,6 @@ export default function EditItemField(props) {
           }
           label="check"
         />
-        {/* <h5>dbValue:{dbValue}</h5>
-        <h5>inputValue:{values.weight}</h5>
-        {unsavedChanges ? (
-          <h5>unsaved changes?: true</h5>
-        ) : (
-          <h5>unsaved changes?: false</h5>
-        )} */}
         <UndoButton value={values.weight} Undo={Undo} />
         {validInput ? (
           <Snackbar
@@ -171,7 +162,7 @@ export default function EditItemField(props) {
               Quantity of {item.name} not updated. Error: {error}
             </Alert>
           </Snackbar>
-        )}
+        )} */}
       </div>
     );
   } else {
