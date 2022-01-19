@@ -4,7 +4,7 @@ import OrderCard from './OrderCard';
 import axios from 'axios';
 import { useAuth0 } from "@auth0/auth0-react";
 
-var client = new WebSocket('ws://websocket-server-mediaan.herokuapp.com');
+var client = new WebSocket('wss://websocket-server-mediaan.herokuapp.com');
 const apiUrl = "https://db01-4-menuservice.herokuapp.com/api"
 
 export default function Order() {

@@ -2,6 +2,7 @@
   "name": "24eat-admin",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@auth0/auth0-react": "^1.8.0",
     "@emotion/react": "^11.5.0",
@@ -15,6 +16,7 @@
     "axios": "^0.23.0",
     "graphql": "^16.0.1",
     "http": "0.0.1-security",
+    "formidable": "^2.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.17.4",
@@ -25,7 +27,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "npm install --prefix client && npm run build --prefix client",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
