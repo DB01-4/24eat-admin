@@ -109,7 +109,31 @@ export default function EditItemField(props) {
   if (canEdit === "true") {
     return (
       <div>
-        this is where the edit input should be
+        <OutlinedInput
+          type="number"
+          onKeyDown={_handleKeyDown}
+          value={values.weight}
+          onChange={handleChange("weight")}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                onClick={() => UpdateQuantityById(props.id, values.weight)}
+              >
+                {unsavedChanges ? (
+                  <div>
+                    <UploadIcon />
+                  </div>
+                ) : (
+                  <div>
+                    <Check color="primary" />
+                  </div>
+                )}
+              </IconButton>
+            </InputAdornment>
+          }
+          label="check"
+        />
+        <UndoButton value={values.weight} Undo={Undo} />
         {/* <OutlinedInput
           type="number"
           onKeyDown={_handleKeyDown}
