@@ -6,9 +6,8 @@ import InventoryTable from "./InventoryTable";
 export default function FetchTable(props, { stateChanger }) {
   const [data, setData] = useState(null);
   const [isLoading, setIsPending] = useState(true);
-  const [error, setError] = useState(null);
+  /* eslint-disable */
   const [count, setCount] = useState(0);
-  const [newprops, setNewprops] = useState(props);
 
   const getItems = async () => {
     axios
@@ -24,6 +23,7 @@ export default function FetchTable(props, { stateChanger }) {
   useEffect(() => {
     getItems();
     setCount(props.count);
+    /* eslint-disable */
   }, [props.count]);
 
   if (isLoading) {

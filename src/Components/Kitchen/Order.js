@@ -67,6 +67,7 @@ export default function Order() {
         if(newOrders == null) {
             GetAllOpenOrders();
         }
+    /* eslint-disable */
     }, [newOrders]);
 
 

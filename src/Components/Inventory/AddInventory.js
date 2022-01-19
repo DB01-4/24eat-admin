@@ -29,6 +29,7 @@ export default function AddInventory({ stateChanger, filter }) {
   useEffect(() => {
     console.log("USEFFECT ACTIVATED, filter: " + filter);
     register("type", { value: filter });
+    /* eslint-disable */
   }, [filter]);
 
   const onSubmit = async (data) => {

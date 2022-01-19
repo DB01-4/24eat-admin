@@ -18,8 +18,7 @@ const InventoryPage = () => {
   const [value, setValue] = useState(-1);
   const [filter, setFilter] = useState();
   let forceUpdate = useForceUpdate();
-  const [childCount, setChildCount] = useState();
-  const [boolCount, setBoolCount] = useState(0);
+  const [childCount] = useState();
   console.log("reloaded inventory");
 
   function ChangeFilter(_filter) {
@@ -27,14 +26,14 @@ const InventoryPage = () => {
     forceUpdate();
   }
 
-  function DetectChanges(bool) {
-    if (!bool) {
-      setBoolCount(boolCount + 1);
-    } else {
-      setBoolCount(boolCount - 1);
-    }
-    console.log("boolCount: " + boolCount);
-  }
+  // function DetectChanges(bool) {
+  //   if (!bool) {
+  //     setBoolCount(boolCount + 1);
+  //   } else {
+  //     setBoolCount(boolCount - 1);
+  //   }
+  //   console.log("boolCount: " + boolCount);
+  // }
 
   return (
     <div>
