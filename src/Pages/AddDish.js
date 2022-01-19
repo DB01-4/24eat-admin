@@ -2,7 +2,15 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import "../Style/addCrud.css";
-import { Button, TextField, Select, InputLabel, MenuItem } from "@mui/material";
+import {
+  Button,
+  TextField,
+  Select,
+  InputLabel,
+  MenuItem,
+  Snackbar,
+  Alert,
+} from "@mui/material";
 import { useHistory } from "react-router-dom";
 import Loading from "../Components/Login/Loading";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
@@ -11,24 +19,46 @@ import { useAuth0 } from "@auth0/auth0-react";
 const AddDish = () => {
   let history = useHistory();
 
+  const baseUrl = "https://db01-4-menuservice.herokuapp.com";
+
   const initialFValues = {
     name: "",
     description: null,
     allergies: "",
     nutrition: "",
     price: 0,
-    category: "",
+    category: { id: null, name: "", description: "", image: "" },
     image: "",
   };
+
   const [values, setValues] = useState(initialFValues);
-
-  const baseUrl = "https://db01-4-menuservice.herokuapp.com";
-
   const [categories, setCategories] = useState(null);
   const { getAccessTokenSilently } = useAuth0();
+  const [error, setError] = useState("undefined error");
+  const [errorTrigger, setErrorTrigger] = useState(false);
+  const [open, setOpen] = React.useState(false);
+
+  const getCategoryIndex = (id, categories) => {
+    console.log("id: " + id + " categories: " + categories);
+    if (categories == null) {
+      return "";
+    }
+    if (id === null) {
+      console.log("id = null");
+      return "";
+    }
+    for (let i = 0; i < categories.length; i++) {
+      if (categories[i].id === id) {
+        console.log("return category");
+        return categories[i];
+      }
+    }
+  };
 
   useEffect(() => {
-    fetchcat();
+    if (categories === null) {
+      fetchcat();
+    }
   });
 
   const fetchcat = async () => {
@@ -53,7 +83,19 @@ const AddDish = () => {
     });
   };
 
+  const handleSnackbarOpen = () => {
+    setOpen(true);
+  };
+
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
   const handleSubmit = async (e) => {
+    setErrorTrigger(false);
     const token = await getAccessTokenSilently();
     axios
       .post(`${baseUrl}/api/private/products`, values, {
@@ -61,18 +103,31 @@ const AddDish = () => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(function () {
+      .then(function (error) {
         history.push("/Dish");
+        setErrorTrigger(true);
+        setError(error.message);
+        console.log(error.message);
+        console.log(values);
       })
-      .catch(function () {});
+      .catch(function (error) {
+        setErrorTrigger(true);
+        setError(error.message);
+        console.log(error.message);
+        console.log(values);
+      })
+      .finally(function () {
+        handleSnackbarOpen();
+      });
   };
 
   return (
     <div>
       <h1>Dishes</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="txtfield">
           <TextField
+            required
             id="outlined-multiline-flexible"
             label="Dish name"
             name="name"
@@ -117,6 +172,7 @@ const AddDish = () => {
 
         <div className="txtfield">
           <TextField
+            required
             id="outlined-multiline-flexible"
             label="Price"
             name="price"
@@ -127,12 +183,14 @@ const AddDish = () => {
         </div>
 
         <div className="txtfield">
-          <InputLabel>Category</InputLabel>
+          <InputLabel>Category*</InputLabel>
           <Select
-            id="outlined-multiline-flexible"
-            label="Category"
+            required
             name="category"
             onChange={onChange}
+            value={
+              categories && getCategoryIndex(values.category.id, categories)
+            }
           >
             {categories &&
               categories.map((category) => {
@@ -155,12 +213,42 @@ const AddDish = () => {
             onChange={onChange}
           />
         </div>
+        <div className="btn">
+          <Button type="submit" autoFocus>
+            Submit
+          </Button>
+        </div>
       </form>
-      <div className="btn">
-        <Button onClick={handleSubmit} autoFocus>
-          Submit
-        </Button>
-      </div>
+
+      {errorTrigger ? (
+        <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          onClose={handleSnackbarClose}
+        >
+          <Alert
+            onClose={handleSnackbarClose}
+            severity="error"
+            sx={{ width: "100%" }}
+          >
+            Error: {error}
+          </Alert>
+        </Snackbar>
+      ) : (
+        <Snackbar
+          open={open}
+          autoHideDuration={2000}
+          onClose={handleSnackbarClose}
+        >
+          <Alert
+            onClose={handleSnackbarClose}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            succes
+          </Alert>
+        </Snackbar>
+      )}
     </div>
   );
 };

@@ -15,7 +15,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const DeleteItemButton = (props) => {
   const [open, setOpen] = React.useState(false);
-  const [count, setCount] = useState(0);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const { getAccessTokenSilently } = useAuth0();
 
@@ -40,9 +39,8 @@ const DeleteItemButton = (props) => {
   };
 
   function HandleReload() {
-    setCount(count + 1);
     handleSnackbarOpen();
-    props.stateChanger(count + 10000000);
+    props.getItems();
     handleClose();
   }
 
@@ -64,8 +62,6 @@ const DeleteItemButton = (props) => {
         console.log(error);
         console.log(id);
       });
-
-    // window.location.reload();
   }
   return (
     <div>
