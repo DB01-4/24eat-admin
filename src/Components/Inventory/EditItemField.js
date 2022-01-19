@@ -109,35 +109,22 @@ export default function EditItemField(props) {
   if (canEdit === "true") {
     return (
       <div>
-        {validInput ? (
-          <Snackbar
-            open={open}
-            autoHideDuration={2000}
-            onClose={handleSnackbarClose}
-          >
-            <Alert
-              onClose={handleSnackbarClose}
-              severity="success"
-              sx={{ width: "100%" }}
-            >
-              Quantity of {item.name} succesfully updated to {item.quantity}
-            </Alert>
-          </Snackbar>
-        ) : (
-          <Snackbar
-            open={open}
-            autoHideDuration={6000}
-            onClose={handleSnackbarClose}
-          >
-            <Alert
-              onClose={handleSnackbarClose}
-              severity="error"
-              sx={{ width: "100%" }}
-            >
-              Quantity of {item.name} not updated. Error: {error}
-            </Alert>
-          </Snackbar>
-        )}
+        <OutlinedInput
+          type="number"
+          onKeyDown={_handleKeyDown}
+          value={values.weight}
+          onChange={handleChange("weight")}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                onClick={() => UpdateQuantityById(props.id, values.weight)}
+              >
+                <UploadIcon />
+              </IconButton>
+            </InputAdornment>
+          }
+          label="check"
+        />
         {/* <OutlinedInput
           type="number"
           onKeyDown={_handleKeyDown}
