@@ -34,11 +34,7 @@ export default function AddInventory({ stateChanger, filter }) {
   const onSubmit = async (data) => {
     const token = await getAccessTokenSilently();
     axios
-      .post("https://db01-4-imsservice.herokuapp.com/api/private/post", data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .post("https://db01-4-imsservice.herokuapp.com/api/post", data)
       .then(function (response) {
         console.log(response);
         setCount(count + 1);
