@@ -10,7 +10,8 @@ import "../../Style/FormEdit.css";
 export default function DishEdit(props) {
 
   const initialFValues = {
-    tableId: ''
+    tableId: '',
+    orderItems: []
     }
 
   const { onClose, selectedBill, open } = props;
@@ -28,10 +29,9 @@ export default function DishEdit(props) {
 
   const calculateTotalPrice = () => {
     let totalPrice = 0;
-    values.orderItems.forEach(price => {
-      console.log(price);
-      totalPrice += (price.quantity * price.product.price)
-    })
+    for(const product of values.orderItems) {
+      totalPrice += (product.quantity * product.product.price)
+    }
     return totalPrice
   }
 
@@ -54,7 +54,7 @@ export default function DishEdit(props) {
         </div>}
 
         <div style={{marginLeft: "60%"}}>
-          <h3>Total price: €{calculateTotalPrice()}</h3>
+        <h2>Total price: €{calculateTotalPrice()}</h2>
         </div>
 
         <DialogActions>
