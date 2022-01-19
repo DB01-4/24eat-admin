@@ -109,7 +109,8 @@ export default function EditItemField(props) {
   if (canEdit === "true") {
     return (
       <div>
-        <OutlinedInput
+        this is where the edit input should be
+        {/* <OutlinedInput
           type="number"
           onKeyDown={_handleKeyDown}
           value={values.weight}
@@ -162,7 +163,7 @@ export default function EditItemField(props) {
               Quantity of {item.name} not updated. Error: {error}
             </Alert>
           </Snackbar>
-        )}
+        )} */}
       </div>
     );
   } else {
